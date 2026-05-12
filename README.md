@@ -71,6 +71,10 @@ When adopting this framework in a project repository, create this structure:
 │   ├── scratch.md                # Experimental ideas and local troubleshooting
 │   └── session-summaries/        # AI conversation summaries
 │
+├── .github/
+│   ├── copilot-instructions.md   # Automatic Copilot context — no manual prompt needed
+│   └── PULL_REQUEST_TEMPLATE.md  # PR checklist
+│
 └── .gitignore                    # Must include .ai_local/
 ```
 
@@ -177,9 +181,89 @@ Add an entry to [`registry.md`](registry.md) in this enterprise repo.
 
 Copy [`.github/PULL_REQUEST_TEMPLATE.md`](.github/PULL_REQUEST_TEMPLATE.md) into your repo's `.github/` directory.
 
-**Step 8 — Use the bootstrap prompt**
+**Step 8 — Set up GitHub Copilot integration**
 
-At the start of each AI session, open `.ai/bootstrap-prompt.md` and paste the prompt into your AI assistant. This orients the assistant to your project before you ask your first question.
+Copy [`templates/copilot-instructions.md.template`](templates/copilot-instructions.md.template) to `.github/copilot-instructions.md` in your repo (remove the `.template` extension). Customize the placeholders for your project. Copilot reads this file automatically in every chat session — no manual prompt needed.
+
+See [GitHub Copilot Integration](#github-copilot-integration) below for full details and examples.
+
+**Step 9 — Use the bootstrap prompt for other AI tools**
+
+For AI assistants other than Copilot (ChatGPT, Claude, etc.), open `.ai/bootstrap-prompt.md` and paste the prompt at the start of each session. This orients the assistant to your project before you ask your first question.
+
+---
+
+## GitHub Copilot Integration
+
+This framework works with GitHub Copilot Pro out of the box — no extension required.
+
+### What is `copilot-instructions.md`?
+
+GitHub Copilot supports a special file at `.github/copilot-instructions.md` that is **automatically injected into every Copilot Chat session** in your repository. Every developer who opens Copilot Chat in that repo gets the same grounded context — without pasting a prompt, without remembering to load files, without any manual setup.
+
+This is the most powerful integration point in the framework. One file, committed once, makes every Copilot session in your repo context-aware.
+
+### Setup
+
+1. Copy [`templates/copilot-instructions.md.template`](templates/copilot-instructions.md.template) to `.github/copilot-instructions.md` in your project repo.
+2. Remove the `.template` extension.
+3. Replace the placeholder values for your project.
+4. Commit it. Copilot picks it up immediately — no restart required.
+
+### What it does
+
+The `copilot-instructions.md` file:
+- Tells Copilot to read `.ai/context.md` before every response
+- Enforces your naming conventions and key rules
+- Directs Copilot to the right file for schema, security, and domain questions
+- Defines hard boundaries — what Copilot must never do in your codebase
+- Asks Copilot to confirm its context at the start of each session
+
+### Example: Copilot confirming context
+
+When a developer opens a new Copilot Chat session, Copilot will respond to the first message with something like:
+
+> I've read `.ai/context.md`. This is the **Invoice Tracker** project on Power Platform / Dataverse.
+> Key rules in effect:
+> - All new schema uses the `inv_` prefix
+> - The `legacy_invoice` table must not be renamed post go-live
+>
+> How can I help?
+
+That confirmation happens before any code is generated — in every session, for every developer.
+
+### Example: `#file` references in Copilot Chat
+
+For deeper context on specific topics, reference `.ai/` files directly in the chat:
+
+```
+#file:.ai/context.md What naming convention should I use for this new table?
+```
+```
+#file:.ai/data-model.md I need to add a relationship between hardware and location. What are the existing tables I should link to?
+```
+```
+#file:.ai/security.md Should this new view be restricted to the Admin role or is Contributor sufficient?
+```
+```
+#file:.ai/decisions/adr-001-naming.md Why do we use the inv_ prefix instead of invoice_?
+```
+
+### Example: Copilot respecting a naming rule
+
+Without the framework:
+> **Developer:** Add a table for tracking returned items.
+> **Copilot:** Here's a schema for a `Returns` table with columns `ReturnId`, `InvoiceId`...
+
+With the framework (context in `copilot-instructions.md`):
+> **Developer:** Add a table for tracking returned items.
+> **Copilot:** Following the `inv_` prefix convention from `.ai/context.md`, here's a schema for `inv_return` with columns `inv_returnid`, `inv_invoiceid`...
+
+### What `copilot-instructions.md` does not replace
+
+- It does not replace `.ai/context.md` — the instructions file points Copilot *to* context.md; it doesn't duplicate it.
+- It does not replace the bootstrap prompt for non-Copilot AI tools.
+- It does not enforce rules at commit time — use pre-commit hooks and PR checklists for that.
 
 ---
 
