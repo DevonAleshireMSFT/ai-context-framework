@@ -1,12 +1,10 @@
 title: AI Context Framework
 description: A governed, scalable framework for treating AI context as a first-class engineering artifact.
 
-remote_theme: just-the-docs/just-the-docs
+theme: just-the-docs
 
 baseurl: "/ai-context-framework"
 url: "https://DevonAleshireMSFT.github.io"
-
-color_scheme: default
 
 search_enabled: true
 search:
@@ -29,5 +27,4 @@ back_to_top: true
 back_to_top_text: "Back to top"
 
 plugins:
-  - jekyll-remote-theme
   - jekyll-seo-tag
