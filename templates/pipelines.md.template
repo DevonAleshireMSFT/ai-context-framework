@@ -1,0 +1,73 @@
+---
+file: pipelines.md
+project: [Project Name]
+owner: DevOps Owner
+last-updated: YYYY-MM-DD
+review-cadence: pipeline-changes
+---
+
+# [Project Name] — Pipelines and ALM
+
+> ALM strategy, pipeline inventory, and deployment standards. Update when pipeline or deployment processes change.
+
+---
+
+## ALM Strategy Overview
+
+[2–4 sentences describing the overall ALM approach. What branching strategy? What environments exist? What triggers deployments?]
+
+---
+
+## Environments
+
+| Environment | Purpose | Deployment Method | Notes |
+|------------|---------|------------------|-------|
+| [Dev] | Active development | [Manual / Auto on merge] | |
+| [Test] | QA and validation | [Auto on merge to test branch] | |
+| [Production] | Live system | [Manual approval gate] | |
+
+---
+
+## Pipelines
+
+| Pipeline Name | Trigger | Targets | YAML Location |
+|--------------|---------|---------|--------------|
+| [Pipeline name] | [e.g., PR to main, manual] | [Environment] | [path/to/pipeline.yml] |
+
+---
+
+## Branch Strategy
+
+| Branch | Purpose | Merge Target | Rules |
+|--------|---------|-------------|-------|
+| `main` | Production-ready code | — | [e.g., Requires PR + approval] |
+| `develop` | Integration branch | `main` | |
+| `feature/*` | Feature development | `develop` | |
+| `hotfix/*` | Emergency fixes | `main` + `develop` | |
+
+---
+
+## Deployment Gates
+
+| Gate | Environment | Approvers (by role) |
+|------|------------|-------------------|
+| [e.g., QA sign-off] | Test → Production | [Security Owner, Tech Lead] |
+
+---
+
+## Source Control Exclusions
+
+> These items exist in environments but are intentionally excluded from source control.
+
+| Item | Reason |
+|------|--------|
+| [e.g., Configuration table data] | Environment-specific |
+| [e.g., Managed solutions from ISVs] | Not owned by this team |
+
+---
+
+## Change Log
+
+| Date | Change | Author Role |
+|------|--------|------------|
+| YYYY-MM-DD | [Description] | DevOps Owner |

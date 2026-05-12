@@ -1,0 +1,81 @@
+---
+file: security.md
+project: [Project Name]
+owner: Security Owner
+last-updated: YYYY-MM-DD
+review-cadence: role-changes
+---
+
+# [Project Name] — Security Context
+
+> Security roles, groups, access patterns, and constraints. Update when roles change. Never include credentials, secrets, or connection strings here.
+
+---
+
+## Security Model Overview
+
+[2–4 sentences describing the overall security approach. What platform handles auth? What is the access control model?]
+
+---
+
+## Roles
+
+| Role Name | Description | Permissions Summary |
+|-----------|-------------|-------------------|
+| [Role Name] | [Who has this role and why] | [High-level access summary] |
+| [Role Name] | | |
+
+---
+
+## Security Groups
+
+| Group Name | Members (by role, not name) | Purpose |
+|-----------|----------------------------|---------|
+| [Group] | [e.g., All developers, Tech Lead only] | [What this group controls] |
+
+---
+
+## Access Patterns
+
+| Scenario | Access Level | Notes |
+|----------|-------------|-------|
+| [e.g., Read all hardware records] | [Role] | [Any conditions] |
+| [e.g., Create/update records] | [Role] | |
+| [e.g., Admin configuration] | [Role] | |
+
+---
+
+## Sensitive Data
+
+> Describe what sensitive data exists and how it is handled. Do NOT include actual values.
+
+| Data Category | Classification | Handling |
+|--------------|---------------|---------|
+| [e.g., User emails] | PII | [e.g., Restricted to HR role; not exposed in views] |
+| [e.g., Device serial numbers] | Internal | |
+
+---
+
+## Compliance Constraints
+
+| Constraint | Applies To | Notes |
+|-----------|-----------|-------|
+| [e.g., GCC High data residency] | All data | [e.g., No data may leave GCC High boundary] |
+| [e.g., ITAR] | [Specific tables] | |
+
+---
+
+## What AI Assistants Must Never Do
+
+- Generate code that bypasses role checks
+- Hardcode user identities instead of role-based access
+- Output connection strings, credentials, or secrets
+- Log or expose PII in error messages or diagnostics
+
+---
+
+## Change Log
+
+| Date | Change | Author Role |
+|------|--------|------------|
+| YYYY-MM-DD | [Description] | Security Owner |

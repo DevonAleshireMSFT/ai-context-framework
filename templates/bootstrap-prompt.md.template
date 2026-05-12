@@ -1,0 +1,56 @@
+# AI Session Bootstrap Prompt
+
+> Copy this prompt into your AI assistant at the start of each working session. It loads the project context and orients the assistant before you ask your first question.
+
+---
+
+## How to Use
+
+1. Copy the prompt block below.
+2. Paste it into your AI assistant as the first message in a new session.
+3. Attach or reference `.ai/context.md` if your AI tool supports file attachment.
+4. Begin your work.
+
+---
+
+## Bootstrap Prompt
+
+```
+You are assisting with development on [Project Name].
+
+Before responding to any requests, read and internalize the following context files in order:
+1. .ai/context.md — project overview, rules, and current state
+2. .ai/domain.md — domain terminology
+3. .ai/data-model.md — schema and naming conventions
+4. .ai/security.md — security constraints
+
+Key rules that apply to all work in this session:
+- [Copy your most critical Key Rules from context.md here]
+- [e.g., All new schema uses the stk_ prefix]
+- [e.g., Never rename mnpoc_ tables]
+
+Do not generate code, schema, or architectural suggestions until you have confirmed you understand these rules. If any rule is ambiguous, ask for clarification before proceeding.
+
+When you are ready, confirm that you have read the context and summarize the current state of the project in 2–3 sentences.
+```
+
+---
+
+## Optional Extensions
+
+Add these lines to the bootstrap prompt for specific work areas:
+
+**For schema work:**
+```
+This session focuses on data model changes. Pay particular attention to .ai/data-model.md and confirm all naming conventions before suggesting any new tables or columns.
+```
+
+**For security work:**
+```
+This session involves access control or security changes. Pay particular attention to .ai/security.md and flag any suggestion that would change role assignments or expose sensitive data.
+```
+
+**For debt resolution:**
+```
+This session focuses on resolving technical debt. Refer to .ai/debt.md and confirm the debt item we are targeting before suggesting changes.
+```

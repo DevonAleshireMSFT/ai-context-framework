@@ -1,0 +1,61 @@
+---
+file: debt.md
+project: [Project Name]
+owner: Tech Lead
+last-updated: YYYY-MM-DD
+review-cadence: sprint-planning
+---
+
+# [Project Name] — Technical Debt Register
+
+> A governed inventory of known technical debt. Review and update at each sprint planning session. Resolved debt is moved to the change log — never deleted.
+
+---
+
+## Active Debt
+
+| ID | Description | Area | Impact | Effort | Priority | Tracked In |
+|----|-------------|------|--------|--------|----------|-----------|
+| TD-001 | [Description of debt] | [Component / area] | [High/Med/Low] | [High/Med/Low] | [1–5] | [Ticket ID] |
+
+**Impact:** Effect on maintainability, performance, or risk if left unresolved.  
+**Effort:** Estimated relative effort to resolve.  
+**Priority:** 1 = resolve soon, 5 = low urgency.
+
+---
+
+## Debt Categories
+
+Use these categories when adding new entries:
+
+| Category | Description |
+|----------|------------|
+| `schema` | Data model or naming issues |
+| `architecture` | Design patterns that need rework |
+| `security` | Security gaps or hardened areas needed |
+| `test-coverage` | Missing or insufficient automated tests |
+| `documentation` | Missing or outdated docs |
+| `dependency` | Outdated or risky third-party dependencies |
+| `performance` | Known performance bottlenecks |
+| `tooling` | Build, pipeline, or dev tooling issues |
+
+---
+
+## Resolved Debt
+
+> Debt that has been addressed. Preserved for historical context.
+
+| ID | Description | Resolution Date | How Resolved |
+|----|-------------|----------------|-------------|
+| | | | |
+
+---
+
+## Debt Addition Guidelines
+
+When adding new debt:
+1. Assign the next sequential ID (e.g., TD-002).
+2. Describe the problem — not the solution.
+3. Estimate impact and effort.
+4. Link to a tracking ticket if one exists.
+5. Update `last-updated` in the frontmatter.

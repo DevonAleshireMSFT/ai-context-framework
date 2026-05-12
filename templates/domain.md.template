@@ -1,0 +1,58 @@
+---
+file: domain.md
+project: [Project Name]
+owner: Domain Expert
+last-updated: YYYY-MM-DD
+review-cadence: domain-changes
+---
+
+# [Project Name] — Domain Terminology
+
+> Defines the language of the domain. AI assistants must use these terms consistently. When a term here conflicts with a generic English meaning, prefer the domain definition.
+
+---
+
+## Core Domain Terms
+
+| Term | Definition | Notes |
+|------|-----------|-------|
+| [Term] | [Definition as used in this domain] | [Any caveats or related terms] |
+| [Term] | [Definition] | |
+
+---
+
+## Abbreviations and Acronyms
+
+| Abbreviation | Expansion | Context |
+|-------------|-----------|---------|
+| [ABC] | [Full form] | [Where it's used] |
+
+---
+
+## Terms with Non-Obvious Meanings
+
+> Document terms whose common English meaning differs from their meaning in this project.
+
+| Term | Common Meaning | Domain Meaning |
+|------|---------------|---------------|
+| [Term] | [What it normally means] | [What it means here] |
+
+---
+
+## Deprecated Terms
+
+> Terms that were used historically but should no longer be used. Document what replaced them.
+
+| Deprecated Term | Replaced By | Notes |
+|----------------|-------------|-------|
+| [Old term] | [New term] | [When deprecated and why] |
+
+---
+
+## External Terminology
+
+> Terms from external standards, regulations, or partner systems that this domain intersects with.
+
+| Term | Source | Definition |
+|------|--------|-----------|
+| [Term] | [Standard / partner / regulation] | [Definition as it applies here] |

@@ -1,0 +1,74 @@
+---
+file: data-model.md
+project: [Project Name]
+owner: Schema Owner
+last-updated: YYYY-MM-DD
+review-cadence: schema-changes
+schema-prefix: [e.g. stk_]
+---
+
+# [Project Name] — Data Model
+
+> Schema inventory for AI context. Update this file whenever a table or column is added, removed, or renamed. This is derived from the authoritative schema — not a replacement for it.
+
+---
+
+## Schema Conventions
+
+| Convention | Value |
+|-----------|-------|
+| Active publisher prefix | `[stk_]` |
+| Legacy prefix (do not rename) | `[mnpoc_]` |
+| Naming pattern | `[prefix]_[noun]` (singular) |
+| Boolean columns | `[prefix]_is[Condition]` |
+| Lookup columns | `[prefix]_[relationship]id` |
+
+---
+
+## Tables
+
+### `[prefix]_[tablename]`
+
+**Display Name:** [Display Name]  
+**Type:** [Standard | Activity | Virtual | Elastic]  
+**Description:** [What this table represents and why it exists]
+
+| Column (Logical Name) | Display Name | Type | Required | Description |
+|-----------------------|-------------|------|----------|-------------|
+| `[prefix]_[tablename]id` | [Table Name] | Unique Identifier | Yes | Primary key |
+| `[prefix]_name` | Name | Text | Yes | [Description] |
+| `[column]` | [Display] | [Type] | [Yes/No] | [Description] |
+
+**Relationships:**
+
+| Related Table | Type | Lookup Column | Notes |
+|--------------|------|--------------|-------|
+| `[prefix]_[other]` | N:1 (Many to One) | `[prefix]_[other]id` | [Description] |
+
+---
+
+## Excluded from Source Control
+
+> These tables exist in the environment but are intentionally excluded from the solution package. Document them here so AI assistants don't generate code that tries to include them.
+
+| Table | Reason Excluded |
+|-------|----------------|
+| `[table]` | [e.g., Contains environment-specific configuration] |
+
+---
+
+## Deprecated Schema
+
+> Schema that exists in production but must not be renamed, extended, or referenced in new development.
+
+| Table / Column | Status | Replaced By | Notes |
+|---------------|--------|-------------|-------|
+| `[name]` | Deprecated | `[new name]` | [Do not rename — post go-live constraint] |
+
+---
+
+## Change Log
+
+| Date | Change | Author Role |
+|------|--------|------------|
+| YYYY-MM-DD | [Description of schema change] | Schema Owner |

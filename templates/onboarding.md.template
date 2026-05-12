@@ -1,0 +1,92 @@
+---
+file: onboarding.md
+project: [Project Name]
+owner: Tech Lead
+last-updated: YYYY-MM-DD
+review-cadence: major-milestones
+---
+
+# [Project Name] — Developer Onboarding
+
+> Start here if you are new to this project. This document orients you to the system, tooling, and standards before your first contribution.
+
+---
+
+## First 30 Minutes
+
+1. **Read `context.md`** — understand what this project is and its current state.
+2. **Read `domain.md`** — learn the terminology the team uses.
+3. **Read `data-model.md`** — understand the schema and naming conventions.
+4. **Clone the repository** and set up your local environment (see below).
+5. **Create your `.ai_local/` directory** locally — this is your personal working memory, never committed.
+
+---
+
+## Repository Setup
+
+```bash
+# Clone the repo
+git clone [repo URL]
+cd [repo-directory]
+
+# Verify .ai_local/ is in .gitignore
+grep ".ai_local" .gitignore
+
+# Create your personal context directory
+mkdir .ai_local
+mkdir .ai_local/session-summaries
+```
+
+---
+
+## Development Environment Prerequisites
+
+| Tool | Version | Purpose | Install Guide |
+|------|---------|---------|--------------|
+| [Tool] | [Version] | [What it's for] | [Link or instruction] |
+
+---
+
+## Key Contacts (by Role)
+
+| Role | Responsibility |
+|------|---------------|
+| Tech Lead | Architecture, `context.md`, escalations |
+| Schema Owner | Data model, `data-model.md` |
+| Security Owner | Access and roles, `security.md` |
+| DevOps Owner | Pipelines, deployments |
+
+---
+
+## Common Tasks
+
+| Task | How To | Notes |
+|------|--------|-------|
+| [e.g., Run locally] | [Command or steps] | |
+| [e.g., Deploy to Dev] | [Pipeline name or steps] | |
+| [e.g., Add a column] | [Steps + update data-model.md] | |
+
+---
+
+## AI-Assisted Development
+
+This project uses AI context to accelerate development. When starting an AI session:
+
+1. Open `bootstrap-prompt.md` and paste it into your AI assistant.
+2. The assistant will orient itself using `.ai/context.md`.
+3. For schema work, reference `data-model.md` explicitly.
+4. For security questions, reference `security.md` explicitly.
+
+Store your AI conversation summaries in `.ai_local/session-summaries/` — never in `.ai/`.
+
+---
+
+## PR Checklist Reminder
+
+Every PR must include the AI Context Checklist. See `.github/PULL_REQUEST_TEMPLATE.md`.
+
+---
+
+## Getting Help
+
+[Where to go for help — team channel, documentation link, escalation path.]

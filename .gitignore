@@ -1,0 +1,34 @@
+# =============================================================================
+# AI Context Framework — .gitignore
+# =============================================================================
+# Personal AI context is NEVER committed to source control.
+# The .ai_local/ directory is developer-owned working memory.
+# =============================================================================
+
+# Personal AI context — gitignored by design
+.ai_local/
+
+# OS artifacts
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor artifacts
+.vscode/settings.json
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+
+# Environment files — NEVER commit these
+.env
+.env.*
+*.env
+
+# Secrets — NEVER commit these
+secrets.*
+*.secrets
+credentials.*
+*.credentials
