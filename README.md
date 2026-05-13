@@ -1,51 +1,57 @@
 # AI Context Framework
 
-A governed, scalable, AI-platform-agnostic framework for preserving institutional engineering knowledge across developers, repositories, AI tools, and time.
+Stop explaining your codebase to AI from scratch every session. Structure your project knowledge once — every AI session starts informed.
 
 **[Documentation Site →](https://devonaleshiremsft.github.io/ai-context-framework/)**
 
 ---
 
-## Core Concept
+## What This Is
 
-AI context is a **first-class engineering artifact** — not an afterthought.
+A `.ai/` directory in your repo. A few Markdown files. A committed file that makes GitHub Copilot context-aware automatically.
 
-This framework defines how teams structure, govern, and maintain AI context so that every AI-assisted interaction is grounded in accurate, current, team-owned knowledge.
+That's the minimum. The framework scales from a solo developer to a team to an enterprise — but it starts with one repo and one developer in under 10 minutes.
 
----
-
-## Architecture Overview
-
-### Three Tiers
-
-| Tier | Scope | Ownership | Location |
-|------|-------|-----------|----------|
-| **Tier 1 — Enterprise** | Org-wide standards and glossary | Architecture / Governance team | Centralized repo (this repo) |
-| **Tier 2 — Project** | Per-repository context, decisions, schema | Tech Lead + domain owners | `.ai/` in each repo (committed) |
-| **Tier 3 — Personal** | Developer working memory | Individual developer | `.ai_local/` in each repo (gitignored) |
-
-### Two Axes
-
-```
-Authoritative  ←————————————————→  Working Memory
-(README, ADRs, schema)             (AI docs, session notes, summaries)
-```
-
-**Never merge these axes.** Authoritative documentation lives in committed source control. AI context documents are derived from authoritative sources — not replacements for them.
+AI context is a **first-class engineering artifact** — not an afterthought. This framework defines how to structure, govern, and maintain it so that every AI-assisted interaction is grounded in accurate, current knowledge.
 
 ---
 
-## Federation Model
+## Who This Is For
+
+| You are... | What you get |
+|-----------|-------------|
+| **Solo developer** using Copilot or another AI | A `.ai/` context directory that makes every session project-aware — no repeated explaining |
+| **Small team** collaborating on one repo | Shared, committed AI context that keeps everyone's Copilot grounded in the same knowledge |
+| **Larger org** with multiple repos | A federated governance model with enterprise-wide standards and a repo registry |
+
+Start with solo or small team. Add federation when you need it.
+
+---
+
+## Minimum Viable Setup — 10 Minutes
+
+The smallest useful configuration is three steps:
+
+**1. Create `.ai/context.md` in your repo**
+
+Copy [`templates/context.md.template`](templates/context.md.template) → `.ai/context.md` and fill in:
+- Project name and platform
+- Key Rules (naming conventions, things that must never change)
+- Known Gotchas
+
+**2. Add `.ai_local/` to your `.gitignore`**
 
 ```
-ai-context-enterprise/   ← this repo
-        ↓
-solution-repo-A/.ai/
-solution-repo-B/.ai/
-solution-repo-C/.ai/
+.ai_local/
 ```
 
-Each project repository adopts the standards from this enterprise repo and maintains its own `.ai/` directory independently.
+**3. Set up Copilot auto-context**
+
+Copy [`templates/copilot-instructions.md.template`](templates/copilot-instructions.md.template) → `.github/copilot-instructions.md` and replace the project name and prefix placeholders.
+
+That's it. Open Copilot Chat — it will confirm it has read your project context before answering.
+
+> **Want the full setup?** See [Full Setup](#full-setup) below to add schema docs, security context, decision records, and more.
 
 ---
 
@@ -84,6 +90,8 @@ When adopting this framework in a project repository, create this structure:
 
 ## This Repository Structure
 
+> This is the structure of the enterprise framework repo itself — relevant when you are setting up centralized AI context governance across multiple repositories. If you are on a single repo, you only need the files from [`templates/`](templates/).
+
 ```
 ai-context-framework/
 ├── README.md                     # This file
@@ -113,7 +121,7 @@ ai-context-framework/
 
 ---
 
-## Quick Start
+## Full Setup
 
 ### For a New Project Repository
 
@@ -175,9 +183,9 @@ Work through each file. Not every file needs to be complete before you start —
 3. `security.md` — required if access control is in scope
 4. `domain.md`, `pipelines.md`, `debt.md` — fill as you go
 
-**Step 6 — Register your repo**
+**Step 6 — Register your repo** *(optional — for multi-repo federation)*
 
-Add an entry to [`registry.md`](registry.md) in this enterprise repo.
+If you are using this framework across multiple repositories, add an entry to [`registry.md`](registry.md) to track adoption. Skip this if you are on a single repo.
 
 **Step 7 — Add the PR checklist to your repo**
 
@@ -273,12 +281,12 @@ With the framework (context in `copilot-instructions.md`):
 
 | Document | Owner | Review Cadence |
 |----------|-------|----------------|
-| `context.md` | Tech Lead / Architect | Every sprint |
-| `data-model.md` | Schema Owner | Schema changes |
-| `security.md` | Security Owner | Role changes |
-| `debt.md` | Tech Lead | Sprint planning |
-| `pipelines.md` | DevOps Owner | Pipeline changes |
-| `domain.md` | Domain Expert | Domain changes |
+| `context.md` | You (or whoever leads the project) | Every sprint |
+| `data-model.md` | Whoever changes the schema | Schema changes |
+| `security.md` | Whoever manages access | Role changes |
+| `debt.md` | You (or the tech lead) | Sprint planning |
+| `pipelines.md` | Whoever manages deployments | Pipeline changes |
+| `domain.md` | Whoever knows the domain best | Domain changes |
 
 ## Event-Driven Update Triggers
 
@@ -339,11 +347,38 @@ With the framework (context in `copilot-instructions.md`):
 
 If you are new to this framework, read in this order:
 
-1. **This file** — architecture overview and quick start
-2. [`org/governance.md`](org/governance.md) — ownership model and update triggers
-3. [`org/standards.md`](org/standards.md) — authoring standards and quality checklist
-4. [`templates/context.md.template`](templates/context.md.template) — the primary bootstrap document template
-5. [`org/platform.md`](org/platform.md) — platform-specific guidance for your stack
+1. **This file** — start here
+2. [`templates/context.md.template`](templates/context.md.template) — the primary bootstrap document; fill this in first
+3. [`templates/copilot-instructions.md.template`](templates/copilot-instructions.md.template) — set up Copilot integration
+4. [`org/standards.md`](org/standards.md) — authoring standards when you need them
+5. [`org/governance.md`](org/governance.md) — ownership and maintenance model for teams
+6. [`org/platform.md`](org/platform.md) — platform-specific guidance for your stack
+
+---
+
+## Advanced: Multi-Repository Federation
+
+When you have multiple project repositories and want consistent AI context standards across all of them, this repo becomes your **Tier 1** — the centralized source of standards and templates that all project repos inherit from.
+
+```
+Tier 1: ai-context-framework/     ← enterprise standards (this repo)
+              ↓
+Tier 2: solution-repo-A/.ai/      ← project context (per repo, committed)
+         solution-repo-B/.ai/
+         solution-repo-C/.ai/
+              ↓
+Tier 3: .ai_local/                ← personal context (per developer, gitignored)
+```
+
+**When you need this:**
+- Multiple teams adopting the framework independently
+- You want consistent naming and governance standards across projects
+- You need a central registry of adopted repositories
+
+**When you don't:**
+- One repo, one team, or just getting started
+
+For federation setup, see [`org/governance.md`](org/governance.md).
 
 ---
 
