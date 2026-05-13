@@ -45,25 +45,16 @@ The strict rule: **AI context is always on the right side of this axis.** The mo
 
 ## Three Tiers
 
-The framework organizes AI context into three tiers with different scopes, owners, and locations.
+The framework organizes AI context into three tiers. For a solo developer or small team, you only use Tier 2 and Tier 3. Tier 1 is optional and only relevant when managing AI context governance across multiple repositories.
 
-### Tier 1 — Enterprise Context
-
-**Scope:** Organization-wide  
-**Owner:** Architecture / Governance team  
-**Location:** Centralized repository (this repo)  
-**Contents:** Standards, templates, governance model, enterprise glossary, repository registry
-
-This is the foundation. All project repositories inherit from Tier 1. Changes to Tier 1 require Architecture Team review.
-
-### Tier 2 — Project Context
+### Tier 2 — Project Context *(start here)*
 
 **Scope:** Per-repository  
-**Owner:** Tech Lead + domain owners  
+**Owner:** You, or whoever leads the project  
 **Location:** `.ai/` directory, committed to source control  
 **Contents:** Project context, domain terminology, schema, security, decisions, debt, pipelines
 
-This is where the day-to-day AI context lives. It is team-owned, reviewed in PRs, and updated on event-driven triggers.
+This is where the day-to-day AI context lives. It is committed, reviewed in PRs, and updated when the system changes. A solo developer has full ownership of this tier.
 
 ### Tier 3 — Personal Context
 
@@ -72,13 +63,22 @@ This is where the day-to-day AI context lives. It is team-owned, reviewed in PRs
 **Location:** `.ai_local/` directory, gitignored, never committed  
 **Contents:** Sprint notes, AI session summaries, scratch ideas, local troubleshooting
 
-This is ephemeral working memory. It is never shared and never committed. Each developer maintains their own personal context independently.
+This is your personal working memory. It is never shared and never committed. Keep it as messy as you need.
+
+### Tier 1 — Enterprise Standards *(optional, multi-repo)*
+
+**Scope:** Organization-wide  
+**Owner:** Architecture / Governance team  
+**Location:** Centralized repository (this repo)  
+**Contents:** Standards, templates, governance model, enterprise glossary, repository registry
+
+This tier is only needed when multiple project repositories adopt the framework and you want consistent standards across all of them. Changes to Tier 1 affect all downstream projects.
 
 ---
 
-## Federation Model
+## Advanced: Multi-Repository Federation
 
-The framework scales across an enterprise through federation:
+When you have multiple project repositories, the framework scales through federation. This repo becomes the centralized Tier 1 that all project repos inherit from.
 
 ```
 Tier 1: ai-context-framework/     ← enterprise standards (centralized)
@@ -90,13 +90,9 @@ Tier 2: solution-repo-A/.ai/      ← project context (per repo)
 Tier 3: .ai_local/                ← personal context (per developer, gitignored)
 ```
 
-Each project repository:
-- Adopts the templates from the enterprise repo
-- Maintains its own `.ai/` independently
-- Registers in the enterprise `registry.md`
-- Follows the standards from `org/standards.md`
+Each project repository adopts the templates, maintains its own `.ai/` independently, and registers in `registry.md`. Changes to project context do not require enterprise repo PRs. Changes to enterprise standards affect all projects.
 
-Changes to project context do not require enterprise repo PRs. Changes to enterprise standards affect all projects and require Architecture Team review.
+**Only set this up when you need it.** A single repo works perfectly with just Tier 2 and Tier 3.
 
 ---
 
@@ -106,7 +102,7 @@ When a project repo adopts this framework, it gains this structure:
 
 ```
 /
-├── .ai/                          # Tier 2 — committed, team-owned
+├── .ai/                          # Committed, team-owned AI context
 │   ├── context.md                # Primary AI bootstrap — read first
 │   ├── domain.md                 # Domain terminology
 │   ├── data-model.md             # Schema and naming conventions
@@ -118,10 +114,14 @@ When a project repo adopts this framework, it gains this structure:
 │   └── decisions/
 │       └── adr-001-*.md          # Architecture Decision Records
 │
-├── .ai_local/                    # Tier 3 — gitignored, never committed
+├── .ai_local/                    # Personal context — gitignored, never committed
 │   ├── working-notes.md
 │   ├── scratch.md
 │   └── session-summaries/
+│
+├── .github/
+│   ├── copilot-instructions.md   # Auto-loads context into every Copilot session
+│   └── PULL_REQUEST_TEMPLATE.md  # PR checklist
 │
 └── .gitignore                    # Must include .ai_local/
 ```

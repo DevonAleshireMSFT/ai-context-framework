@@ -16,17 +16,46 @@ permalink: /getting-started
 
 ---
 
-## Overview
+## Minimum Viable Setup
 
-Adopting the AI Context Framework for a project repository takes about 30 minutes for the initial setup. The framework grows incrementally — a partially populated `.ai/` directory is better than none.
+The smallest useful configuration is three steps. Start here.
 
-**Prerequisites:** A Git repository and a team willing to treat AI context as a shared, maintained artifact.
+**1. Create `.ai/context.md` in your repo**
+
+Copy [`templates/context.md.template`](https://github.com/DevonAleshireMSFT/ai-context-framework/blob/main/templates/context.md.template) → `.ai/context.md` and fill in:
+- Project name and platform
+- Key Rules (naming conventions, things that must never change)
+- Known Gotchas
+
+**2. Add `.ai_local/` to your `.gitignore`**
+
+```
+.ai_local/
+```
+
+**3. Set up Copilot auto-context**
+
+Copy [`templates/copilot-instructions.md.template`](https://github.com/DevonAleshireMSFT/ai-context-framework/blob/main/templates/copilot-instructions.md.template) → `.github/copilot-instructions.md` and replace the project name and prefix placeholders.
+
+That's it. Open Copilot Chat — it will confirm it has read your project context before answering.
+
+> **Want the full setup?** Continue reading for the complete guide — schema docs, security context, decision records, and more.
+
+---
+
+## Full Setup
+
+### Overview
+
+Adopting the full framework for a project repository takes about 30 minutes. The framework grows incrementally — a partially populated `.ai/` directory is better than none.
+
+**Prerequisites:** A Git repository and a willingness to treat AI context as a maintained artifact.
 
 ---
 
 ## Step 1 — Copy the Templates
 
-Clone or fork [this repository](https://github.com/DevonAleshireMSFT/ai-context-framework), then copy the templates into your project repo's `.ai/` directory, removing the `.template` extension:
+Copy the templates from the [AI Context Framework repository](https://github.com/DevonAleshireMSFT/ai-context-framework) into your project repo's `.ai/` directory, removing the `.template` extension:
 
 | Template | Destination |
 |----------|------------|
@@ -132,15 +161,23 @@ Copy [`.github/PULL_REQUEST_TEMPLATE.md`](https://github.com/DevonAleshireMSFT/a
 
 ---
 
-## Step 7 — Register Your Repository
+## Step 7 — Register Your Repository *(optional — multi-repo federation)*
 
-Add an entry to [`registry.md`](https://github.com/DevonAleshireMSFT/ai-context-framework/blob/main/registry.md) in the enterprise framework repo. This lets the architecture team track adoption and identify stale repositories.
+If you are using this framework across multiple repositories, add an entry to [`registry.md`](https://github.com/DevonAleshireMSFT/ai-context-framework/blob/main/registry.md) to track adoption. Skip this if you are on a single repo.
 
 ---
 
-## Step 8 — Use the Bootstrap Prompt
+## Step 8 — Set Up Copilot Auto-Context
 
-At the start of each AI session, open `.ai/bootstrap-prompt.md` and paste the prompt into your AI assistant. The assistant will confirm it has read your context before answering any questions.
+Copy [`templates/copilot-instructions.md.template`](https://github.com/DevonAleshireMSFT/ai-context-framework/blob/main/templates/copilot-instructions.md.template) to `.github/copilot-instructions.md` in your repo. Customize the placeholders. Copilot reads this file automatically in every chat session — no manual prompt needed.
+
+See the [GitHub Copilot Integration](copilot-integration) page for full details and examples.
+
+---
+
+## Step 9 — Use the Bootstrap Prompt for Other AI Tools
+
+For AI assistants other than Copilot (ChatGPT, Claude, etc.), open `.ai/bootstrap-prompt.md` and paste the prompt at the start of each session.
 
 ---
 
