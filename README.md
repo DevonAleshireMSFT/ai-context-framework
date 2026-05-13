@@ -39,6 +39,8 @@ Copy [`templates/context.md.template`](templates/context.md.template) → `.ai/c
 - Key Rules (naming conventions, things that must never change)
 - Known Gotchas
 
+> **Tip — let Copilot fill it in for you:** Copy [`templates/setup-prompt.md.template`](templates/setup-prompt.md.template) → `.github/prompts/ai-context-setup.prompt.md` in your repo. Then run it in GitHub Copilot agent mode (`/ai-context-setup`). Copilot will interview you about your project and write all the `.ai/` files for you.
+
 **2. Add `.ai_local/` to your `.gitignore`**
 
 ```
@@ -105,6 +107,7 @@ ai-context-framework/
 │   └── glossary.md               # Enterprise-wide terminology
 │
 ├── templates/                    # Copy these into your project repos
+│   ├── setup-prompt.md.template      # AI setup assistant — generates all .ai/ files via interview
 │   ├── context.md.template
 │   ├── domain.md.template
 │   ├── data-model.md.template
@@ -113,6 +116,7 @@ ai-context-framework/
 │   ├── debt.md.template
 │   ├── onboarding.md.template
 │   ├── bootstrap-prompt.md.template
+│   ├── copilot-instructions.md.template
 │   └── adr.md.template
 │
 └── .ai/                          # AI context for this framework repo itself
@@ -129,7 +133,10 @@ ai-context-framework/
 
 Copy all files from [`templates/`](templates/) into your repo's `.ai/` directory, removing the `.template` extension:
 
+> **Recommended shortcut:** Instead of filling these in manually, use the [AI Setup Assistant](#minimum-viable-setup--10-minutes). Copy `templates/setup-prompt.md.template` → `.github/prompts/ai-context-setup.prompt.md`, run it in Copilot agent mode, and let Copilot generate the files from your answers.
+
 ```
+templates/setup-prompt.md.template  →  .github/prompts/ai-context-setup.prompt.md (run first)
 templates/context.md.template       →  .ai/context.md
 templates/domain.md.template        →  .ai/domain.md
 templates/data-model.md.template    →  .ai/data-model.md

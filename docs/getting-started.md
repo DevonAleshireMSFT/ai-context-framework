@@ -27,6 +27,8 @@ Copy [`templates/context.md.template`](https://github.com/DevonAleshireMSFT/ai-c
 - Key Rules (naming conventions, things that must never change)
 - Known Gotchas
 
+> **Recommended:** Use the AI Setup Assistant instead of filling in templates manually. See [AI Setup Assistant](#ai-setup-assistant) below.
+
 **2. Add `.ai_local/` to your `.gitignore`**
 
 ```
@@ -43,6 +45,45 @@ That's it. Open Copilot Chat — it will confirm it has read your project contex
 
 ---
 
+## AI Setup Assistant
+
+Instead of filling in templates manually, use the AI Setup Assistant prompt to let Copilot interview you and generate all your `.ai/` files automatically.
+
+### How it works
+
+1. Copy [`templates/setup-prompt.md.template`](https://github.com/DevonAleshireMSFT/ai-context-framework/blob/main/templates/setup-prompt.md.template) into your project repo as `.github/prompts/ai-context-setup.prompt.md` (remove the `.template` extension).
+
+2. In VS Code, open GitHub Copilot Chat in **agent mode**.
+
+3. Type `/ai-context-setup` to invoke the prompt (or open the file and use **Run prompt**).
+
+4. Copilot asks you 20 questions about your project — platform, naming conventions, schema, security roles, active priorities, known gotchas, and more. Answer them all in one message.
+
+5. Copilot generates and **writes** the following files directly into your repository:
+   - `.ai/context.md`
+   - `.ai/domain.md`
+   - `.ai/data-model.md`
+   - `.ai/security.md`
+   - `.ai/pipelines.md`
+   - `.ai/debt.md`
+   - `.github/copilot-instructions.md`
+
+6. Copilot lists what it created, flags any sections that need your attention, and tells you what to do next.
+
+### After the assistant runs
+
+- Review each generated file and correct any inaccuracies.
+- Fill in any `<!-- TODO: fill in -->` sections.
+- Commit the `.ai/` directory and `.github/copilot-instructions.md`.
+- Open a new Copilot Chat session to verify context loads correctly — Copilot should confirm your project name and key rules before answering your first question.
+
+### Requirements
+
+- GitHub Copilot with agent mode enabled (VS Code)
+- The `.github/prompts/` directory is the standard location for VS Code Copilot prompt files
+
+---
+
 ## Full Setup
 
 ### Overview
@@ -56,6 +97,8 @@ Adopting the full framework for a project repository takes about 30 minutes. The
 ## Step 1 — Copy the Templates
 
 Copy the templates from the [AI Context Framework repository](https://github.com/DevonAleshireMSFT/ai-context-framework) into your project repo's `.ai/` directory, removing the `.template` extension:
+
+> **Recommended shortcut:** Use the [AI Setup Assistant](#ai-setup-assistant) above instead. It generates all files from a single interview session.
 
 | Template | Destination |
 |----------|------------|
