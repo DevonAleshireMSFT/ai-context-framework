@@ -69,17 +69,18 @@ function decodePathname(pathname) {
   }
 }
 
-function githubSlug(heading) {
-  // Approximate GitHub heading IDs: lowercase, remove punctuation, preserve hyphens,
-  // then turn whitespace into hyphen separators. Duplicate headings get -n suffixes.
+export function githubSlug(heading) {
+  // GitHub heading IDs: lowercase, strip punctuation (including em/en dashes),
+  // preserve spaces and hyphens, then replace each space with one hyphen.
+  // Do not collapse consecutive hyphens; duplicate headings get -n suffixes.
   return heading
     .trim()
     .toLowerCase()
     .replace(/<[^>]*>/g, '')
     .replace(/[`*_~]/g, '')
-    .replace(/[^\p{L}\p{N}\s-]/gu, '')
+    .replace(/[^\p{L}\p{N} -]/gu, '')
     .trim()
-    .replace(/\s+/g, '-');
+    .replace(/ /g, '-');
 }
 
 function collectAnchors(filePath) {
@@ -179,7 +180,22 @@ function validateTarget({ root, sourceFile, target, line, text, result, anchorCa
 
   const { targetPath, fragment } = resolveTargetFile(sourceFile, target);
 
-  if (!fs.existsSync(targetPath) || !fs.statSync(targetPath).isFile()) {
+  if (!fs.existsSync(targetPath)) {
+    result.errors.push({
+      line,
+      target,
+      message: `Target file does not exist: ${fileLabel(root, targetPath)}`,
+      text,
+    });
+    return;
+  }
+
+  const targetStat = fs.statSync(targetPath);
+  if (targetStat.isDirectory()) {
+    return;
+  }
+
+  if (!targetStat.isFile()) {
     result.errors.push({
       line,
       target,

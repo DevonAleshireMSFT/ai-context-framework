@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
 import test from 'node:test';
-import { checkLinks } from '../check-links.mjs';
+import { checkLinks, githubSlug } from '../check-links.mjs';
 
 function fileUrlToPath(fileUrl) {
   const pathname = decodeURIComponent(new URL(fileUrl).pathname);
@@ -46,6 +46,21 @@ test('valid relative link passes', () => {
   }
 });
 
+test('valid relative directory link passes', () => {
+  const root = makeFixture({
+    'README.md': '[Directory](sub/)\n',
+    'sub/.keep': '',
+  });
+
+  try {
+    const report = checkLinks(root);
+    assert.equal(report.summary.errors, 0);
+    assert.equal(report.summary.warnings, 0);
+  } finally {
+    removeFixture(root);
+  }
+});
+
 test('missing relative link reports an error', () => {
   const root = makeFixture({
     'README.md': '[Missing](org/missing.md)\n',
@@ -64,6 +79,23 @@ test('valid heading anchor passes', () => {
   const root = makeFixture({
     'README.md': '[Section](org/guide.md#deep-section)\n',
     'org/guide.md': '# Guide\n\n## Deep Section\n',
+  });
+
+  try {
+    const report = checkLinks(root);
+    assert.equal(report.summary.errors, 0);
+    assert.equal(report.summary.warnings, 0);
+  } finally {
+    removeFixture(root);
+  }
+});
+
+test('em dash heading anchor matches GitHub slugging', () => {
+  assert.equal(githubSlug('Minimum Viable Setup — 10 Minutes'), 'minimum-viable-setup--10-minutes');
+
+  const root = makeFixture({
+    'README.md': '[Setup](org/guide.md#minimum-viable-setup--10-minutes)\n',
+    'org/guide.md': '# Guide\n\n## Minimum Viable Setup — 10 Minutes\n',
   });
 
   try {
