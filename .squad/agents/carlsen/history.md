@@ -12,3 +12,5 @@
 - Templates live in `templates/` with `.template` extension; never edit them in-place for a project — copy into the adopter repo.
 - `org/` holds enterprise-wide standards; changes require Architecture Team review.
 - `registry.md` must be updated when a repo adopts or retires the framework.
+- 2026-07-25T02:22:07-07:00: Delivered issue #5 in PR #10 with dependency-free `.ai/` template conformance validation.
+- 2026-07-25T02:22:07-07:00: Delivered issue #9 in PR #17 documenting the Tier-3 `.ai_local/` contract; also opened ADR bugfix PR #11.

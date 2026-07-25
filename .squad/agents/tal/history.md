@@ -10,3 +10,5 @@
 <!-- Append new learnings below. Each entry is something lasting about the project. -->
 - Roadmap gaps: automation tooling (CI validation, staleness detection) and Azure AI Search / RAG integration guidance are not yet built.
 - Automation should be config-driven so adopter repos opt in without forking scripts.
+- 2026-07-25T02:22:07-07:00: Delivered issue #3 in PR #19 by adding Azure AI Search / RAG guidance and an `examples/azure-ai-search/` ingestion example.
+- 2026-07-25T02:22:07-07:00: Delivered issues #1 and #2 in PRs #13 and #14, establishing conformance CI plus staleness review automation.

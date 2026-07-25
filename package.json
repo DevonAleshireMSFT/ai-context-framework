@@ -1,0 +1,14 @@
+{
+  "name": "ai-context-framework",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "validate:ai-context": "node scripts/validate-ai-context.mjs",
+    "check:links": "node scripts/check-links.mjs",
+    "validate": "npm run validate:ai-context && npm run check:links",
+    "test": "node --test"
+  }
+}
