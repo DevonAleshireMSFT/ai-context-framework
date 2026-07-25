@@ -14,3 +14,5 @@
 - `registry.md` must be updated when a repo adopts or retires the framework.
 - 2026-07-25T02:22:07-07:00: Delivered issue #5 in PR #10 with dependency-free `.ai/` template conformance validation.
 - 2026-07-25T02:22:07-07:00: Delivered issue #9 in PR #17 documenting the Tier-3 `.ai_local/` contract; also opened ADR bugfix PR #11.
+
+- 2026-07-25T13:48:45-07:00: Contributed the standards recommendation that Tier-3 personal context remain in sibling .ai_local/, not nested .ai/local/, to preserve the framework boundary and avoid accidental .ai/** inclusion.

@@ -12,3 +12,5 @@
 - Automation should be config-driven so adopter repos opt in without forking scripts.
 - 2026-07-25T02:22:07-07:00: Delivered issue #3 in PR #19 by adding Azure AI Search / RAG guidance and an `examples/azure-ai-search/` ingestion example.
 - 2026-07-25T02:22:07-07:00: Delivered issues #1 and #2 in PRs #13 and #14, establishing conformance CI plus staleness review automation.
+
+- 2026-07-25T13:48:45-07:00: Contributed the tooling recommendation that Tier-3 personal context remain in sibling .ai_local/, not nested .ai/local/, so conformance filters, staging, and RAG scanners stay private-by-default.
