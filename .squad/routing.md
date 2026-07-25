@@ -17,6 +17,11 @@ How to decide who handles what.
 | RAI review | Rai | Content safety, bias checks, credential detection, ethical review |
 | Verification / devil's advocate | Fact Checker | Verify claims/links/packages, steelman counter-arguments, pre-mortems |
 
+## Decision Routing
+
+- Product or architecture decisions route to Carlsen/Kasparov and require a Product ADR under `.ai/adr/`.
+- Squad execution or process decisions route to `.squad/decisions.md`; link to Product ADRs only, do not restate them.
+
 ## Issue Routing
 
 | Label | Action | Who |

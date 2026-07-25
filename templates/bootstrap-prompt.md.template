@@ -1,3 +1,7 @@
+> OPTIONAL/LEGACY — AI session bootstrap prompt
+>
+> As of 2026-07-25T01:08:38-07:00, this template is not part of the default slim install (`.ai/context.md` + `.ai/adr/` + `.github/copilot-instructions.md`). Use it only when the project needs a durable product-level document. When Squad is present, this material usually belongs in issues or Squad working state, not the default `.ai/` surface.
+
 # AI Session Bootstrap Prompt
 
 > Copy this prompt into your AI assistant at the start of each working session. It loads the project context and orients the assistant before you ask your first question.

@@ -1,6 +1,5 @@
 ---
 project: [Project Name]
-schema-prefix: [e.g. stk_]
 platform: [e.g. Power Platform / Dataverse | .NET / Azure SQL | Node.js / PostgreSQL]
 cloud: [e.g. GCC High | Azure Commercial | AWS]
 context-version: 1.0.0
@@ -11,19 +10,27 @@ review-cadence: every-sprint
 
 # [Project Name] — AI Context
 
-> This is the primary bootstrap document. An AI assistant should read this file first before asking any questions or generating any code.
+> Durable product context for humans and AI assistants. Read this first, then follow links for detail.
+
+---
+
+## Boundary
+
+- `.ai/` is durable product knowledge: WHAT this product is and WHY constraints exist.
+- Product decisions live in `.ai/adr/NNNN-title.md`.
+- `.squad/` is AI-team working state: HOW work was routed, decided, and done.
+- If Squad is present, `.squad/decisions.md` links to Product ADRs; it does not restate them.
 
 ---
 
 ## What This Is
 
-[2–4 sentences describing the business purpose of this project. What problem does it solve? Who are the users? What does it produce?]
+[2–4 sentences describing the business purpose of this project. What problem does it solve? Who uses it? What does it produce?]
 
 ---
 
 ## Current State
 
-- ✅ [Completed capability]
 - ✅ [Completed capability]
 - ⏳ [In-progress work]
 - 🔲 [Planned but not started]
@@ -34,21 +41,15 @@ review-cadence: every-sprint
 
 [3–6 sentences or a brief diagram description. What are the major components? How do they relate? What platform does this run on?]
 
-**Key components:**
-| Component | Purpose | Technology |
-|-----------|---------|-----------|
-| [Name] | [What it does] | [Platform/framework] |
-
 ---
 
 ## Key Rules
 
-> These rules must be followed in every AI interaction with this codebase. No exceptions.
+> These rules must be followed in every AI interaction with this codebase.
 
-- [Critical constraint — e.g., naming convention]
-- [Critical constraint — e.g., excluded component]
-- [Critical constraint — e.g., legacy rule]
-- [Critical constraint — e.g., environment rule]
+- [Critical product constraint]
+- [Naming or compatibility rule]
+- [Security or deployment rule]
 
 ---
 
@@ -56,19 +57,18 @@ review-cadence: every-sprint
 
 > Non-obvious constraints that will cause errors if ignored.
 
-- [Gotcha — e.g., "Do not rename X — it exists in production and cannot be migrated"]
-- [Gotcha — e.g., "Y table is excluded from source control — it contains environment config"]
-- [Gotcha — e.g., "Z is deprecated but still referenced by legacy integrations"]
+- [Gotcha — e.g., "Do not rename X; it exists in production"]
+- [Gotcha — e.g., "Y is generated and should not be edited manually"]
 
 ---
 
-## Active Priorities
+## Product Decisions
 
-> Current sprint or milestone focus.
+Product ADRs live in `.ai/adr/` using the path format `.ai/adr/NNNN-title.md`.
 
-1. [Priority one]
-2. [Priority two]
-3. [Priority three]
+| ADR | Decision | Status |
+|-----|----------|--------|
+| `0001-title.md` | [Short decision] | [proposed/accepted/superseded/deprecated] |
 
 ---
 
@@ -76,11 +76,8 @@ review-cadence: every-sprint
 
 | Topic | File |
 |-------|------|
-| Domain terminology | [domain.md](domain.md) |
-| Data model and schema | [data-model.md](data-model.md) |
-| Security and access | [security.md](security.md) |
-| Pipelines and ALM | [pipelines.md](pipelines.md) |
-| Technical debt | [debt.md](debt.md) |
-| Developer onboarding | [onboarding.md](onboarding.md) |
-| Architecture decisions | [decisions/](decisions/) |
-| AI session prompt | [bootstrap-prompt.md](bootstrap-prompt.md) |
+| Product decisions | `adr/` |
+| Domain terminology | `domain.md` *(optional)* |
+| Data model and schema | `data-model.md` *(optional)* |
+| Security and access | `security.md` *(optional)* |
+| Pipelines and ALM | `pipelines.md` *(optional)* |

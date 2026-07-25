@@ -2,7 +2,7 @@
 project: AI Context Framework
 platform: Documentation / GitHub
 context-version: 1.0.0
-last-updated: 2026-05-12
+last-updated: 2026-07-25T01:08:38-07:00
 owner: Architecture Team
 review-cadence: quarterly
 ---
@@ -48,6 +48,7 @@ The two axes are **authoritative** (committed source-of-truth) vs. **working mem
 - `registry.md` must be updated when a repository adopts or retires the framework.
 - All template files use the `.template` extension to distinguish them from live documents.
 - This repo's own `.ai/` is Tier-2 context for the framework repo itself.
+- `.ai/` records durable product knowledge and ADRs; `.squad/` records Squad working memory. `.squad/decisions.md` must link to product ADRs, not restate them.
 
 ---
 
@@ -60,4 +61,5 @@ The two axes are **authoritative** (committed source-of-truth) vs. **working mem
 | Platform guidance | [org/platform.md](../org/platform.md) |
 | Enterprise glossary | [org/glossary.md](../org/glossary.md) |
 | Repo registry | [registry.md](../registry.md) |
+| Product ADRs | [adr/](adr/) |
 | All templates | [templates/](../templates/) |

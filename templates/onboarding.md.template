@@ -1,3 +1,7 @@
+> OPTIONAL/LEGACY — Developer onboarding guide
+>
+> As of 2026-07-25T01:08:38-07:00, this template is not part of the default slim install (`.ai/context.md` + `.ai/adr/` + `.github/copilot-instructions.md`). Use it only when the project needs a durable product-level document. When Squad is present, this material usually belongs in issues or Squad working state, not the default `.ai/` surface.
+
 ---
 file: onboarding.md
 project: [Project Name]

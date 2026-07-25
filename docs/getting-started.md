@@ -18,7 +18,7 @@ permalink: /getting-started
 
 ## Minimum Viable Setup
 
-The smallest useful configuration is three steps. Start here.
+The smallest useful configuration is the slim default. Start here.
 
 **1. Create `.ai/context.md` in your repo**
 
@@ -29,11 +29,13 @@ Copy [`templates/context.md.template`](https://github.com/DevonAleshireMSFT/ai-c
 
 > **Recommended:** Use the AI Setup Assistant instead of filling in templates manually. See [AI Setup Assistant](#ai-setup-assistant) below.
 
-**2. Add `.ai_local/` to your `.gitignore`**
+**2. Create `.ai/adr/`**
 
+```bash
+mkdir .ai/adr
 ```
-.ai_local/
-```
+
+Product decisions live in `.ai/adr/NNNN-title.md`. Repos using Squad still record product decisions here; Squad links only.
 
 **3. Set up Copilot auto-context**
 
@@ -57,16 +59,14 @@ Instead of filling in templates manually, use the AI Setup Assistant prompt to l
 
 3. Type `/ai-context-setup` to invoke the prompt (or open the file and use **Run prompt**).
 
-4. Copilot asks you 20 questions about your project — platform, naming conventions, schema, security roles, active priorities, known gotchas, and more. Answer them all in one message.
+4. Copilot asks a focused set of questions about your project — purpose, platform, durable rules, constraints, and any initial product decisions. Answer them all in one message.
 
 5. Copilot generates and **writes** the following files directly into your repository:
    - `.ai/context.md`
-   - `.ai/domain.md`
-   - `.ai/data-model.md`
-   - `.ai/security.md`
-   - `.ai/pipelines.md`
-   - `.ai/debt.md`
+   - `.ai/adr/`
    - `.github/copilot-instructions.md`
+
+   It creates optional detail files only when your answers show they are needed.
 
 6. Copilot lists what it created, flags any sections that need your attention, and tells you what to do next.
 
@@ -107,15 +107,15 @@ Copy the templates from the [AI Context Framework repository](https://github.com
 | `templates/data-model.md.template` | `.ai/data-model.md` |
 | `templates/security.md.template` | `.ai/security.md` |
 | `templates/pipelines.md.template` | `.ai/pipelines.md` |
-| `templates/debt.md.template` | `.ai/debt.md` |
-| `templates/onboarding.md.template` | `.ai/onboarding.md` |
-| `templates/bootstrap-prompt.md.template` | `.ai/bootstrap-prompt.md` |
-| `templates/adr.md.template` | `.ai/decisions/adr-001-[title].md` |
+| `templates/adr.md.template` | `.ai/adr/0001-[title].md` |
+| `templates/debt.md.template` | Optional/legacy: `.ai/debt.md` |
+| `templates/onboarding.md.template` | Optional/legacy: `.ai/onboarding.md` |
+| `templates/bootstrap-prompt.md.template` | Optional/legacy: `.ai/bootstrap-prompt.md` |
 
-Create the `decisions/` subdirectory:
+Create the `adr/` subdirectory:
 
 ```bash
-mkdir .ai/decisions
+mkdir .ai/adr
 ```
 
 ---
@@ -192,7 +192,8 @@ Work through each file. Prioritize in this order:
 1. **`context.md`** — required before any AI-assisted work
 2. **`data-model.md`** — required if schema work is in scope
 3. **`security.md`** — required if access control is in scope
-4. **`domain.md`**, **`pipelines.md`**, **`debt.md`** — fill incrementally as you go
+4. **`domain.md`** and **`pipelines.md`** — fill incrementally as needed
+5. **`debt.md`**, **`onboarding.md`**, and **`bootstrap-prompt.md`** — optional/legacy; prefer issues and Squad working state when Squad is present
 
 Every file uses YAML frontmatter for machine-readable metadata. Update the `last-updated` date whenever you change a file.
 
@@ -232,7 +233,7 @@ AI context is only valuable if it stays current. Use the event-driven model:
 |------------------|-----------------|
 | Schema change | `data-model.md` |
 | Security role change | `security.md` |
-| Architecture decision made | New ADR in `decisions/` |
+| Product decision made | New Product ADR in `.ai/adr/` |
 | Technical debt identified | `debt.md` |
 | Pipeline changes | `pipelines.md` |
 | New domain term adopted | `domain.md` |

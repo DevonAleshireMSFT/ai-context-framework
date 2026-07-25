@@ -14,13 +14,15 @@ These standards ensure that AI context documents are consistent, trustworthy, an
 
 ## Core Principles
 
-### 1. AI Context Is Derived, Not Authoritative
+### 1. AI Context Is Derived, Except Product ADRs
 
-AI context documents summarize and link to authoritative sources. They are **never** the source of truth. The source of truth lives in:
+AI context documents summarize and link to authoritative sources. They are **not** the source of truth, except for Product ADRs under `.ai/adr/`, which are authoritative product constraints. The source of truth lives in:
 - Committed code
 - Schema definitions
-- Architecture Decision Records
+- Product ADRs in `.ai/adr/`
 - Official documentation
+
+All other `.ai/` files remain derived summaries. They must point to authoritative sources rather than fork them.
 
 ### 2. Keep It Bootstrappable
 
@@ -48,7 +50,7 @@ file: [filename]
 project: [project name]
 owner: [role, not person name]
 last-updated: YYYY-MM-DD
-review-cadence: [sprint | schema-changes | role-changes | as-needed]
+review-cadence: [review-cycle | schema-changes | role-changes | as-needed]
 ---
 ```
 
@@ -79,13 +81,27 @@ Always use ISO 8601 format: `YYYY-MM-DD`.
 
 ### What Belongs in `.ai/`
 
-- Architecture decisions and their rationale
+`.ai/` is durable product knowledge: what the product is and why it works that way.
+
+- Product architecture decisions and their rationale, recorded as Product ADRs under `.ai/adr/NNNN-title.md`
 - Naming conventions and schema rules
 - Domain terminology
 - Security constraints and access patterns
 - Known gotchas and non-obvious constraints
 - Current state and active priorities
 - Links to authoritative sources
+
+Product architecture decisions MUST be recorded as Product ADRs under `.ai/adr/NNNN-title.md`.
+
+### What Belongs in Squad (`.squad/`)
+
+`.squad/` is the AI-team working log: how Squad decided to execute work, what Squad did, and operational consequences for the AI team.
+
+- Team/process decisions about Squad operation
+- Agent handoffs, working notes, and execution consequences
+- Links to Product ADRs when Squad work depends on product architecture
+
+`.squad/decisions.md` MUST NOT restate, summarize, or fork a product decision. It MUST link to the Product ADR and MAY record only the Squad execution consequence.
 
 ### What Never Belongs in `.ai/`
 
@@ -110,10 +126,10 @@ Every PR that changes code governed by an `.ai/` file must include the AI Contex
 ### Staleness Policy
 
 A `.ai/` document is considered stale if:
-- The `last-updated` date is more than two sprints old, **and**
+- The `last-updated` date is more than two review cycles old, **and**
 - The governed system has changed since that date
 
-Stale documents must be flagged and updated before the next sprint planning session.
+Stale documents must be flagged and updated before the next regular ownership review closes.
 
 ---
 
@@ -126,12 +142,10 @@ Stale documents must be flagged and updated before the next sprint planning sess
 | `data-model.md` | Schema, tables, relationships |
 | `security.md` | Roles, groups, access patterns |
 | `pipelines.md` | ALM, CI/CD, deployment standards |
-| `debt.md` | Technical debt register |
-| `onboarding.md` | Developer onboarding guide |
 | `bootstrap-prompt.md` | AI session startup prompt |
-| `decisions/adr-NNN-title.md` | Architecture Decision Records |
+| `adr/NNNN-title.md` | Product Architecture Decision Records |
 
-ADR numbering must be sequential with zero-padded three-digit numbers (e.g., `adr-001`, `adr-042`).
+Product ADR numbering must be sequential with zero-padded four-digit numbers (e.g., `0001-ai-squad-boundary.md`, `0042-event-contract.md`).
 
 ---
 

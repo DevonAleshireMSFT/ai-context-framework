@@ -11,3 +11,4 @@
 - All template files use the `.template` extension to distinguish them from live documents.
 - The framework's promise is a working `.ai/` setup in under 10 minutes — protect that path.
 - Docs site: https://devonaleshiremsft.github.io/ai-context-framework/
+📌 Team update (2026-07-25T01:08:38-07:00): Boundary refactor planned — `.ai/` will remain slim durable product context while Squad owns team execution; docs and validation work will follow.

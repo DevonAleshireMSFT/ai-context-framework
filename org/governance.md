@@ -11,7 +11,7 @@
 | Tier | Scope | Owner | Location |
 |------|-------|-------|----------|
 | Tier 1 — Enterprise | Org-wide standards, glossary, governance | Architecture Team | This repository |
-| Tier 2 — Project | Repository-specific context, decisions, schema | Tech Lead + domain owners | `.ai/` in each project repo |
+| Tier 2 — Project | Repository-specific context, Product ADRs, schema | Tech Lead + domain owners | `.ai/` in each project repo |
 | Tier 3 — Personal | Developer working memory | Individual developer | `.ai_local/` (gitignored) |
 
 ---
@@ -22,14 +22,14 @@ Every Tier-2 document has a designated owner by role. Ownership is by role, not 
 
 | Document | Owner Role | Review Cadence |
 |----------|-----------|----------------|
-| `context.md` | Tech Lead / Architect | Every sprint |
+| `context.md` | Tech Lead / Architect | Regular ownership review |
 | `data-model.md` | Schema Owner | Schema changes |
 | `security.md` | Security Owner | Role changes |
-| `debt.md` | Tech Lead | Sprint planning |
 | `pipelines.md` | DevOps Owner | Pipeline changes |
 | `domain.md` | Domain Expert | Domain changes |
-| `onboarding.md` | Tech Lead | Major milestones |
-| `decisions/adr-*.md` | Decision maker + Tech Lead | At decision time |
+| `adr/NNNN-title.md` | Decision owner + Tech Lead / Architect | At decision time |
+
+Optional repository-local documents, such as `debt.md` or `onboarding.md`, may define owners locally. They are not part of the default governed `.ai/` surface.
 
 Owners are responsible for:
 1. Keeping the document current
@@ -46,12 +46,25 @@ AI context must be updated when the corresponding event occurs. Do not wait for 
 |-------|----------------|
 | Schema change (add/remove/rename table or column) | Update `data-model.md` |
 | Security role or group change | Update `security.md` |
-| Architecture decision made | Create new ADR in `decisions/` |
-| Technical debt identified or resolved | Update `debt.md` |
+| Product or architecture decision made | Create a Product ADR in `.ai/adr/NNNN-title.md` |
 | Pipeline or deployment process change | Update `pipelines.md` |
 | New domain term adopted or redefined | Update `domain.md` |
-| New developer joins the team | Review `onboarding.md` |
 | Major milestone or release | Update `context.md` current state |
+
+---
+
+## Decision Routing
+
+Decisions must be recorded in the correct system. Product knowledge and Squad working memory must not fork.
+
+| Decision Type | Record In | Review Path |
+|---------------|-----------|-------------|
+| Product or architecture decision | Product ADR in `.ai/adr/NNNN-title.md` | Decision owner + Tech Lead / Architect |
+| Team or process decision | `.squad/decisions.md` | Squad owner or affected team lead |
+| Squad execution consequence of a Product ADR | Link from `.squad/decisions.md` to the Product ADR | Squad owner; no duplicate architecture review unless the ADR changes |
+| Change to the `.ai/` / `.squad/` boundary or any `org/` standard governing that boundary | Tier-1 PR in this repository | Architecture Team |
+
+Product ADRs MUST be reviewed by the decision owner and the Tech Lead or Architect responsible for the affected product area. `.squad/decisions.md` MUST NOT restate or summarize a Product ADR; it may only link to the ADR and record Squad execution consequences.
 
 ---
 
@@ -69,8 +82,7 @@ The AI Context Checklist:
 ## AI Context Checklist
 - [ ] `data-model.md` updated (if schema changed)
 - [ ] `security.md` updated (if roles changed)
-- [ ] ADR created (if architecture decision made)
-- [ ] `debt.md` updated (if debt added or resolved)
+- [ ] Product ADR created in `.ai/adr/` (if product or architecture decision made)
 - [ ] `pipelines.md` updated (if pipeline changed)
 - [ ] No credentials, secrets, or PII introduced
 ```
@@ -80,14 +92,14 @@ The AI Context Checklist:
 ## Staleness Policy
 
 A document is stale if:
-- The `last-updated` frontmatter date is more than two sprints old, **and**
+- The `last-updated` frontmatter date is more than two review cycles old, **and**
 - The governed system has changed since that date.
 
 **Stale document handling:**
-1. Flag during sprint planning.
+1. Flag during the next regular planning or ownership review.
 2. Assign update to document owner.
-3. Update before end of sprint.
-4. Documents that remain stale for two consecutive sprints are escalated to the Tech Lead.
+3. Update before the next review cycle closes.
+4. Documents that remain stale for two consecutive review cycles are escalated to the Tech Lead.
 
 ---
 
@@ -98,6 +110,8 @@ Changes to Tier-1 standards (this repository) require:
 2. Review by the Architecture Team.
 3. Notification to all Tier-2 owners via the registry.
 4. A migration period if changes affect existing Tier-2 documents.
+
+Changes to `org/` files that define or alter the `.ai/` / `.squad/` boundary require Architecture Team review. Registry schema changes also require Architecture Team review.
 
 ---
 

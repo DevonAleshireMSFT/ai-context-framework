@@ -51,8 +51,10 @@ Thank you for contributing. This framework is a living system — contributions 
 ### ADR Contributions
 
 If your contribution involves an architectural decision about this framework itself:
-- Create an ADR in `.ai/decisions/` following [`templates/adr.md.template`](templates/adr.md.template).
+- Create a Product ADR in `.ai/adr/` using the `NNNN-title.md` naming convention and following [`templates/adr.md.template`](templates/adr.md.template).
 - Reference the ADR in your PR description.
+- Do not add a product decision only to `.squad/decisions.md`.
+- If Squad needs to record an execution consequence, link to the Product ADR without duplicating or restating its content.
 
 ---
 
@@ -73,6 +75,8 @@ If your contribution involves an architectural decision about this framework its
 - Examples containing real credentials, connection strings, or PII
 - Restructuring that breaks backward compatibility without a migration path and ADR
 - Changes that blur the boundary between authoritative documentation and AI working memory
+- PRs that record a product decision only in `.squad/decisions.md`
+- Duplicated or restated Product ADR content in Squad logs instead of a link to the ADR
 
 ---
 

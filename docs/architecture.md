@@ -26,20 +26,35 @@ These two things must never be merged. When they are, AI context starts competin
 
 ---
 
+## `.ai/` and `.squad/` Boundary
+
+The framework separates durable product knowledge from AI-team working state.
+
+| Question | `.ai/` | `.squad/` |
+|----------|-------|-----------|
+| Answers | WHAT the product is and WHY constraints exist | HOW the AI team works, decided, and did the work |
+| Audience | Anyone — human or AI — modifying the code | The AI team and PM |
+| Lifespan | Durable, reviewed product knowledge; portable without Squad | Working log and team process state |
+| Decisions = | Product ADRs in `.ai/adr/NNNN-title.md` | Links to ADRs; never restates product decisions |
+
+Product ADRs in `.ai/adr/` are authoritative for decisions they record. `.squad/decisions.md` may link to them and record Squad execution consequences, but it must not duplicate the product decision.
+
+---
+
 ## Two Axes
 
 Every document in your system lives somewhere on this axis:
 
 ```
 Authoritative  ←————————————————→  Working Memory
-(code, schema, ADRs)               (AI context, session notes)
+(code, schema, Product ADRs)       (AI context summaries, session notes)
 ```
 
 **Authoritative** documents are the source of truth. They are committed, reviewed, and governed like production code. Examples: your database schema, your codebase, your official architecture diagrams.
 
 **Working Memory** documents are derived from authoritative sources. They are optimized for AI consumption, not human governance. Examples: `.ai/context.md`, `.ai/data-model.md`, session summaries.
 
-The strict rule: **AI context is always on the right side of this axis.** The moment a team starts treating `.ai/context.md` as the source of truth for their schema, the system has failed.
+The strict rule: **AI context summaries are on the right side of this axis.** Product ADRs in `.ai/adr/` are the exception: they are authoritative for the decisions they record. The moment a team starts treating `.ai/context.md` as the source of truth for schema, the system has failed.
 
 ---
 
@@ -52,7 +67,7 @@ The framework organizes AI context into three tiers. For a solo developer or sma
 **Scope:** Per-repository  
 **Owner:** You, or whoever leads the project  
 **Location:** `.ai/` directory, committed to source control  
-**Contents:** Project context, domain terminology, schema, security, decisions, debt, pipelines
+**Contents:** Project context, Product ADRs, and optional detail files such as domain, schema, security, and pipelines
 
 This is where the day-to-day AI context lives. It is committed, reviewed in PRs, and updated when the system changes. A solo developer has full ownership of this tier.
 
@@ -104,15 +119,9 @@ When a project repo adopts this framework, it gains this structure:
 /
 ├── .ai/                          # Committed, team-owned AI context
 │   ├── context.md                # Primary AI bootstrap — read first
-│   ├── domain.md                 # Domain terminology
-│   ├── data-model.md             # Schema and naming conventions
-│   ├── security.md               # Security roles and constraints
-│   ├── pipelines.md              # ALM and deployment standards
-│   ├── debt.md                   # Technical debt register
-│   ├── onboarding.md             # Developer onboarding guide
-│   ├── bootstrap-prompt.md       # AI session startup prompt
-│   └── decisions/
-│       └── adr-001-*.md          # Architecture Decision Records
+│   ├── adr/                      # Product Architecture Decision Records
+│   │   └── 0001-*.md
+│   └── ...                       # Optional detail files when needed
 │
 ├── .ai_local/                    # Personal context — gitignored, never committed
 │   ├── working-notes.md
@@ -153,6 +162,6 @@ ADRs are a key artifact of this framework. Every significant architectural decis
 - What was rejected and why
 - What constraints the decision introduces going forward
 
-ADRs use YAML frontmatter so they are machine-readable and indexable. They are stored in `.ai/decisions/adr-NNN-title.md` with sequential zero-padded numbering.
+ADRs use YAML frontmatter so they are machine-readable and indexable. They are stored in `.ai/adr/NNNN-title.md` with four-digit sequential numbering.
 
 ADRs are **never deleted** — superseded ADRs are marked with `status: superseded` and a reference to the new ADR.

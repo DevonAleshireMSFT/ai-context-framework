@@ -126,7 +126,7 @@ For deeper context on specific topics, reference `.ai/` files directly in the ch
 
 **Understanding past decisions:**
 ```
-#file:.ai/decisions/adr-001-naming.md Why do we use inv_ instead of invoice_?
+#file:.ai/adr/0001-naming.md Why do we use inv_ instead of invoice_?
 ```
 
 **Checking current priorities:**
@@ -146,7 +146,7 @@ For deeper context on specific topics, reference `.ai/` files directly in the ch
 | Other AI tools (ChatGPT, Claude, etc.) | Use `bootstrap-prompt.md` manually |
 | Enforcing rules at commit time | Pre-commit hooks + PR checklist |
 
-`copilot-instructions.md` does not replace `.ai/context.md` — it points Copilot *to* `context.md`. The context lives in the `.ai/` files; the instructions file tells Copilot how to use them.
+`copilot-instructions.md` does not replace `.ai/context.md` or Product ADRs. It points Copilot to `.ai/context.md` for current product context and `.ai/adr/` for why decisions were made and what constraints they introduce. If Squad is present, Copilot should not use `.squad/decisions.md` as the product decision source; Squad links to Product ADRs only.
 
 ---
 

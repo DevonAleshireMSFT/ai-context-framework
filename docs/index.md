@@ -49,14 +49,17 @@ A `.ai/` directory in your repo. A few Markdown files. A committed file that mak
 
 That's the minimum. The framework scales from a solo developer to a team to an enterprise — but it starts with one repo and one developer in under 10 minutes.
 
+### `.ai/` and `.squad/`
+
+`.ai/` is durable product knowledge: WHAT the product is, WHY constraints exist, and Product ADRs in `.ai/adr/`. Its audience is anyone — human or AI — modifying the code, and it remains portable even without Squad.
+
+`.squad/` is AI-team working state: HOW the team routed, decided, and did work. Its audience is the AI team and PM. Squad decisions link to `.ai/adr/` instead of restating product decisions.
+
 ```
 .ai/
-├── context.md          ← what this project is, its rules, its current state
-├── data-model.md       ← schema, naming conventions, deprecated tables
-├── security.md         ← roles, access patterns, what AI must never do
-├── domain.md           ← the language your team actually uses
-├── decisions/          ← why decisions were made, what was rejected
-└── ...
+├── context.md          ← durable product context and links
+├── adr/                ← Product ADRs: 0001-title.md
+└── ...                 ← optional detail files only when needed
 ```
 
 ---

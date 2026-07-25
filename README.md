@@ -16,6 +16,19 @@ AI context is a **first-class engineering artifact** — not an afterthought. Th
 
 ---
 
+## `.ai/` vs `.squad/` Boundary
+
+| Question | `.ai/` | `.squad/` |
+|----------|-------|-----------|
+| Answers | WHAT the product is and WHY constraints exist | HOW the AI team works, decided, and did the work |
+| Audience | Anyone — human or AI — modifying the code | The AI team and PM |
+| Lifespan | Durable, reviewed product knowledge; portable without Squad | Working log and team process state |
+| Decisions = | Product ADRs in `.ai/adr/NNNN-title.md` | Links to ADRs; never restates product decisions |
+
+Duplication rule: `.squad/decisions.md` links to product ADRs instead of copying their decision, rationale, consequences, or alternatives.
+
+---
+
 ## Who This Is For
 
 | You are... | What you get |
@@ -30,63 +43,70 @@ Start with solo or small team. Add federation when you need it.
 
 ## Minimum Viable Setup — 10 Minutes
 
-The smallest useful configuration is three steps:
+The slim default is three durable files/paths:
 
-**1. Create `.ai/context.md` in your repo**
+```
+.ai/
+├── context.md              # Product overview, rules, and links
+└── adr/                    # Product ADRs: NNNN-title.md
+.github/
+└── copilot-instructions.md # Tells Copilot how to use .ai/
+```
+
+**1. Create `.ai/context.md`**
 
 Copy [`templates/context.md.template`](templates/context.md.template) → `.ai/context.md` and fill in:
-- Project name and platform
-- Key Rules (naming conventions, things that must never change)
-- Known Gotchas
+- Project purpose and platform
+- Key product rules and constraints
+- Where durable detail lives
 
-> **Tip — let Copilot fill it in for you:** Copy [`templates/setup-prompt.md.template`](templates/setup-prompt.md.template) → `.github/prompts/ai-context-setup.prompt.md` in your repo. Then run it in GitHub Copilot agent mode (`/ai-context-setup`). Copilot will interview you about your project and write all the `.ai/` files for you.
+**2. Create `.ai/adr/`**
 
-**2. Add `.ai_local/` to your `.gitignore`**
-
-```
-.ai_local/
-```
+Create the directory now, even if the first ADR comes later. Product decisions use `.ai/adr/NNNN-title.md`.
 
 **3. Set up Copilot auto-context**
 
-Copy [`templates/copilot-instructions.md.template`](templates/copilot-instructions.md.template) → `.github/copilot-instructions.md` and replace the project name and prefix placeholders.
+Copy [`templates/copilot-instructions.md.template`](templates/copilot-instructions.md.template) → `.github/copilot-instructions.md` and customize it.
 
-That's it. Open Copilot Chat — it will confirm it has read your project context before answering.
+> **Tip — let Copilot fill it in for you:** Copy [`templates/setup-prompt.md.template`](templates/setup-prompt.md.template) → `.github/prompts/ai-context-setup.prompt.md` and run it in GitHub Copilot agent mode (`/ai-context-setup`).
 
-> **Want the full setup?** See [Full Setup](#full-setup) below to add schema docs, security context, decision records, and more.
+Optional files such as `data-model.md`, `security.md`, `domain.md`, `pipelines.md`, `debt.md`, `onboarding.md`, and `bootstrap-prompt.md` are added only when needed.
+
+### Using with Squad
+
+Squad does not replace `.ai/`. Keep durable product knowledge and Product ADRs in `.ai/`; keep AI-team working logs in `.squad/`. Squad decisions link to `.ai/adr/` instead of restating product decisions.
 
 ---
 
 ## Per-Repository Structure
 
-When adopting this framework in a project repository, create this structure:
+When adopting this framework in a project repository, start slim:
 
 ```
 /
-├── .ai/                          # AI context — committed, team-owned
+├── .ai/                          # Durable product context — committed
 │   ├── context.md                # Primary AI bootstrap — read first
-│   ├── domain.md                 # Domain terminology
-│   ├── data-model.md             # Schema inventory and relationships
-│   ├── security.md               # Security roles, groups, and constraints
-│   ├── pipelines.md              # ALM and pipeline standards
-│   ├── debt.md                   # Technical debt register
-│   ├── onboarding.md             # Developer onboarding guide
-│   ├── bootstrap-prompt.md       # AI session startup prompt
-│   └── decisions/
-│       ├── adr-001-*.md          # Architecture Decision Records
-│       └── adr-002-*.md
-│
-├── .ai_local/                    # Personal context — gitignored, never committed
-│   ├── working-notes.md          # Sprint notes and reminders
-│   ├── scratch.md                # Experimental ideas and local troubleshooting
-│   └── session-summaries/        # AI conversation summaries
+│   └── adr/                      # Product Architecture Decision Records
+│       ├── 0001-*.md
+│       └── 0002-*.md
 │
 ├── .github/
-│   ├── copilot-instructions.md   # Automatic Copilot context — no manual prompt needed
-│   └── PULL_REQUEST_TEMPLATE.md  # PR checklist
+│   └── copilot-instructions.md   # Automatic Copilot context
 │
-└── .gitignore                    # Must include .ai_local/
+└── .ai_local/                    # Optional personal context — gitignored
 ```
+
+Add detail files only when they earn their place:
+
+| Optional file | Use when |
+|---------------|----------|
+| `.ai/data-model.md` | Schema or data contracts need durable AI-readable context |
+| `.ai/security.md` | Roles, permissions, or sensitive-data constraints affect work |
+| `.ai/domain.md` | Domain terms are non-obvious |
+| `.ai/pipelines.md` | Build, release, or environment rules affect AI-assisted changes |
+| `.ai/debt.md` | Legacy debt register only; prefer issues/Squad work tracking |
+| `.ai/onboarding.md` | Legacy onboarding guide only; prefer existing docs/Squad support |
+| `.ai/bootstrap-prompt.md` | Legacy manual prompt for non-Copilot tools |
 
 ---
 
@@ -107,7 +127,7 @@ ai-context-framework/
 │   └── glossary.md               # Enterprise-wide terminology
 │
 ├── templates/                    # Copy these into your project repos
-│   ├── setup-prompt.md.template      # AI setup assistant — generates all .ai/ files via interview
+│   ├── setup-prompt.md.template      # AI setup assistant — generates the slim default
 │   ├── context.md.template
 │   ├── domain.md.template
 │   ├── data-model.md.template
@@ -131,27 +151,30 @@ ai-context-framework/
 
 **Step 1 — Copy and rename the templates**
 
-Copy all files from [`templates/`](templates/) into your repo's `.ai/` directory, removing the `.template` extension:
+Copy the slim default first. Add optional detail templates only when the project needs them:
 
 > **Recommended shortcut:** Instead of filling these in manually, use the [AI Setup Assistant](#minimum-viable-setup--10-minutes). Copy `templates/setup-prompt.md.template` → `.github/prompts/ai-context-setup.prompt.md`, run it in Copilot agent mode, and let Copilot generate the files from your answers.
 
 ```
-templates/setup-prompt.md.template  →  .github/prompts/ai-context-setup.prompt.md (run first)
-templates/context.md.template       →  .ai/context.md
-templates/domain.md.template        →  .ai/domain.md
-templates/data-model.md.template    →  .ai/data-model.md
-templates/security.md.template      →  .ai/security.md
-templates/pipelines.md.template     →  .ai/pipelines.md
-templates/debt.md.template          →  .ai/debt.md
-templates/onboarding.md.template    →  .ai/onboarding.md
-templates/bootstrap-prompt.md.template → .ai/bootstrap-prompt.md
-templates/adr.md.template           →  .ai/decisions/adr-001-[title].md
+templates/setup-prompt.md.template     →  .github/prompts/ai-context-setup.prompt.md (optional assistant)
+templates/context.md.template          →  .ai/context.md
+templates/adr.md.template              →  .ai/adr/0001-[title].md
+templates/copilot-instructions.md.template → .github/copilot-instructions.md
+
+Optional when needed:
+templates/domain.md.template           →  .ai/domain.md
+templates/data-model.md.template       →  .ai/data-model.md
+templates/security.md.template         →  .ai/security.md
+templates/pipelines.md.template        →  .ai/pipelines.md
+templates/debt.md.template             →  .ai/debt.md (optional/legacy)
+templates/onboarding.md.template       →  .ai/onboarding.md (optional/legacy)
+templates/bootstrap-prompt.md.template →  .ai/bootstrap-prompt.md (optional/legacy)
 ```
 
-Create the `decisions/` subdirectory:
+Create the `adr/` subdirectory:
 
 ```bash
-mkdir .ai/decisions
+mkdir .ai/adr
 ```
 
 **Step 2 — Update `.gitignore`**
@@ -188,7 +211,8 @@ Work through each file. Not every file needs to be complete before you start —
 1. `context.md` — required before any AI-assisted work
 2. `data-model.md` — required if schema work is in scope
 3. `security.md` — required if access control is in scope
-4. `domain.md`, `pipelines.md`, `debt.md` — fill as you go
+4. `domain.md` and `pipelines.md` — fill as needed
+5. `debt.md`, `onboarding.md`, and `bootstrap-prompt.md` — optional/legacy; prefer issues or Squad working state when Squad is present
 
 **Step 6 — Register your repo** *(optional — for multi-repo federation)*
 
@@ -206,7 +230,7 @@ See [GitHub Copilot Integration](#github-copilot-integration) below for full det
 
 **Step 9 — Use the bootstrap prompt for other AI tools**
 
-For AI assistants other than Copilot (ChatGPT, Claude, etc.), open `.ai/bootstrap-prompt.md` and paste the prompt at the start of each session. This orients the assistant to your project before you ask your first question.
+For AI assistants other than Copilot (ChatGPT, Claude, etc.), use `.ai/bootstrap-prompt.md` only if you need a manual prompt. It is optional/legacy; prefer tool-native instructions when available.
 
 ---
 
@@ -263,7 +287,7 @@ For deeper context on specific topics, reference `.ai/` files directly in the ch
 #file:.ai/security.md Should this new view be restricted to the Admin role or is Contributor sufficient?
 ```
 ```
-#file:.ai/decisions/adr-001-naming.md Why do we use the inv_ prefix instead of invoice_?
+#file:.ai/adr/0001-naming.md Why do we use the inv_ prefix instead of invoice_?
 ```
 
 ### Example: Copilot respecting a naming rule
@@ -278,8 +302,8 @@ With the framework (context in `copilot-instructions.md`):
 
 ### What `copilot-instructions.md` does not replace
 
-- It does not replace `.ai/context.md` — the instructions file points Copilot *to* context.md; it doesn't duplicate it.
-- It does not replace the bootstrap prompt for non-Copilot AI tools.
+- It does not replace `.ai/context.md` or `.ai/adr/` — the instructions file points Copilot to them; it doesn't duplicate them.
+- It does not require the optional/legacy bootstrap prompt for non-Copilot AI tools.
 - It does not enforce rules at commit time — use pre-commit hooks and PR checklists for that.
 
 ---
@@ -289,6 +313,7 @@ With the framework (context in `copilot-instructions.md`):
 | Document | Owner | Review Cadence |
 |----------|-------|----------------|
 | `context.md` | You (or whoever leads the project) | Every sprint |
+| `.ai/adr/NNNN-title.md` | Decision maker + Tech Lead | At decision time |
 | `data-model.md` | Whoever changes the schema | Schema changes |
 | `security.md` | Whoever manages access | Role changes |
 | `debt.md` | You (or the tech lead) | Sprint planning |
@@ -301,7 +326,7 @@ With the framework (context in `copilot-instructions.md`):
 |-------|----------------|
 | Schema change | `data-model.md` |
 | Security role change | `security.md` |
-| Architecture decision made | New ADR in `decisions/` |
+| Product decision made | New Product ADR in `.ai/adr/` |
 | Technical debt identified | `debt.md` |
 | Pipeline change | `pipelines.md` |
 | New domain term adopted | `domain.md` |

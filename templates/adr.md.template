@@ -1,32 +1,36 @@
 ---
-adr: [NNN]
+adr: NNNN
 title: [Short decision title]
 status: [proposed | accepted | superseded | deprecated]
 date: YYYY-MM-DD
-decider: [Role — e.g., Tech Lead, Architecture Team]
-affects: [comma-separated list of impacted files, tables, or components]
-supersedes: [adr-NNN if this replaces a prior ADR, otherwise omit]
+deciders: [Role or names]
+reviewers: [Role or names]
+applies-to: [comma-separated files, components, services, or domains]
+supersedes: [NNNN-title.md or null]
+superseded-by: [NNNN-title.md or null]
 ---
 
-# ADR-[NNN]: [Short Decision Title]
+# ADR-NNNN: [Short Decision Title]
 
----
-
-## Status
-
-[proposed | accepted | superseded | deprecated]
+> Path: `.ai/adr/NNNN-title.md`
 
 ---
 
 ## Decision
 
-[One clear sentence stating what was decided. Be specific. Name the thing chosen.]
+[One clear sentence stating what was decided. Be specific.]
 
 ---
 
 ## Context
 
-[Why was this decision necessary? What problem or constraint drove it? What was the situation at the time? 3–6 sentences.]
+[Why was this decision necessary? What problem, constraint, or trade-off drove it?]
+
+---
+
+## Rationale
+
+[Why this option was chosen over the alternatives.]
 
 ---
 
@@ -35,23 +39,31 @@ supersedes: [adr-NNN if this replaces a prior ADR, otherwise omit]
 **Positive:**
 - [What this enables or improves]
 
-**Negative / Trade-offs:**
+**Negative / trade-offs:**
 - [What this constrains or costs]
 
 **Constraints introduced:**
-- [Rules that downstream work must follow as a result of this decision]
+- [Rules downstream work must follow]
 
 ---
 
-## Alternatives Rejected
+## Alternatives considered
 
-| Alternative | Reason Rejected |
-|-------------|----------------|
-| [Option A] | [Why it was not chosen] |
-| [Option B] | [Why it was not chosen] |
+| Alternative | Outcome | Reason |
+|-------------|---------|--------|
+| [Option A] | Rejected | [Why] |
+| [Option B] | Rejected | [Why] |
+
+---
+
+## Review path
+
+- Drafted by: [role/name]
+- Reviewed by: [role/name]
+- Approval record: [PR, issue, meeting notes, or other link]
 
 ---
 
 ## References
 
-- [Link to relevant PR, ticket, or document if applicable]
+- [Link to relevant PR, issue, design note, or external document]
