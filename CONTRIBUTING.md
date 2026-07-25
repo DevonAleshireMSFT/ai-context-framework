@@ -45,7 +45,7 @@ Thank you for contributing. This framework is a living system — contributions 
 
 ### Standard and Governance Contributions
 
-- Changes to `org/standards.md` or `org/governance.md` have broad impact. Explain the rationale clearly in your PR description.
+- Changes to Tier-1 authoritative paths follow the [review workflow for `org/` standards](org/governance.md#review-workflow-for-org-standards). Explain the rationale clearly in your PR description.
 - Governance changes should include the before/after behavior, not just the new rule.
 
 ### ADR Contributions
@@ -64,8 +64,8 @@ If your contribution involves an architectural decision about this framework its
 2. **Make your changes** following the guidelines above.
 3. **Complete the PR checklist** in the PR description (see [`.github/PULL_REQUEST_TEMPLATE.md`](.github/PULL_REQUEST_TEMPLATE.md)).
 4. **Request review** from at least one maintainer.
-5. PRs to `org/` require review from the Architecture Team or a designated maintainer.
-6. PRs to `templates/` require at least one review from an existing framework adopter.
+5. PRs to `org/`, `registry.md` schema/mode/status tables, `templates/` contracts, or `.ai/adr/` require Architecture Team CODEOWNERS review.
+6. PRs to `templates/` should also consider review from an existing framework adopter when usability is affected.
 
 ---
 
