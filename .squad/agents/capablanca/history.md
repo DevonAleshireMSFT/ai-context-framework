@@ -12,3 +12,5 @@
 - The framework's promise is a working `.ai/` setup in under 10 minutes — protect that path.
 - Docs site: https://devonaleshiremsft.github.io/ai-context-framework/
 📌 Team update (2026-07-25T01:08:38-07:00): Boundary refactor planned — `.ai/` will remain slim durable product context while Squad owns team execution; docs and validation work will follow.
+- 2026-07-25T02:22:07-07:00: Delivered issue #8 in PR #18 by adding the Automation & CI docs page and docs index pointer.
+- 2026-07-25T02:22:07-07:00: Delivered issue #7 in PR #16 with the org standards review workflow and scoped CODEOWNERS.
