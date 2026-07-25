@@ -1,0 +1,5 @@
+# Enterprise-authoritative paths governed by the org/ standards review workflow.
+/org/           @DevonAleshireMSFT
+/registry.md    @DevonAleshireMSFT
+/templates/     @DevonAleshireMSFT
+/.ai/adr/       @DevonAleshireMSFT

@@ -103,15 +103,29 @@ A document is stale if:
 
 ---
 
-## Enterprise Standards Governance
+## Review Workflow for `org/` Standards
 
-Changes to Tier-1 standards (this repository) require:
-1. Proposal submitted as a PR with rationale.
-2. Review by the Architecture Team.
-3. Notification to all Tier-2 owners via the registry.
-4. A migration period if changes affect existing Tier-2 documents.
+Tier-1 standards are enterprise-authoritative. Changes to these paths MUST follow this workflow:
+- `org/**`
+- `registry.md` schema, mode, and status tables
+- `templates/**` contracts
+- `.ai/adr/**` Product ADRs for this framework's load-bearing standards decisions
 
-Changes to `org/` files that define or alter the `.ai/` / `.squad/` boundary require Architecture Team review. Registry schema changes also require Architecture Team review.
+Architecture Team review is required through CODEOWNERS, with at least one Architecture Team approval before merge.
+
+| Change Class | Rule | Review Path |
+|--------------|------|-------------|
+| Editorial or typo fix | MAY fast-track, but still requires one Architecture Team approval. | CODEOWNERS review |
+| Additive standard | MUST explain the new guidance and its affected adopters. | CODEOWNERS review |
+| Breaking standard change | MUST include a PR migration note when renaming or removing a required field, contract, mode, status, or boundary rule. Significant, load-bearing standards decisions SHOULD be considered for a Product ADR under [`.ai/adr/`](../.ai/adr/) instead of being recorded only in Squad working memory. | CODEOWNERS review + migration note + ADR consideration |
+
+The merge process is:
+1. Open a PR with the proposed change and rationale.
+2. Let CI conformance checks run, including the AI Context Conformance workflow from #1 and the validators from #4, #5, and #6 when present.
+3. Obtain CODEOWNERS approval from the Architecture Team.
+4. Merge only after review and required checks pass.
+
+Hotfixes MAY merge before approval only to restore a broken standard or release path. The PR or follow-up issue MUST log the waiver reason, and Architecture Team post-hoc review MUST occur after the emergency merge.
 
 ---
 
