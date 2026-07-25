@@ -99,6 +99,8 @@ Works with any AI assistant, any language, any platform. The framework is a set 
 | `org/standards.md` | Authoring standards and quality checklist |
 | `.github/PULL_REQUEST_TEMPLATE.md` | PR checklist for AI context maintenance |
 
+For automated enforcement, see [Automation & CI](automation): dependency-free validators and GitHub Actions for `.ai/` conformance, links, registry hygiene, and freshness.
+
 ---
 
 ## Ready to Start?
