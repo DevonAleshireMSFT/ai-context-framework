@@ -12,3 +12,4 @@
 - `registry.md` is the source of truth for which repos have adopted/retired the framework.
 - Terminology must stay consistent with `org/glossary.md`.
 - 2026-07-25T01:38:26-07:00: Revised `.squad/decisions.md`, `templates/context.md.template`, and `.ai/adr/0001-ai-squad-boundary.md` to clear Polgar's boundary-refactor block.
+- 2026-07-25T02:22:07-07:00: Delivered issue #6 in PR #15 with the `registry.md` schema validator and revised boundary work while locked-out agents stood aside.
