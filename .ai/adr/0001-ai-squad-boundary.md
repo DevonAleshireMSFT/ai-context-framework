@@ -6,8 +6,8 @@ date: 2026-07-25
 deciders: Devon Aleshire (PM), Carlsen (Architect)
 reviewers: Kasparov (Standards), Fact Checker
 applies-to: ai-context-framework and adopter repos using Squad
-supersedes:
-superseded-by:
+supersedes: null
+superseded-by: null
 ---
 
 # ADR-0001: The .ai/ and .squad/ boundary
