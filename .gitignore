@@ -53,3 +53,6 @@ credentials.*
 .squad/memory/tombstones/
 # Squad: SubSquad activation file (local to this machine)
 .squad-workstream
+
+# Test: transient temp fixtures created by scripts/__tests__ runs
+scripts/__tests__/.fixture-*/
