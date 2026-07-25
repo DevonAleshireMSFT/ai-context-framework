@@ -1,0 +1,82 @@
+name: AI Context Staleness
+
+on:
+  schedule:
+    - cron: '0 14 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  check-staleness:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Check .ai context staleness
+        run: node scripts/check-staleness.mjs --json > staleness.json
+
+      - name: Manage context review issue
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('node:fs');
+            const result = JSON.parse(fs.readFileSync('staleness.json', 'utf8'));
+            const marker = '<!-- ai-context-staleness -->';
+            const title = `📅 Context Review Due: ${context.repo.repo}`;
+            const { owner, repo } = context.repo;
+
+            // The hidden marker de-duplicates the tracking issue across scheduled runs.
+            const issues = await github.paginate(github.rest.issues.listForRepo, {
+              owner,
+              repo,
+              state: 'open',
+              per_page: 100
+            });
+            const existing = issues.find((issue) => !issue.pull_request && issue.body?.includes(marker));
+
+            if (result.status === 'overdue') {
+              const body = [
+                marker,
+                '## .ai Context Review Due',
+                '',
+                "The repository's .ai/context.md is overdue for review.",
+                '',
+                `- Last updated: ${result.lastUpdated}`,
+                `- Review cadence: ${result.cadence}`,
+                `- Age: ${result.ageDays} day(s)`,
+                `- Maximum age: ${result.maxAgeDays} day(s)`,
+                `- Overdue by: ${result.overdueByDays} day(s)`,
+                `- Checked at: ${result.checkedAt}`,
+                '',
+                'Please review and refresh .ai/context.md, then update its `last-updated` front-matter.'
+              ].join('\n');
+
+              if (existing) {
+                await github.rest.issues.update({ owner, repo, issue_number: existing.number, title, body });
+                await github.rest.issues.createComment({
+                  owner,
+                  repo,
+                  issue_number: existing.number,
+                  body: `Context is still overdue by ${result.overdueByDays} day(s).`
+                });
+              } else {
+                await github.rest.issues.create({ owner, repo, title, body });
+              }
+            } else if (existing) {
+              await github.rest.issues.createComment({
+                owner,
+                repo,
+                issue_number: existing.number,
+                body: `Context staleness check is now ${result.status}; closing this review reminder. ${result.summary}`
+              });
+              await github.rest.issues.update({ owner, repo, issue_number: existing.number, state: 'closed' });
+            }
