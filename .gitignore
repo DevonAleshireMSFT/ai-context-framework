@@ -32,3 +32,24 @@ secrets.*
 *.secrets
 credentials.*
 *.credentials
+# Squad: ignore runtime state (logs, inbox, sessions)
+# Note: .squad/casting/* is identity and MUST be committed to main, not ignored
+.squad/orchestration-log/
+.squad/log/
+.squad/decisions/inbox/
+.squad/sessions/
+.squad/.scratch/
+.squad/.cache/
+# Squad: local machine markers & runtime process state (never commit)
+.squad/.first-run
+.squad/.watch-pids
+.squad/.watch-pids/
+# Squad: governed-memory runtime state (audit/index/inboxes are ephemeral; keep memory/config.json)
+.squad/memory/audit.jsonl
+.squad/memory/index.json
+.squad/memory/local/
+.squad/memory/policy-inbox/
+.squad/memory/semantic-inbox/
+.squad/memory/tombstones/
+# Squad: SubSquad activation file (local to this machine)
+.squad-workstream
