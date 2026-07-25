@@ -11,3 +11,4 @@
 - `org/` standards changes require Architecture Team review — governance is not optional.
 - `registry.md` is the source of truth for which repos have adopted/retired the framework.
 - Terminology must stay consistent with `org/glossary.md`.
+- 2026-07-25T01:38:26-07:00: Revised `.squad/decisions.md`, `templates/context.md.template`, and `.ai/adr/0001-ai-squad-boundary.md` to clear Polgar's boundary-refactor block.

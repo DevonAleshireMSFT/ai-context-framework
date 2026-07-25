@@ -11,3 +11,4 @@
 - Authoritative docs (`org/`, `registry.md`) must have zero broken links — they are the standard others are held to.
 - Validation checks defined here should feed Tal's future CI automation.
 📌 Team update (2026-07-25T01:08:38-07:00): Boundary refactor planned — `.ai/` will remain slim durable product context while Squad owns team execution; docs and validation work will follow.
+- 2026-07-25T01:38:26-07:00: Approved the `.ai/` ↔ `.squad/` boundary refactor on re-review after Kasparov's fixes.
