@@ -7,6 +7,8 @@ on:
       - '.ai/**'
       - 'templates/**'
       - 'org/**'
+      - 'docs/**'
+      - 'examples/**'
       - 'registry.md'
       - 'README.md'
       - 'CONTRIBUTING.md'
