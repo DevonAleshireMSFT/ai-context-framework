@@ -5,7 +5,7 @@
 # The .ai_local/ directory is developer-owned working memory.
 # =============================================================================
 
-# Personal AI context — gitignored by design
+# Tier 3 developer-local AI working memory — gitignored by contract
 .ai_local/
 
 # OS artifacts

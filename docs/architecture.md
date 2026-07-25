@@ -78,7 +78,7 @@ This is where the day-to-day AI context lives. It is committed, reviewed in PRs,
 **Location:** `.ai_local/` directory, gitignored, never committed  
 **Contents:** Sprint notes, AI session summaries, scratch ideas, local troubleshooting
 
-This is your personal working memory. It is never shared and never committed. Keep it as messy as you need.
+This is your personal working memory. It is never shared and never committed. See the [Tier 3 contract](#tier-3-ai-local) for boundaries and lifecycle.
 
 ### Tier 1 — Enterprise Standards *(optional, multi-repo)*
 
@@ -88,6 +88,56 @@ This is your personal working memory. It is never shared and never committed. Ke
 **Contents:** Standards, templates, governance model, enterprise glossary, repository registry
 
 This tier is only needed when multiple project repositories adopt the framework and you want consistent standards across all of them. Changes to Tier 1 affect all downstream projects.
+
+---
+
+## Tier 3: `.ai_local/` — Developer-Local Working Memory
+{: #tier-3-ai-local }
+
+Tier 3 is private, per-developer scratch context that a local AI assistant may read to understand the developer's current working state. It can contain personal notes, in-progress investigation notes, local environment quirks, throwaway prompts, and other disposable context that should not become shared project knowledge.
+
+`.ai_local/` is never committed, never shared, and never authoritative.
+
+### What belongs here
+
+- Personal working notes and scratch hypotheses.
+- In-progress investigation notes that are not ready for the team.
+- Local environment quirks, non-secret machine setup notes, and workflow preferences.
+- Throwaway prompts, AI session notes, and temporary summaries.
+
+### What does not belong here
+
+- Authoritative standards or enterprise policy. Those belong in Tier 1 `org/`.
+- Durable project context or product decisions. Product ADRs belong in `.ai/adr/`.
+- Squad team decisions, routing, ceremonies, or execution logs. Those belong in `.squad/`; see [ADR-0001](../.ai/adr/0001-ai-squad-boundary.md).
+- Secrets, credentials, tokens, connection strings, private keys, or other sensitive values.
+
+### Relationship to other memory surfaces
+
+| Surface | Audience | Lifespan | Sharing model | Source control |
+|---------|----------|----------|---------------|----------------|
+| Tier 1 `org/` | Enterprise and adopter repositories | Long-lived standards | Shared across repositories | Committed |
+| Tier 2 `.ai/` | Humans and AI assistants working on one repository | Durable project knowledge; Product ADRs are authoritative for their decisions | Shared within the project | Committed |
+| Tier 3 `.ai_local/` | One developer and their local assistant | Disposable working memory | Private to one machine/developer | Gitignored |
+| `.squad/` | Squad AI team and PM | Shared AI-team working log and process state | Shared with the repository's Squad workflow | Partially committed; runtime state gitignored |
+
+The `.ai/` and `.squad/` boundary is defined in [ADR-0001](../.ai/adr/0001-ai-squad-boundary.md). Tier 3 is separate from both: it is developer-private working memory, not shared product context and not shared Squad state.
+
+### Lifecycle and precedence
+
+Developers may create `.ai_local/` ad hoc when they need it. It is gitignored by design, safe to delete at any time, and must never be required for another developer, CI job, AI agent, or shared workflow to complete work.
+
+When guidance conflicts, precedence is:
+
+1. Tier 1 `org/`
+2. Tier 2 `.ai/`
+3. Tier 3 `.ai_local/`
+
+Tier 3 may specialize authoritative guidance for one developer's local workflow, but it must never override enterprise standards, project context, or Product ADRs.
+
+### Secret handling
+
+`.ai_local/` is local, but it is still not a secret store. Do not write secrets, credentials, tokens, connection strings, private keys, or other sensitive values into it. Use approved secret-management mechanisms and checked-in examples such as `.env.example` for schema guidance.
 
 ---
 

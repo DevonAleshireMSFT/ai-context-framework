@@ -1,0 +1,21 @@
+<!-- OPTIONAL TEMPLATE: copy this file into your own .ai_local/README.md if useful. Do not commit .ai_local/ contents. -->
+
+# `.ai_local/`
+
+This folder is optional developer-local working memory for AI-assisted work in this repository.
+
+Use it for:
+
+- Personal notes and scratch investigations.
+- Local, non-secret environment quirks.
+- Throwaway prompts and temporary AI session summaries.
+
+Rules:
+
+- Never commit this folder.
+- Never treat anything here as authoritative.
+- Never record product decisions here; use `.ai/adr/`.
+- Never record Squad team decisions here; use `.squad/`.
+- Never store secrets, credentials, tokens, connection strings, or private keys here.
+
+It is safe to delete this folder at any time.
