@@ -2,7 +2,7 @@
 project: AI Context Framework
 platform: Documentation / GitHub
 context-version: 1.0.0
-last-updated: 2026-07-25T01:08:38-07:00
+last-updated: 2026-07-25T02:22:07-07:00
 owner: Architecture Team
 review-cadence: quarterly
 ---
@@ -35,7 +35,7 @@ This repository is an enterprise framework for governing how AI context is creat
 The framework defines three tiers of AI context:
 - **Tier 1 (this repo):** Enterprise-wide standards, governance, templates, and registry.
 - **Tier 2 (project repos):** Repository-specific context committed as `.ai/` in each repo.
-- **Tier 3 (developer local):** Personal working memory in `.ai_local/`, never committed.
+- **Tier 3 (developer local):** Personal working memory in `.ai_local/`, never committed; see the [Tier 3 contract](../docs/architecture.md#tier-3-ai-local).
 
 The two axes are **authoritative** (committed source-of-truth) vs. **working memory** (derived, ephemeral). These must never be merged.
 
