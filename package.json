@@ -7,6 +7,7 @@
   },
   "scripts": {
     "validate:ai-context": "node scripts/validate-ai-context.mjs",
+    "validate:registry": "node scripts/validate-registry.mjs",
     "test": "node --test"
   }
 }
