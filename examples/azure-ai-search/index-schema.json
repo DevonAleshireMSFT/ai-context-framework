@@ -1,0 +1,53 @@
+{
+  "name": "ai-context",
+  "fields": [
+    {
+      "name": "id",
+      "type": "Edm.String",
+      "key": true,
+      "filterable": true
+    },
+    {
+      "name": "title",
+      "type": "Edm.String",
+      "searchable": true,
+      "filterable": true
+    },
+    {
+      "name": "content",
+      "type": "Edm.String",
+      "searchable": true
+    },
+    {
+      "name": "owner",
+      "type": "Edm.String",
+      "filterable": true
+    },
+    {
+      "name": "contextVersion",
+      "type": "Edm.String",
+      "filterable": true
+    },
+    {
+      "name": "lastUpdated",
+      "type": "Edm.DateTimeOffset",
+      "filterable": true,
+      "sortable": true
+    },
+    {
+      "name": "appliesTo",
+      "type": "Collection(Edm.String)",
+      "filterable": true
+    },
+    {
+      "name": "adrStatus",
+      "type": "Edm.String",
+      "filterable": true
+    },
+    {
+      "name": "sourcePath",
+      "type": "Edm.String",
+      "filterable": true
+    }
+  ]
+}

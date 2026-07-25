@@ -98,6 +98,7 @@ Works with any AI assistant, any language, any platform. The framework is a set 
 | `org/governance.md` | Ownership model and update triggers |
 | `org/standards.md` | Authoring standards and quality checklist |
 | `.github/PULL_REQUEST_TEMPLATE.md` | PR checklist for AI context maintenance |
+| [Azure AI Search / RAG](rag-integration) | Reference pattern for indexing committed `.ai/` context into Azure AI Search |
 
 ---
 
