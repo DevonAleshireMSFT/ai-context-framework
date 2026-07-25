@@ -1,0 +1,52 @@
+{
+  "agents": {
+    "Fischer": {
+      "persistent_name": "Fischer",
+      "role": "Coordinator",
+      "universe": "Chess Grandmasters",
+      "created_at": "2026-07-25T00:45:08-07:00",
+      "legacy_named": false,
+      "status": "active"
+    },
+    "Carlsen": {
+      "persistent_name": "Carlsen",
+      "role": "Lead / Framework Architect",
+      "universe": "Chess Grandmasters",
+      "created_at": "2026-07-25T00:45:08-07:00",
+      "legacy_named": false,
+      "status": "active"
+    },
+    "Kasparov": {
+      "persistent_name": "Kasparov",
+      "role": "Standards & Governance",
+      "universe": "Chess Grandmasters",
+      "created_at": "2026-07-25T00:45:08-07:00",
+      "legacy_named": false,
+      "status": "active"
+    },
+    "Capablanca": {
+      "persistent_name": "Capablanca",
+      "role": "Templates & Documentation",
+      "universe": "Chess Grandmasters",
+      "created_at": "2026-07-25T00:45:08-07:00",
+      "legacy_named": false,
+      "status": "active"
+    },
+    "Tal": {
+      "persistent_name": "Tal",
+      "role": "Automation & Tooling Engineer",
+      "universe": "Chess Grandmasters",
+      "created_at": "2026-07-25T00:45:08-07:00",
+      "legacy_named": false,
+      "status": "active"
+    },
+    "Polgar": {
+      "persistent_name": "Polgar",
+      "role": "Quality & Validation (Reviewer)",
+      "universe": "Chess Grandmasters",
+      "created_at": "2026-07-25T00:45:08-07:00",
+      "legacy_named": false,
+      "status": "active"
+    }
+  }
+}

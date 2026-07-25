@@ -1,0 +1,25 @@
+{
+  "universe_usage_history": [
+    {
+      "universe": "Chess Grandmasters",
+      "assignment_id": "acf-2026-07-25",
+      "assigned_at": "2026-07-25T00:45:08-07:00",
+      "note": "User-directed theme (famous chess players) — overrides default allowlist."
+    }
+  ],
+  "assignment_cast_snapshots": {
+    "acf-2026-07-25": {
+      "universe": "Chess Grandmasters",
+      "assigned_at": "2026-07-25T00:45:08-07:00",
+      "requested_by": "Devon Aleshire",
+      "cast": {
+        "Fischer": "Coordinator",
+        "Carlsen": "Lead / Framework Architect",
+        "Kasparov": "Standards & Governance",
+        "Capablanca": "Templates & Documentation",
+        "Tal": "Automation & Tooling Engineer",
+        "Polgar": "Quality & Validation (Reviewer)"
+      }
+    }
+  }
+}
