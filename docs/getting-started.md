@@ -43,6 +43,10 @@ Copy [`templates/copilot-instructions.md.template`](https://github.com/DevonAles
 
 That's it. Open Copilot Chat — it will confirm it has read your project context before answering.
 
+### Updating the framework
+
+The long-term distribution path is the scoped `@devonaleshiremsft/ai-context` npm CLI: `npx @devonaleshiremsft/ai-context update` will update framework-managed tooling without overwriting consumer-owned `.ai/**` content. Until the CLI ships, treat [ADR-0002](../.ai/adr/0002-framework-distribution.md) as the update contract and continue copying changes manually.
+
 > **Want the full setup?** Continue reading for the complete guide — schema docs, security context, decision records, and more.
 
 ---
