@@ -2,6 +2,7 @@ import { readdir, readFile, stat } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseFrontmatter } from './lib/frontmatter.mjs';
+import { compareSchemaCompatibility, FRAMEWORK_VERSION, isSemver, SCHEMA_VERSION } from './lib/version.mjs';
 
 const CONTEXT_REQUIRED_FIELDS = [
   'project',
@@ -74,6 +75,8 @@ async function validateContext(filePath, findings) {
     addError(findings, relativeFile, 'context-version must be semver, for example 1.0.0.');
   }
 
+  validateSchemaVersion(parsed.data, relativeFile, findings);
+
   if (hasValue(parsed.data, 'last-updated') && !isValidIsoDateOrDateTime(parsed.data['last-updated'])) {
     addError(findings, relativeFile, 'last-updated must be YYYY-MM-DD or a full ISO-8601 datetime.');
   }
@@ -83,6 +86,33 @@ async function validateContext(filePath, findings) {
       findings,
       relativeFile,
       `review-cadence must be one of: ${Array.from(REVIEW_CADENCES).join(', ')}.`
+    );
+  }
+}
+
+function validateSchemaVersion(data, relativeFile, findings) {
+  if (!hasValue(data, 'schema-version')) {
+    return;
+  }
+
+  const declared = data['schema-version'];
+  if (!isSemver(declared)) {
+    addWarning(findings, relativeFile, 'schema-version should be semver, for example 1.0.0.');
+    return;
+  }
+
+  const comparison = compareSchemaCompatibility(declared, SCHEMA_VERSION);
+  if (comparison < 0) {
+    addWarning(
+      findings,
+      relativeFile,
+      `schema-version ${declared} is older than validator schema ${SCHEMA_VERSION}; run ai-context update and review migration notes.`
+    );
+  } else if (comparison > 0) {
+    addWarning(
+      findings,
+      relativeFile,
+      `schema-version ${declared} is newer than validator schema ${SCHEMA_VERSION}; tooling may be behind.`
     );
   }
 }
@@ -285,6 +315,7 @@ async function main() {
   try {
     const { root, strict } = parseArgs(process.argv.slice(2));
     const findings = await validate(root);
+    console.log(`AI Context Framework — validator v${FRAMEWORK_VERSION} (schema ${SCHEMA_VERSION})`);
     printReport(findings);
 
     const hasErrors = findings.some((finding) => finding.severity === 'ERROR');

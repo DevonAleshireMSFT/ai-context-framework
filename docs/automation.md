@@ -29,10 +29,52 @@ Run these locally before opening a PR, or from CI in an adopter repository.
 | Script | Command | What it checks | Exit behavior |
 |--------|---------|----------------|---------------|
 | `scripts/validate-ai-context.mjs` | `npm run validate:ai-context` | `.ai/context.md` and `.ai/adr/NNNN-*.md` front matter matches the template contracts: required fields, semantic versions, ISO dates, allowed `review-cadence` values, and ADR number/filename agreement. | Exits non-zero when required files, fields, values, or ADR numbering are invalid. |
+| `scripts/check-drift.mjs` | `npm run check:drift` | Compares the consumer repo's framework stamp with this package's current framework and schema versions. | Advisory by default: exits 0 even when drift is found. Use `node scripts/check-drift.mjs --strict` to exit non-zero on drift. |
 | `scripts/check-links.mjs` | `npm run check:links` | Markdown links and anchors in `org/*.md`, `registry.md`, `CONTRIBUTING.md`, and `README.md`, including directory links and GitHub-style heading slugs. | Exits non-zero when a local link, external-format link, or anchor cannot be resolved. |
 | `scripts/validate-registry.mjs` | `npm run validate:registry` | The `registry.md` "Registered Repositories" table: seven columns, Mode and Status values parsed from the document, and ISO adoption dates. | Exits non-zero when the table shape, enum values, or dates are invalid. |
 | `scripts/check-staleness.mjs` | `node scripts/check-staleness.mjs --ci` | `.ai/context.md` freshness based on its `review-cadence`, mapped to a maximum allowed age. Supports `--ci` and `--json` modes. | In `--ci` mode, exits non-zero when context is overdue; `--json` emits machine-readable results. |
 | Aggregate validation | `npm run validate` | Runs the conformance validators together for the standard local and CI quality gate. | Exits non-zero if any included validator fails. |
+
+---
+
+## Versioning & Drift Detection
+
+The framework uses two versions, following [ADR-0002](../.ai/adr/0002-framework-distribution.md):
+
+- `FRAMEWORK_VERSION` is the tooling/package version. `package.json` is the release source of truth, and `scripts/lib/version.mjs` reads it so scripts and future CLI stamps use the same value.
+- `SCHEMA_VERSION` is the `.ai/` content contract version enforced by the validator. It starts at `1.0.0`.
+
+Managed consumer repositories will carry a framework stamp at the repository root:
+
+```json
+{
+  "frameworkVersion": "0.1.0",
+  "schemaVersion": "1.0.0"
+}
+```
+
+The stamp file is `.ai-context.json`. Issue #24's `init` and `update` commands will write and maintain it; the issue #23 drift check only reads it and never mutates the working tree.
+
+Run drift detection with:
+
+```bash
+npm run check:drift
+node scripts/check-drift.mjs --strict
+```
+
+Drift semantics:
+
+- No `.ai-context.json`: informational "unmanaged / pre-CLI install" notice; exit 0.
+- Stamp older than `FRAMEWORK_VERSION`: warning with installed/latest versions and an update hint.
+- Stamp equal to current framework and schema: OK.
+- Stamp newer than this package: informational notice, useful when a consumer repo is ahead of local tooling.
+- Stamp `schemaVersion` older than `SCHEMA_VERSION`: warning with a migration pointer.
+
+Schema compatibility follows ADR-0002 and is evaluated at `MAJOR.MINOR` granularity. Patch differences are backward-compatible clarifications and do not trigger schema drift warnings. A prerelease of the same `MAJOR.MINOR` (for example, `1.0.0-alpha` when the validator schema is `1.0.0`) is treated as older than the released schema and produces a warning; a newer `MAJOR.MINOR` warns that tooling may be behind.
+
+`check:drift` is CI-safe and non-mutating. It exits 0 by default even when warnings are present so existing adopters are not broken by advisory drift. Teams that want a hard gate can pass `--strict`, which exits non-zero when warning-level drift is detected.
+
+The validator prints its framework and schema versions in the output header. A `.ai/context.md` may optionally declare `schema-version`; absent means current/compatible for backward compatibility. Schema drift is reported as warnings, not errors.
 
 ---
 
