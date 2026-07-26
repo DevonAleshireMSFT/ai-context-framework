@@ -92,11 +92,16 @@ Because AI Context Conformance is a required check, its [`paths:` filter](../.gi
 
 ## Enabling automation in an adopter repo
 
-1. Copy `scripts/` into the adopter repository.
-2. Copy the relevant `package.json` scripts: `validate:ai-context`, `check:links`, `validate:registry`, and `validate`.
-3. Copy `.github/workflows/ai-context-conformance.yml` and `.github/workflows/ai-context-staleness.yml`.
-4. Ensure `.ai/context.md` front matter is populated, especially `review-cadence` and review dates.
-5. Open a PR that touches `.ai/` or framework docs; the conformance workflow will run automatically.
+Use the CLI instead of copying files by hand:
+
+```bash
+npx @devonaleshiremsft/ai-context init
+npx @devonaleshiremsft/ai-context check
+```
+
+`init` installs the managed scripts, conformance workflow, PR template, `.ai-context.json` stamp, and `.gitignore` entry. `update` refreshes those managed tooling files later without touching `.ai/**`. See the [CLI reference](cli) for the manifest, flags, exit codes, and migration path from manual copy.
+
+Manual copy is now a fallback only for environments that cannot execute the packaged CLI or an approved mirrored tarball.
 
 ---
 

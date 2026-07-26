@@ -20,32 +20,45 @@ permalink: /getting-started
 
 The smallest useful configuration is the slim default. Start here.
 
-**1. Create `.ai/context.md` in your repo**
+**1. Run the CLI in your repo**
 
-Copy [`templates/context.md.template`](https://github.com/DevonAleshireMSFT/ai-context-framework/blob/main/templates/context.md.template) → `.ai/context.md` and fill in:
+```bash
+npx @devonaleshiremsft/ai-context init
+```
+
+This creates the slim default, installs the managed validation tooling, adds `.ai_local/` to `.gitignore`, and writes the framework stamp.
+
+> Publishing note: the package remains private until release; publishing flips `private` off without changing the scoped package name or `ai-context` bin.
+
+**2. Fill in `.ai/context.md`**
+
+Open `.ai/context.md` and replace placeholders:
 - Project name and platform
 - Key Rules (naming conventions, things that must never change)
 - Known Gotchas
 
 > **Recommended:** Use the AI Setup Assistant instead of filling in templates manually. See [AI Setup Assistant](#ai-setup-assistant) below.
 
-**2. Create `.ai/adr/`**
+**3. Create product ADRs when decisions exist**
 
-```bash
-mkdir .ai/adr
-```
+The CLI creates `.ai/adr/`. Product decisions live in `.ai/adr/NNNN-title.md`. Repos using Squad still record product decisions here; Squad links only.
 
-Product decisions live in `.ai/adr/NNNN-title.md`. Repos using Squad still record product decisions here; Squad links only.
+**4. Review Copilot auto-context**
 
-**3. Set up Copilot auto-context**
-
-Copy [`templates/copilot-instructions.md.template`](https://github.com/DevonAleshireMSFT/ai-context-framework/blob/main/templates/copilot-instructions.md.template) → `.github/copilot-instructions.md` and replace the project name and prefix placeholders.
+The CLI seeds `.github/copilot-instructions.md` only if it does not already exist. If your repo already has Squad or other instructions, `ai-context update` preserves them and manages only a delimited framework block.
 
 That's it. Open Copilot Chat — it will confirm it has read your project context before answering.
 
 ### Updating the framework
 
-The long-term distribution path is the scoped `@devonaleshiremsft/ai-context` npm CLI: `npx @devonaleshiremsft/ai-context update` will update framework-managed tooling without overwriting consumer-owned `.ai/**` content. Until the CLI ships, treat [ADR-0002](../.ai/adr/0002-framework-distribution.md) as the update contract and continue copying changes manually.
+Use the scoped npm CLI:
+
+```bash
+npx @devonaleshiremsft/ai-context update
+npx @devonaleshiremsft/ai-context check
+```
+
+`update` refreshes framework-managed tooling without overwriting consumer-owned `.ai/**` content. See the [CLI reference](cli) and [ADR-0002](../.ai/adr/0002-framework-distribution.md).
 
 > **Want the full setup?** Continue reading for the complete guide — schema docs, security context, decision records, and more.
 
@@ -99,6 +112,8 @@ Adopting the full framework for a project repository takes about 30 minutes. The
 ---
 
 ## Step 1 — Copy the Templates
+
+> Preferred path: run `npx @devonaleshiremsft/ai-context init`. Use this manual copy section only as a fallback for environments that cannot execute the packaged CLI.
 
 Copy the templates from the [AI Context Framework repository](https://github.com/DevonAleshireMSFT/ai-context-framework) into your project repo's `.ai/` directory, removing the `.template` extension:
 

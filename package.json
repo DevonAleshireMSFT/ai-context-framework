@@ -1,8 +1,11 @@
 {
-  "name": "ai-context-framework",
+  "name": "@devonaleshiremsft/ai-context",
   "private": true,
   "version": "0.1.0",
   "type": "module",
+  "bin": {
+    "ai-context": "./bin/ai-context.mjs"
+  },
   "engines": {
     "node": ">=18"
   },
