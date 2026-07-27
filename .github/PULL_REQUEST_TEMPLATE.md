@@ -10,7 +10,7 @@
 
 - [ ] **`data-model.md` updated** — if any table or column was added, removed, or renamed
 - [ ] **`security.md` updated** — if any role, group, or access pattern changed
-- [ ] **ADR created** — if an architecture decision was made (add to `decisions/`)
+- [ ] **Product ADR created** — if a durable product decision was made (add to `.ai/adr/NNNN-title.md`)
 - [ ] **`debt.md` updated** — if technical debt was added or resolved
 - [ ] **`pipelines.md` updated** — if any pipeline or deployment process changed
 - [ ] **`domain.md` updated** — if any domain term was added or redefined
