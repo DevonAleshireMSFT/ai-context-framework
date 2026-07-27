@@ -53,24 +53,39 @@ The slim default is three durable files/paths:
 └── copilot-instructions.md # Tells Copilot how to use .ai/
 ```
 
-**1. Create `.ai/context.md`**
+**1. Run the CLI**
 
-Copy [`templates/context.md.template`](templates/context.md.template) → `.ai/context.md` and fill in:
+```bash
+npx @devonaleshiremsft/ai-context init
+```
+
+This creates the slim default and installs the managed validation/update tooling.
+
+**2. Fill in `.ai/context.md`**
+
+Open `.ai/context.md` and fill in:
 - Project purpose and platform
 - Key product rules and constraints
 - Where durable detail lives
 
-**2. Create `.ai/adr/`**
+**3. Create product ADRs when decisions exist**
 
-Create the directory now, even if the first ADR comes later. Product decisions use `.ai/adr/NNNN-title.md`.
+The CLI creates `.ai/adr/`. Product decisions use `.ai/adr/NNNN-title.md`.
 
-**3. Set up Copilot auto-context**
+**4. Review Copilot auto-context**
 
-Copy [`templates/copilot-instructions.md.template`](templates/copilot-instructions.md.template) → `.github/copilot-instructions.md` and customize it.
+The CLI seeds `.github/copilot-instructions.md` if absent and preserves existing instructions on update.
 
 > **Tip — let Copilot fill it in for you:** Copy [`templates/setup-prompt.md.template`](templates/setup-prompt.md.template) → `.github/prompts/ai-context-setup.prompt.md` and run it in GitHub Copilot agent mode (`/ai-context-setup`).
 
 Optional files such as `data-model.md`, `security.md`, `domain.md`, `pipelines.md`, `debt.md`, `onboarding.md`, and `bootstrap-prompt.md` are added only when needed.
+
+Update framework-managed tooling later with:
+
+```bash
+npx @devonaleshiremsft/ai-context update
+npx @devonaleshiremsft/ai-context check
+```
 
 ### Using with Squad
 
