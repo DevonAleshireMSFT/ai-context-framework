@@ -120,3 +120,114 @@ test('empty target reports an error', () => {
     removeFixture(root);
   }
 });
+
+test('docs link escaping publish root reports an error', () => {
+  const root = makeFixture({
+    'docs/_config.yml': 'title: Fixture\n',
+    'docs/architecture.md': '[ADR](../.ai/adr/0001-foo.md)\n',
+    '.ai/adr/0001-foo.md': '# ADR\n',
+  });
+
+  try {
+    const report = checkLinks(root);
+    assert.equal(report.summary.errors, 1);
+    assert.match(report.files[0].errors[0].message, /Link escapes the GitHub Pages publish root \(docs\/\) and will 404/);
+    assert.equal(report.files[0].errors[0].target, '../.ai/adr/0001-foo.md');
+  } finally {
+    removeFixture(root);
+  }
+});
+
+test('docs in-site relative link passes', () => {
+  const root = makeFixture({
+    'docs/_config.yml': 'title: Fixture\n',
+    'docs/architecture.md': '[Automation](automation.md)\n',
+    'docs/automation.md': '# Automation\n',
+  });
+
+  try {
+    const report = checkLinks(root);
+    assert.equal(report.summary.errors, 0);
+    assert.equal(report.summary.warnings, 0);
+  } finally {
+    removeFixture(root);
+  }
+});
+
+test('docs just-the-docs permalink and explicit heading anchor passes', () => {
+  const root = makeFixture({
+    'docs/_config.yml': 'title: Fixture\n',
+    'docs/index.md': '[Architecture](architecture#tier-3-ai-local)\n',
+    'docs/architecture.md': '## Tier 3: `.ai_local/`\n{: #tier-3-ai-local }\n',
+  });
+
+  try {
+    const report = checkLinks(root);
+    assert.equal(report.summary.errors, 0);
+    assert.equal(report.summary.warnings, 0);
+  } finally {
+    removeFixture(root);
+  }
+});
+
+test('docs in-site missing relative link reports an error', () => {
+  const root = makeFixture({
+    'docs/_config.yml': 'title: Fixture\n',
+    'docs/architecture.md': '[Missing](missing.md)\n',
+  });
+
+  try {
+    const report = checkLinks(root);
+    assert.equal(report.summary.errors, 1);
+    assert.match(report.files[0].errors[0].message, /Target file does not exist: docs\/missing\.md/);
+  } finally {
+    removeFixture(root);
+  }
+});
+
+test('docs absolute GitHub blob link to out-of-site target passes', () => {
+  const root = makeFixture({
+    'docs/_config.yml': 'title: Fixture\n',
+    'docs/architecture.md': '[ADR](https://github.com/DevonAleshireMSFT/ai-context-framework/blob/main/.ai/adr/0001-foo.md)\n',
+  });
+
+  try {
+    const report = checkLinks(root);
+    assert.equal(report.summary.errors, 0);
+    assert.equal(report.summary.warnings, 0);
+  } finally {
+    removeFixture(root);
+  }
+});
+
+test('non-docs relative link escaping docs is not publish-root checked', () => {
+  const root = makeFixture({
+    'docs/_config.yml': 'title: Fixture\n',
+    'README.md': '[Parent](../outside.md)\n',
+    '../outside.md': '# Outside\n',
+  });
+
+  try {
+    const report = checkLinks(root);
+    assert.equal(report.summary.errors, 0);
+    assert.equal(report.summary.warnings, 0);
+  } finally {
+    removeFixture(root);
+  }
+});
+
+test('publish-root check is inert without docs config', () => {
+  const root = makeFixture({
+    'docs/architecture.md': '[ADR](../.ai/adr/0001-foo.md)\n',
+    '.ai/adr/0001-foo.md': '# ADR\n',
+  });
+
+  try {
+    const report = checkLinks(root);
+    assert.equal(report.summary.errors, 0);
+    assert.equal(report.summary.warnings, 0);
+    assert.equal(report.summary.files, 0);
+  } finally {
+    removeFixture(root);
+  }
+});

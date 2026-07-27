@@ -3,6 +3,9 @@ import path from 'node:path';
 
 const DEFAULT_FILES = ['registry.md', 'CONTRIBUTING.md', 'README.md'];
 const EXTERNAL_TARGET = /^(?:https?:|mailto:)/i;
+// GitHub Pages builds this repository from ./docs (see .github/workflows/pages.yml).
+// Repositories without docs/_config.yml skip publish-root-specific checks.
+const DEFAULT_PUBLISH_ROOT = 'docs';
 
 function posixPath(filePath) {
   return filePath.split(path.sep).join('/');
@@ -15,6 +18,7 @@ function fileLabel(root, filePath) {
 function readMarkdownFiles(root) {
   const files = [];
   const orgDir = path.join(root, 'org');
+  const publishRoot = findPublishRoot(root);
 
   if (fs.existsSync(orgDir) && fs.statSync(orgDir).isDirectory()) {
     for (const entry of fs.readdirSync(orgDir, { withFileTypes: true })) {
@@ -31,7 +35,32 @@ function readMarkdownFiles(root) {
     }
   }
 
+  if (publishRoot) {
+    files.push(...readMarkdownFilesRecursive(publishRoot));
+  }
+
   return files.sort((a, b) => fileLabel(root, a).localeCompare(fileLabel(root, b)));
+}
+
+function readMarkdownFilesRecursive(directory) {
+  const files = [];
+
+  for (const entry of fs.readdirSync(directory, { withFileTypes: true })) {
+    const resolved = path.join(directory, entry.name);
+    if (entry.isDirectory()) {
+      files.push(...readMarkdownFilesRecursive(resolved));
+    } else if (entry.isFile() && entry.name.endsWith('.md')) {
+      files.push(resolved);
+    }
+  }
+
+  return files;
+}
+
+function findPublishRoot(root) {
+  const publishRoot = path.join(root, DEFAULT_PUBLISH_ROOT);
+  const jekyllConfig = path.join(publishRoot, '_config.yml');
+  return fs.existsSync(jekyllConfig) && fs.statSync(jekyllConfig).isFile() ? publishRoot : null;
 }
 
 function stripFencedCode(markdown) {
@@ -89,6 +118,12 @@ function collectAnchors(filePath) {
   const seen = new Map();
 
   for (const line of stripFencedCode(content).split('\n')) {
+    const explicitAnchor = /^\s*\{:[^}]*#([\w-]+)[^}]*\}\s*$/.exec(line);
+    if (explicitAnchor) {
+      anchors.add(explicitAnchor[1].toLowerCase());
+      continue;
+    }
+
     const match = /^(#{1,6})\s+(.+?)\s*#*\s*$/.exec(line);
     if (!match) {
       continue;
@@ -166,7 +201,34 @@ function resolveTargetFile(sourceFile, target) {
   return { targetPath, fragment };
 }
 
-function validateTarget({ root, sourceFile, target, line, text, result, anchorCache }) {
+function isInsidePath(parentPath, childPath) {
+  const relative = path.relative(parentPath, childPath);
+  return relative === '' || (!relative.startsWith('..') && !path.isAbsolute(relative));
+}
+
+function resolveExistingTargetPath(targetPath, allowPermalink = false) {
+  if (fs.existsSync(targetPath)) {
+    return targetPath;
+  }
+
+  if (!allowPermalink) {
+    return targetPath;
+  }
+
+  const markdownPath = `${targetPath}.md`;
+  if (fs.existsSync(markdownPath)) {
+    return markdownPath;
+  }
+
+  const indexPath = path.join(targetPath, 'index.md');
+  if (fs.existsSync(indexPath)) {
+    return indexPath;
+  }
+
+  return targetPath;
+}
+
+function validateTarget({ root, publishRoot, sourceFile, target, line, text, result, anchorCache }) {
   result.checked += 1;
 
   if (!target) {
@@ -179,18 +241,34 @@ function validateTarget({ root, sourceFile, target, line, text, result, anchorCa
   }
 
   const { targetPath, fragment } = resolveTargetFile(sourceFile, target);
+  const sourceInPublishRoot = publishRoot && isInsidePath(publishRoot, sourceFile);
 
-  if (!fs.existsSync(targetPath)) {
+  if (
+    sourceInPublishRoot
+    && !isInsidePath(publishRoot, targetPath)
+  ) {
     result.errors.push({
       line,
       target,
-      message: `Target file does not exist: ${fileLabel(root, targetPath)}`,
+      message: `Link escapes the GitHub Pages publish root (${posixPath(path.relative(root, publishRoot))}/) and will 404 on the published site; use an absolute https://github.com/<owner>/<repo>/blob/<branch>/<path> URL instead.`,
       text,
     });
     return;
   }
 
-  const targetStat = fs.statSync(targetPath);
+  const resolvedTargetPath = resolveExistingTargetPath(targetPath, sourceInPublishRoot);
+
+  if (!fs.existsSync(resolvedTargetPath)) {
+    result.errors.push({
+      line,
+      target,
+      message: `Target file does not exist: ${fileLabel(root, resolvedTargetPath)}`,
+      text,
+    });
+    return;
+  }
+
+  const targetStat = fs.statSync(resolvedTargetPath);
   if (targetStat.isDirectory()) {
     return;
   }
@@ -199,7 +277,7 @@ function validateTarget({ root, sourceFile, target, line, text, result, anchorCa
     result.errors.push({
       line,
       target,
-      message: `Target file does not exist: ${fileLabel(root, targetPath)}`,
+      message: `Target file does not exist: ${fileLabel(root, resolvedTargetPath)}`,
       text,
     });
     return;
@@ -212,9 +290,9 @@ function validateTarget({ root, sourceFile, target, line, text, result, anchorCa
       return;
     }
 
-    const cacheKey = targetPath;
+    const cacheKey = resolvedTargetPath;
     if (!anchorCache.has(cacheKey)) {
-      anchorCache.set(cacheKey, collectAnchors(targetPath));
+      anchorCache.set(cacheKey, collectAnchors(resolvedTargetPath));
     }
 
     if (!anchorCache.get(cacheKey).has(normalizedFragment)) {
@@ -225,6 +303,7 @@ function validateTarget({ root, sourceFile, target, line, text, result, anchorCa
 
 export function checkLinks(root = process.cwd()) {
   const resolvedRoot = path.resolve(root);
+  const publishRoot = findPublishRoot(resolvedRoot);
   const files = readMarkdownFiles(resolvedRoot);
   const results = new Map();
   const anchorCache = new Map();
@@ -248,6 +327,7 @@ export function checkLinks(root = process.cwd()) {
 
       validateTarget({
         root: resolvedRoot,
+        publishRoot,
         sourceFile,
         target: link.target,
         line: link.line,

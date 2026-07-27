@@ -16,7 +16,7 @@ permalink: /cli
 
 ---
 
-The AI Context Framework is distributed as the zero-runtime-dependency Node CLI described by [ADR-0002](../.ai/adr/0002-framework-distribution.md).
+The AI Context Framework is distributed as the zero-runtime-dependency Node CLI described by [ADR-0002](https://github.com/DevonAleshireMSFT/ai-context-framework/blob/main/.ai/adr/0002-framework-distribution.md).
 
 > Publishing note: `package.json` is still `"private": true` while the framework is pre-publish. Releasing the npm package flips that flag but keeps the scoped package name `@devonaleshiremsft/ai-context` and bin command `ai-context`.
 
