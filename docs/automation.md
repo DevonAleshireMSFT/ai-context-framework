@@ -30,7 +30,7 @@ Run these locally before opening a PR, or from CI in an adopter repository.
 |--------|---------|----------------|---------------|
 | `scripts/validate-ai-context.mjs` | `npm run validate:ai-context` | `.ai/context.md` and `.ai/adr/NNNN-*.md` front matter matches the template contracts: required fields, semantic versions, ISO dates, allowed `review-cadence` values, and ADR number/filename agreement. | Exits non-zero when required files, fields, values, or ADR numbering are invalid. |
 | `scripts/check-drift.mjs` | `npm run check:drift` | Compares the consumer repo's framework stamp with this package's current framework and schema versions. | Advisory by default: exits 0 even when drift is found. Use `node scripts/check-drift.mjs --strict` to exit non-zero on drift. |
-| `scripts/check-links.mjs` | `npm run check:links` | Markdown links and anchors in `org/*.md`, `registry.md`, `CONTRIBUTING.md`, and `README.md`, including directory links and GitHub-style heading slugs. | Exits non-zero when a local link, external-format link, or anchor cannot be resolved. |
+| `scripts/check-links.mjs` | `npm run check:links` | Markdown links and anchors in `docs/**/*.md`, `org/*.md`, `registry.md`, `CONTRIBUTING.md`, and `README.md`, including directory links, GitHub-style heading slugs, and GitHub Pages publish-root safety. | Exits non-zero when a local link, external-format link, anchor, or Pages publish-root link cannot be resolved safely. |
 | `scripts/validate-registry.mjs` | `npm run validate:registry` | The `registry.md` "Registered Repositories" table: seven columns, Mode and Status values parsed from the document, and ISO adoption dates. | Exits non-zero when the table shape, enum values, or dates are invalid. |
 | `scripts/check-staleness.mjs` | `node scripts/check-staleness.mjs --ci` | `.ai/context.md` freshness based on its `review-cadence`, mapped to a maximum allowed age. Supports `--ci` and `--json` modes. | In `--ci` mode, exits non-zero when context is overdue; `--json` emits machine-readable results. |
 | Aggregate validation | `npm run validate` | Runs the conformance validators together for the standard local and CI quality gate. | Exits non-zero if any included validator fails. |
@@ -39,7 +39,7 @@ Run these locally before opening a PR, or from CI in an adopter repository.
 
 ## Versioning & Drift Detection
 
-The framework uses two versions, following [ADR-0002](../.ai/adr/0002-framework-distribution.md):
+The framework uses two versions, following [ADR-0002](https://github.com/DevonAleshireMSFT/ai-context-framework/blob/main/.ai/adr/0002-framework-distribution.md):
 
 - `FRAMEWORK_VERSION` is the tooling/package version. `package.json` is the release source of truth, and `scripts/lib/version.mjs` reads it so scripts and future CLI stamps use the same value.
 - `SCHEMA_VERSION` is the `.ai/` content contract version enforced by the validator. It starts at `1.0.0`.
@@ -83,6 +83,8 @@ The validator prints its framework and schema versions in the output header. A `
 Two workflows can be copied into adopter repositories.
 
 **AI Context Conformance** lives at `.github/workflows/ai-context-conformance.yml`. It runs on pull requests that touch `.ai/`, `templates/`, `org/`, scripts, workflows, or other framework-controlled documentation. The blocking job validates `.ai/`, checks Markdown links, and runs the unit tests. A separate informational job runs stricter checks with `--strict`; it reports findings without blocking the PR. The workflow only needs read access to repository contents.
+
+For repositories with a Jekyll site at `docs/_config.yml`, `check-links.mjs` treats `docs/` as the GitHub Pages publish root. Relative links inside `docs/` must stay under `docs/`; links to out-of-site files such as `.ai/`, `.github/`, or `org/` must use absolute `https://github.com/<owner>/<repo>/blob/<branch>/<path>` URLs so the published site does not 404.
 
 Because AI Context Conformance is a required check, its [`paths:` filter](https://github.com/DevonAleshireMSFT/ai-context-framework/blob/main/.github/workflows/ai-context-conformance.yml) must include every content directory that should be gated; otherwise matching PRs can silently skip the workflow and wait forever on the required status. The filter now covers `.ai/`, `templates/`, `org/`, `scripts/`, `docs/`, `examples/`, and key root documentation so content PRs receive the `BLOCKING - Conformance gate` result.
 

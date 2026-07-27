@@ -58,7 +58,7 @@ npx @devonaleshiremsft/ai-context update
 npx @devonaleshiremsft/ai-context check
 ```
 
-`update` refreshes framework-managed tooling without overwriting consumer-owned `.ai/**` content. See the [CLI reference](cli) and [ADR-0002](../.ai/adr/0002-framework-distribution.md).
+`update` refreshes framework-managed tooling without overwriting consumer-owned `.ai/**` content. See the [CLI reference](cli) and [ADR-0002](https://github.com/DevonAleshireMSFT/ai-context-framework/blob/main/.ai/adr/0002-framework-distribution.md).
 
 > **Want the full setup?** Continue reading for the complete guide — schema docs, security context, decision records, and more.
 
