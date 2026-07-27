@@ -15,3 +15,4 @@
 - 2026-07-25T02:22:07-07:00: Reviewed issue #4 work in PR #12 and participated in reviewer-lockout flow for the overnight run.
 
 📌 Team update (2026-07-26T00:04:33-07:00): Overnight epic produced stacked PRs #25 → #26 → #27. Durable learnings: verify npm package names before naming ADRs/tooling; schema drift compatibility must compare MAJOR.MINOR explicitly, treating patch as compatible and current-line prerelease as warning; CLI updates must preserve adopter-owned `.ai/**` content and only modify manifest-managed files or bounded merge blocks.
+- 2026-07-27T10:40:00-07:00: Reviewed PR #33 and approved the publish-root link validator after verifying 49/49 tests, regression coverage, no false positives, and Windows/POSIX-safe behavior.

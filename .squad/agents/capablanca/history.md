@@ -14,3 +14,4 @@
 📌 Team update (2026-07-25T01:08:38-07:00): Boundary refactor planned — `.ai/` will remain slim durable product context while Squad owns team execution; docs and validation work will follow.
 - 2026-07-25T02:22:07-07:00: Delivered issue #8 in PR #18 by adding the Automation & CI docs page and docs index pointer.
 - 2026-07-25T02:22:07-07:00: Delivered issue #7 in PR #16 with the org standards review workflow and scoped CODEOWNERS.
+- 2026-07-27T10:40:00-07:00: Fixed GitHub Pages 404s and escaping docs links in PR #28 (fd1c251), then fixed issue #29 by correcting the PR-template ADR path in PR #32 (fdd7ebd).

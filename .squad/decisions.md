@@ -21,7 +21,6 @@
 - The conformance CI path filter and `git add .ai/` staging would sweep it in.
 Nesting under `.ai/` would force an explicit exclude in the indexer, the CI filter, `.gitignore`, and every future `.ai/**` scanner. The sibling keeps personal context invisible to tooling by default (secure/private-by-default). See `docs/architecture.md` Tier-3 (`tier-3--personal-context`).
 
-
 ### 2026-07-26T00:04:33-07:00: Framework distribution execution contract (consolidated)
 **By:** Carlsen, Kasparov, Polgar, Fact Checker
 **What:** Framework distribution product details live in [ADR-0002](../.ai/adr/0002-framework-distribution.md). For team execution, use the scoped package name `@devonaleshiremsft/ai-context` after Fact Checker found the unscoped `ai-context` npm name was taken.
@@ -36,3 +35,13 @@ Nesting under `.ai/` would force an explicit exclude in the indexer, the CI filt
 **By:** Tal, Polgar, Fact Checker
 **What:** The CLI treats project `.ai/**` content as adopter-owned and preserves it byte-for-byte. Only manifest-managed framework files are initialized or updated; `.github/copilot-instructions.md` is merged through a bounded BEGIN/END block, `--dry-run` is non-mutating, `--strict` controls check behavior, and `.ai-context.json` records the installed stamp.
 **Why:** This contract lets automation update framework scaffolding without overwriting local project context, making `init`, `update`, and `check` safe and idempotent.
+
+### 2026-07-27: GitHub Pages links to out-of-site repo files use absolute blob URLs
+**By:** Capablanca
+**What:** Published docs under `docs/` must link to files outside the Jekyll publish root with absolute `https://github.com/DevonAleshireMSFT/ai-context-framework/blob/main/...` URLs, preserving anchors.
+**Why:** GitHub Pages publishes only `docs/`; relative `../` links to repo-root files can work on github.com but render as broken Pages URLs.
+
+### 2026-07-27: Docs links must stay inside the Pages publish root
+**By:** Tal
+**What:** `check-links.mjs` now treats `docs/` as the GitHub Pages publish root when `docs/_config.yml` exists, and errors when relative links from `docs/**/*.md` resolve outside that root.
+**Why:** GitHub Pages builds only `docs/`, so relative links from published pages to repository-root files 404. Out-of-site targets must use absolute GitHub blob URLs.
