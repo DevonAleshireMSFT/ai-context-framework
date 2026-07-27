@@ -96,9 +96,9 @@ await fetch(`${endpoint}/indexes/${indexName}/docs/index?api-version=2024-07-01`
 
 ## Governance: what may be indexed vs. what stays local
 
-Only committed `.ai/` content may be indexed. Tier-3 `.ai_local/` is never indexed, never committed, and never leaves the developer's machine; see the [Tier-3 contract in Architecture](architecture#tier-3--personal-context).
+Only committed `.ai/` content may be indexed. Tier-3 `.ai_local/` is never indexed, never committed, and never leaves the developer's machine; see the [Tier-3 contract in Architecture](architecture#tier-3-ai-local).
 
-Do not index credentials, tokens, connection strings, secrets, or PII. Treat the index as another copy of the governed source documents: respect the same ownership, review, and update triggers described in [Governance](governance) and [enterprise governance](../org/governance.md).
+Do not index credentials, tokens, connection strings, secrets, or PII. Treat the index as another copy of the governed source documents: respect the same ownership, review, and update triggers described in [Governance](governance) and [enterprise governance](https://github.com/DevonAleshireMSFT/ai-context-framework/blob/main/org/governance.md).
 
 ---
 

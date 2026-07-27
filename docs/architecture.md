@@ -111,7 +111,7 @@ Tier 3 is private, per-developer scratch context that a local AI assistant may r
 
 - Authoritative standards or enterprise policy. Those belong in Tier 1 `org/`.
 - Durable project context or product decisions. Product ADRs belong in `.ai/adr/`.
-- Squad team decisions, routing, ceremonies, or execution logs. Those belong in `.squad/`; see [ADR-0001](../.ai/adr/0001-ai-squad-boundary.md).
+- Squad team decisions, routing, ceremonies, or execution logs. Those belong in `.squad/`; see [ADR-0001](https://github.com/DevonAleshireMSFT/ai-context-framework/blob/main/.ai/adr/0001-ai-squad-boundary.md).
 - Secrets, credentials, tokens, connection strings, private keys, or other sensitive values.
 
 ### Relationship to other memory surfaces
@@ -123,7 +123,7 @@ Tier 3 is private, per-developer scratch context that a local AI assistant may r
 | Tier 3 `.ai_local/` | One developer and their local assistant | Disposable working memory | Private to one machine/developer | Gitignored |
 | `.squad/` | Squad AI team and PM | Shared AI-team working log and process state | Shared with the repository's Squad workflow | Partially committed; runtime state gitignored |
 
-The `.ai/` and `.squad/` boundary is defined in [ADR-0001](../.ai/adr/0001-ai-squad-boundary.md). Tier 3 is separate from both: it is developer-private working memory, not shared product context and not shared Squad state.
+The `.ai/` and `.squad/` boundary is defined in [ADR-0001](https://github.com/DevonAleshireMSFT/ai-context-framework/blob/main/.ai/adr/0001-ai-squad-boundary.md). Tier 3 is separate from both: it is developer-private working memory, not shared product context and not shared Squad state.
 
 ### Lifecycle and precedence
 
