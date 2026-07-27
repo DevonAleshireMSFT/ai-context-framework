@@ -129,7 +129,7 @@ Changes to Tier 1 (the enterprise framework repo itself) follow a higher bar:
 
 This ensures that changes to shared standards don't silently break teams who have already adopted the framework.
 
-The authoritative review workflow for `org/`, registry, template-contract, and framework Product ADR changes is defined in [`org/governance.md`](../org/governance.md#review-workflow-for-org-standards).
+The authoritative review workflow for `org/`, registry, template-contract, and framework Product ADR changes is defined in [`org/governance.md`](https://github.com/DevonAleshireMSFT/ai-context-framework/blob/main/org/governance.md#review-workflow-for-org-standards).
 
 ---
 
