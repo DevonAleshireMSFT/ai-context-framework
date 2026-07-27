@@ -89,6 +89,8 @@ This is your personal working memory. It is never shared and never committed. Se
 
 This tier is only needed when multiple project repositories adopt the framework and you want consistent standards across all of them. Changes to Tier 1 affect all downstream projects.
 
+Tier 1 tooling has its own `FRAMEWORK_VERSION`, while the Tier 2 `.ai/` frontmatter contract has a `SCHEMA_VERSION`. Consumer repositories keep their Tier 2 content durable and project-owned; the framework-managed `.ai-context.json` stamp records only installed tooling/schema versions for drift checks, per [ADR-0002](../.ai/adr/0002-framework-distribution.md).
+
 ---
 
 ## Tier 3: `.ai_local/` — Developer-Local Working Memory
