@@ -13,3 +13,5 @@
 📌 Team update (2026-07-25T01:08:38-07:00): Boundary refactor planned — `.ai/` will remain slim durable product context while Squad owns team execution; docs and validation work will follow.
 - 2026-07-25T01:38:26-07:00: Approved the `.ai/` ↔ `.squad/` boundary refactor on re-review after Kasparov's fixes.
 - 2026-07-25T02:22:07-07:00: Reviewed issue #4 work in PR #12 and participated in reviewer-lockout flow for the overnight run.
+
+📌 Team update (2026-07-26T00:04:33-07:00): Overnight epic produced stacked PRs #25 → #26 → #27. Durable learnings: verify npm package names before naming ADRs/tooling; schema drift compatibility must compare MAJOR.MINOR explicitly, treating patch as compatible and current-line prerelease as warning; CLI updates must preserve adopter-owned `.ai/**` content and only modify manifest-managed files or bounded merge blocks.

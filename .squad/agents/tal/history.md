@@ -14,3 +14,5 @@
 - 2026-07-25T02:22:07-07:00: Delivered issues #1 and #2 in PRs #13 and #14, establishing conformance CI plus staleness review automation.
 
 - 2026-07-25T13:48:45-07:00: Contributed the tooling recommendation that Tier-3 personal context remain in sibling .ai_local/, not nested .ai/local/, so conformance filters, staging, and RAG scanners stay private-by-default.
+
+📌 Team update (2026-07-26T00:04:33-07:00): Overnight epic produced stacked PRs #25 → #26 → #27. Durable learnings: verify npm package names before naming ADRs/tooling; schema drift compatibility must compare MAJOR.MINOR explicitly, treating patch as compatible and current-line prerelease as warning; CLI updates must preserve adopter-owned `.ai/**` content and only modify manifest-managed files or bounded merge blocks.

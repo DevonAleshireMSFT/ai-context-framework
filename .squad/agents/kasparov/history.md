@@ -13,3 +13,5 @@
 - Terminology must stay consistent with `org/glossary.md`.
 - 2026-07-25T01:38:26-07:00: Revised `.squad/decisions.md`, `templates/context.md.template`, and `.ai/adr/0001-ai-squad-boundary.md` to clear Polgar's boundary-refactor block.
 - 2026-07-25T02:22:07-07:00: Delivered issue #6 in PR #15 with the `registry.md` schema validator and revised boundary work while locked-out agents stood aside.
+
+📌 Team update (2026-07-26T00:04:33-07:00): Overnight epic produced stacked PRs #25 → #26 → #27. Durable learnings: verify npm package names before naming ADRs/tooling; schema drift compatibility must compare MAJOR.MINOR explicitly, treating patch as compatible and current-line prerelease as warning; CLI updates must preserve adopter-owned `.ai/**` content and only modify manifest-managed files or bounded merge blocks.

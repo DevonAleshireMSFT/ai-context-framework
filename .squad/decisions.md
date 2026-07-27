@@ -21,3 +21,18 @@
 - The conformance CI path filter and `git add .ai/` staging would sweep it in.
 Nesting under `.ai/` would force an explicit exclude in the indexer, the CI filter, `.gitignore`, and every future `.ai/**` scanner. The sibling keeps personal context invisible to tooling by default (secure/private-by-default). See `docs/architecture.md` Tier-3 (`tier-3--personal-context`).
 
+
+### 2026-07-26T00:04:33-07:00: Framework distribution execution contract (consolidated)
+**By:** Carlsen, Kasparov, Polgar, Fact Checker
+**What:** Framework distribution product details live in [ADR-0002](../.ai/adr/0002-framework-distribution.md). For team execution, use the scoped package name `@devonaleshiremsft/ai-context` after Fact Checker found the unscoped `ai-context` npm name was taken.
+**Why:** Linking the ADR keeps product rationale in one source of truth, while recording the collision lesson and scoped-name execution contract for future tooling and review work.
+
+### 2026-07-26T00:04:33-07:00: Schema compatibility contract for drift checks
+**By:** Tal, Polgar, Kasparov
+**What:** Schema compatibility is governed by explicit `MAJOR.MINOR` comparison: patch releases are compatible, prereleases of the current major/minor warn, and incompatible major/minor drift is reported distinctly.
+**Why:** Polgar caught that the original schema comparison ignored patch/prerelease behavior; the revised contract makes validator warnings predictable for release and update automation.
+
+### 2026-07-26T00:04:33-07:00: CLI managed-vs-owned file contract
+**By:** Tal, Polgar, Fact Checker
+**What:** The CLI treats project `.ai/**` content as adopter-owned and preserves it byte-for-byte. Only manifest-managed framework files are initialized or updated; `.github/copilot-instructions.md` is merged through a bounded BEGIN/END block, `--dry-run` is non-mutating, `--strict` controls check behavior, and `.ai-context.json` records the installed stamp.
+**Why:** This contract lets automation update framework scaffolding without overwriting local project context, making `init`, `update`, and `check` safe and idempotent.
