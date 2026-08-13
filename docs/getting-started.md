@@ -23,8 +23,11 @@ The smallest useful configuration is the slim default. Start here.
 **1. Run the CLI in your repo**
 
 ```bash
-npx @devonaleshiremsft/ai-context init
+npm i -g github:DevonAleshireMSFT/ai-context-framework
+ai-context init
 ```
+
+> Prefer a one-off run? Use `npx github:DevonAleshireMSFT/ai-context-framework init` instead of installing globally.
 
 This creates the slim default, installs the managed validation tooling, adds `.ai_local/` to `.gitignore`, and writes the framework stamp.
 
@@ -45,7 +48,7 @@ The CLI creates `.ai/adr/`. Product decisions live in `.ai/adr/NNNN-title.md`. R
 
 **4. Review Copilot auto-context**
 
-The CLI seeds `.github/copilot-instructions.md` only if it does not already exist. If your repo already has Squad or other instructions, `ai-context update` preserves them and manages only a delimited framework block.
+The CLI seeds `.github/copilot-instructions.md` if it does not exist. If your repo already has Squad or other instructions, both `ai-context init` and `ai-context update` preserve them and manage only a delimited framework block.
 
 That's it. Open Copilot Chat — it will confirm it has read your project context before answering.
 
@@ -54,8 +57,8 @@ That's it. Open Copilot Chat — it will confirm it has read your project contex
 Use the scoped npm CLI:
 
 ```bash
-npx @devonaleshiremsft/ai-context update
-npx @devonaleshiremsft/ai-context check
+ai-context update
+ai-context check
 ```
 
 `update` refreshes framework-managed tooling without overwriting consumer-owned `.ai/**` content. See the [CLI reference](cli) and [ADR-0002](https://github.com/DevonAleshireMSFT/ai-context-framework/blob/main/.ai/adr/0002-framework-distribution.md).
@@ -113,7 +116,7 @@ Adopting the full framework for a project repository takes about 30 minutes. The
 
 ## Step 1 — Copy the Templates
 
-> Preferred path: run `npx @devonaleshiremsft/ai-context init`. Use this manual copy section only as a fallback for environments that cannot execute the packaged CLI.
+> Preferred path: install the CLI (`npm i -g github:DevonAleshireMSFT/ai-context-framework`) and run `ai-context init`, or run it once with `npx github:DevonAleshireMSFT/ai-context-framework init`. Use this manual copy section only as a fallback for environments that cannot execute the packaged CLI.
 
 Copy the templates from the [AI Context Framework repository](https://github.com/DevonAleshireMSFT/ai-context-framework) into your project repo's `.ai/` directory, removing the `.template` extension:
 

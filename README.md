@@ -55,11 +55,22 @@ The slim default is three durable files/paths:
 
 **1. Run the CLI**
 
+Install the CLI globally from the framework repository, then run it from inside your project:
+
 ```bash
-npx @devonaleshiremsft/ai-context init
+npm i -g github:DevonAleshireMSFT/ai-context-framework
+ai-context init
+```
+
+Or run it once without installing:
+
+```bash
+npx github:DevonAleshireMSFT/ai-context-framework init
 ```
 
 This creates the slim default and installs the managed validation/update tooling.
+
+> The CLI has no third-party dependencies and no build step, so npm installs it directly from Git. For private-repo access, npm reuses your existing GitHub credentials (SSH key or PAT).
 
 **2. Fill in `.ai/context.md`**
 
@@ -74,7 +85,7 @@ The CLI creates `.ai/adr/`. Product decisions use `.ai/adr/NNNN-title.md`.
 
 **4. Review Copilot auto-context**
 
-The CLI seeds `.github/copilot-instructions.md` if absent and preserves existing instructions on update.
+The CLI seeds `.github/copilot-instructions.md` if absent, and if the file already exists it preserves your content and merges in only a delimited framework block — on both `init` and `update`.
 
 > **Tip — let Copilot fill it in for you:** Copy [`templates/setup-prompt.md.template`](templates/setup-prompt.md.template) → `.github/prompts/ai-context-setup.prompt.md` and run it in GitHub Copilot agent mode (`/ai-context-setup`).
 
@@ -83,8 +94,8 @@ Optional files such as `data-model.md`, `security.md`, `domain.md`, `pipelines.m
 Update framework-managed tooling later with:
 
 ```bash
-npx @devonaleshiremsft/ai-context update
-npx @devonaleshiremsft/ai-context check
+ai-context update
+ai-context check
 ```
 
 ### Using with Squad
@@ -376,6 +387,8 @@ With the framework (context in `copilot-instructions.md`):
 - PR template enforcement
 - `.gitignore` validation in CI
 - Context freshness validation in pipelines
+- Distribute the CLI as a versioned tarball (`npm pack`) for air-gapped/locked-down environments
+- Publish the CLI to an internal npm feed so `npm i -g @devonaleshiremsft/ai-context` works org-wide
 
 ### Medium-Term
 - Generate schema snapshots from CLI tools
