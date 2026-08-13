@@ -16,9 +16,9 @@ permalink: /cli
 
 ---
 
-The AI Context Framework is distributed as the zero-runtime-dependency Node CLI described by [ADR-0002](https://github.com/DevonAleshireMSFT/ai-context-framework/blob/main/.ai/adr/0002-framework-distribution.md).
+The AI Context Framework is distributed as a zero-runtime-dependency Node CLI. Git install is the current primary distribution channel, per [ADR-0003](https://github.com/DevonAleshireMSFT/ai-context-framework/blob/main/.ai/adr/0003-git-install-primary-distribution.md) (which supersedes the npm-primary channel in [ADR-0002](https://github.com/DevonAleshireMSFT/ai-context-framework/blob/main/.ai/adr/0002-framework-distribution.md)).
 
-> Publishing note: `package.json` is still `"private": true` while the framework is pre-publish. Releasing the npm package flips that flag but keeps the scoped package name `@devonaleshiremsft/ai-context` and bin command `ai-context`.
+> Publishing note: `package.json` is `"private": true` and the scoped package `@devonaleshiremsft/ai-context` is unpublished, so `npx @devonaleshiremsft/ai-context` does **not** work. Use the git-install commands below. Publishing to an npm feed is a deferred channel on the [roadmap backlog](https://github.com/DevonAleshireMSFT/ai-context-framework#roadmap).
 
 ## Install / invoke
 
@@ -37,7 +37,7 @@ Or invoke a single command without installing:
 npx github:DevonAleshireMSFT/ai-context-framework init
 ```
 
-Enterprise mirrors and offline tarballs use the same subcommands:
+Enterprise mirrors and offline tarballs are **deferred channels** ([roadmap backlog](https://github.com/DevonAleshireMSFT/ai-context-framework#roadmap)). When published, they will use the same subcommands — for example a pinned tarball:
 
 ```bash
 npx ./ai-context-0.1.0.tgz update

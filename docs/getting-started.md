@@ -31,7 +31,7 @@ ai-context init
 
 This creates the slim default, installs the managed validation tooling, adds `.ai_local/` to `.gitignore`, and writes the framework stamp.
 
-> Publishing note: the package remains private until release; publishing flips `private` off without changing the scoped package name or `ai-context` bin.
+> Publishing note: `@devonaleshiremsft/ai-context` is unpublished, so `npx @devonaleshiremsft/ai-context` does not work — use the git-install command above. An npm feed is a deferred channel on the [roadmap backlog](https://github.com/DevonAleshireMSFT/ai-context-framework#roadmap); see [ADR-0003](https://github.com/DevonAleshireMSFT/ai-context-framework/blob/main/.ai/adr/0003-git-install-primary-distribution.md).
 
 **2. Fill in `.ai/context.md`**
 
@@ -54,7 +54,7 @@ That's it. Open Copilot Chat — it will confirm it has read your project contex
 
 ### Updating the framework
 
-Use the scoped npm CLI:
+Use the CLI (installed via git, above):
 
 ```bash
 ai-context update
