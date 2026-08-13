@@ -33,7 +33,7 @@ test('init on empty repo creates scaffold, managed tooling, workflow, PR templat
   });
 });
 
-test('init rerun skips existing files and does not clobber consumer edits', async () => {
+test('init rerun preserves consumer context, and merges the managed block into existing copilot instructions', async () => {
   await withFixture(async (root) => {
     assert.equal(runCli('init', '--cwd', root).status, 0);
     const customContext = 'consumer-owned context\n';
@@ -45,8 +45,19 @@ test('init rerun skips existing files and does not clobber consumer edits', asyn
 
     assert.equal(result.status, 0, result.stderr);
     assert.match(result.stdout, /skipped:/);
+    // .ai/context.md is copy-if-absent: never overwritten.
     assert.equal(await readText(root, '.ai/context.md'), customContext);
-    assert.equal(await readText(root, '.github/copilot-instructions.md'), customCopilot);
+    // copilot-instructions.md: existing content preserved, managed block injected.
+    const merged = await readText(root, '.github/copilot-instructions.md');
+    assert.match(merged, /consumer-owned copilot instructions/);
+    assert.match(merged, /BEGIN AI CONTEXT FRAMEWORK MANAGED BLOCK/);
+    assert.match(merged, /END AI CONTEXT FRAMEWORK MANAGED BLOCK/);
+
+    // Re-running is idempotent: the block is replaced in place, not duplicated.
+    assert.equal(runCli('init', '--cwd', root).status, 0);
+    const second = await readText(root, '.github/copilot-instructions.md');
+    assert.equal(second, merged);
+    assert.equal((second.match(/BEGIN AI CONTEXT FRAMEWORK MANAGED BLOCK/g) || []).length, 1);
   });
 });
 
