@@ -97,8 +97,9 @@ Because AI Context Conformance is a required check, its [`paths:` filter](https:
 Use the CLI instead of copying files by hand:
 
 ```bash
-npx @devonaleshiremsft/ai-context init
-npx @devonaleshiremsft/ai-context check
+npm i -g github:DevonAleshireMSFT/ai-context-framework
+ai-context init
+ai-context check
 ```
 
 `init` installs the managed scripts, conformance workflow, PR template, `.ai-context.json` stamp, and `.gitignore` entry. `update` refreshes those managed tooling files later without touching `.ai/**`. See the [CLI reference](cli) for the manifest, flags, exit codes, and migration path from manual copy.

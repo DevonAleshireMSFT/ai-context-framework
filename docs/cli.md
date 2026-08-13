@@ -22,10 +22,19 @@ The AI Context Framework is distributed as the zero-runtime-dependency Node CLI 
 
 ## Install / invoke
 
+Install the CLI globally from the framework repository, then run the commands from inside your project:
+
 ```bash
-npx @devonaleshiremsft/ai-context init
-npx @devonaleshiremsft/ai-context update
-npx @devonaleshiremsft/ai-context check
+npm i -g github:DevonAleshireMSFT/ai-context-framework
+ai-context init
+ai-context update
+ai-context check
+```
+
+Or invoke a single command without installing:
+
+```bash
+npx github:DevonAleshireMSFT/ai-context-framework init
 ```
 
 Enterprise mirrors and offline tarballs use the same subcommands:
@@ -45,7 +54,7 @@ Scaffolds a consumer repository safely:
 - installs managed tooling files
 - installs `.github/workflows/ai-context-conformance.yml`
 - installs `.github/PULL_REQUEST_TEMPLATE.md`
-- seeds `.github/copilot-instructions.md` only when absent
+- seeds `.github/copilot-instructions.md`, merging a delimited framework block into any existing file without clobbering its content
 - appends `.ai_local/` to `.gitignore` if missing
 - writes `.ai-context.json`
 
@@ -101,7 +110,7 @@ Template source files are seed inputs for `init`; they are not overwritten by `u
 
 ## Copilot instructions merge
 
-`update` preserves existing `.github/copilot-instructions.md` content, including Squad coordinator instructions. It adds or replaces only the delimited framework block:
+Both `init` and `update` preserve existing `.github/copilot-instructions.md` content, including Squad coordinator instructions. They add or replace only the delimited framework block:
 
 ```markdown
 <!-- BEGIN AI CONTEXT FRAMEWORK MANAGED BLOCK -->
@@ -114,8 +123,8 @@ Template source files are seed inputs for `init`; they are not overwritten by `u
 Run:
 
 ```bash
-npx @devonaleshiremsft/ai-context update
-npx @devonaleshiremsft/ai-context check
+ai-context update
+ai-context check
 ```
 
 Review the report. If schema drift is reported, read the release notes or migration guidance for the target schema before changing `.ai/**` content manually.
@@ -124,9 +133,9 @@ Review the report. If schema drift is reported, read the release notes or migrat
 
 For repositories that previously copied files by hand:
 
-1. Run `npx @devonaleshiremsft/ai-context update`.
+1. Run `ai-context update`.
 2. The CLI treats a missing `.ai-context.json` as unmanaged and adopts the repo by installing managed tooling and writing the stamp.
 3. Review the report for preserved files and any manual actions.
-4. Run `npx @devonaleshiremsft/ai-context check`.
+4. Run `ai-context check`.
 
 This replaces the old manual copy process for tooling updates. Manual fallback remains available only for environments that cannot execute Node/npm artifacts.
