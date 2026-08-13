@@ -1,3 +1,13 @@
+# Line-ending normalization: auto-detect text, store and check out as LF everywhere.
+# Stops the "LF will be replaced by CRLF" churn under core.autocrlf on Windows.
+# Binary files are auto-detected by `text=auto` and left untouched.
+* text=auto eol=lf
+
+# Windows-native scripts must keep CRLF if any are ever added.
+*.bat text eol=crlf
+*.cmd text eol=crlf
+*.ps1 text eol=crlf
+
 # Squad: union merge for append-only team state files
 .squad/decisions.md merge=union
 .squad/agents/*/history.md merge=union
