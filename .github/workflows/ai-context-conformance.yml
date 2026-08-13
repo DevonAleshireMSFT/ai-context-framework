@@ -14,6 +14,7 @@ on:
       - 'CONTRIBUTING.md'
       - 'scripts/**'
       - 'package.json'
+      - '.gitattributes'
       - '.github/workflows/ai-context-conformance.yml'
   workflow_dispatch:
 
