@@ -14,7 +14,11 @@ Generate the slim default:
 
 - `.ai/context.md`
 - `.ai/adr/` directory, with an initial ADR only if a durable product decision already exists
-- `.github/copilot-instructions.md`
+- an AI Context managed block in `.github/copilot-instructions.md`
+
+Preserve all existing `.github/copilot-instructions.md` content. Add or replace only the
+content between `<!-- BEGIN AI CONTEXT FRAMEWORK MANAGED BLOCK -->` and
+`<!-- END AI CONTEXT FRAMEWORK MANAGED BLOCK -->`. If the file or block is absent, create it.
 
 Create optional files only when the codebase or the developer's answers show they are needed:
 
@@ -56,6 +60,7 @@ Read the codebase and infer as much as possible:
 - **Current state** — what looks complete vs. scaffolded vs. TODO (open issues, `TODO`/`FIXME`, empty modules, feature flags).
 - **Rule & gotcha candidates** — naming conventions, generated files, `do not edit` banners, migration/back-compat notes, lint/format config.
 - **Optional-file signals** — a schema/migrations folder ⇒ `data-model.md`; auth/roles code ⇒ `security.md`; pipeline/env config ⇒ `pipelines.md`; a glossary-worthy domain vocabulary ⇒ `domain.md`.
+- **Optional Squad integration** — treat Squad as present only when `.squad/team.md` or `.github/agents/squad.agent.md` exists. AI Context does not require Squad; do not create `.squad/` or Squad coordinator files.
 
 ## Step 2 — Draft the files
 
@@ -73,7 +78,7 @@ settle. Skip anything you already answered from the code.
 - Fill each remaining `<!-- TODO: fill in -->`.
 - Ask whether any existing product/architecture **decision** should become an ADR — and if so, what was decided, why, what alternatives were rejected, and who reviews it.
 - Confirm which optional files (if any) are warranted.
-- Confirm the Squad boundary if `.squad/` is present.
+- Confirm the Squad boundary if `.squad/team.md` or `.github/agents/squad.agent.md` is present.
 
 After they answer, update the files and remove every resolved marker.
 
@@ -88,8 +93,9 @@ knowledge: WHAT the product is and WHY constraints exist. Set `last-updated` to 
 Include the short boundary note:
 
 - `.ai/` = durable product knowledge and Product ADRs
-- `.squad/` = AI-team working state
-- Squad links to `.ai/adr/` and does not restate product decisions
+- If Squad was detected, `.squad/` = AI-team working state
+- If Squad was detected, Squad links to `.ai/adr/` and does not restate product decisions
+- If Squad was not detected, omit Squad-specific paths and state that AI Context works independently
 
 ### `.ai/adr/`
 
@@ -101,8 +107,9 @@ Create the directory. Create `.ai/adr/0001-[kebab-title].md` from `templates/adr
 ### `.github/copilot-instructions.md`
 
 Tell Copilot to read `.ai/context.md` first and `.ai/adr/` for decision rationale and
-constraints. If Squad is present, state that `.squad/decisions.md` is not the product
-decision source.
+constraints. Preserve instructions outside the AI Context managed block. If Squad is
+present, state within the managed block that `.squad/decisions.md` is not the product
+decision source. Never install, create, remove, or rewrite Squad-owned files.
 
 ### Optional files
 

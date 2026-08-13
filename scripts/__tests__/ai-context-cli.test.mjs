@@ -14,6 +14,7 @@ test('init on empty repo creates scaffold, managed tooling, workflow, PR templat
     const result = runCli('init', '--cwd', root);
 
     assert.equal(result.status, 0, result.stderr);
+    assert.match(result.stdout, /squad: not detected \(optional\)/);
     assert.match(result.stdout, /created:/);
     await assertFileExists(root, '.ai/context.md');
     await assertFileExists(root, '.ai/adr');
@@ -30,6 +31,21 @@ test('init on empty repo creates scaffold, managed tooling, workflow, PR templat
       frameworkVersion: FRAMEWORK_VERSION,
       schemaVersion: SCHEMA_VERSION
     });
+    await assertPathMissing(root, '.squad');
+  });
+});
+
+test('init detects an existing Squad CLI project and preserves its state', async () => {
+  await withFixture(async (root) => {
+    const squadTeam = '# Existing Squad team\n';
+    await mkdir(path.join(root, '.squad'), { recursive: true });
+    await writeFile(path.join(root, '.squad', 'team.md'), squadTeam, 'utf8');
+
+    const result = runCli('init', '--cwd', root);
+
+    assert.equal(result.status, 0, result.stderr);
+    assert.match(result.stdout, /squad: detected/);
+    assert.equal(await readText(root, '.squad/team.md'), squadTeam);
   });
 });
 
@@ -98,13 +114,15 @@ test('update merges copilot instructions without clobbering existing Squad conte
   await withFixture(async (root) => {
     await writeOldInstall(root);
     const squadContent = '# Squad Coordinator\n\nSQUAD_COORDINATOR_CANARY_a8f3\n';
-    await mkdir(path.join(root, '.github'), { recursive: true });
+    await mkdir(path.join(root, '.github', 'agents'), { recursive: true });
     await writeFile(path.join(root, '.github', 'copilot-instructions.md'), squadContent, 'utf8');
+    await writeFile(path.join(root, '.github', 'agents', 'squad.agent.md'), '# Squad agent\n', 'utf8');
 
     const result = runCli('update', '--cwd', root);
     const merged = await readText(root, '.github/copilot-instructions.md');
 
     assert.equal(result.status, 0, result.stderr);
+    assert.match(result.stdout, /squad: detected/);
     assert.match(merged, /SQUAD_COORDINATOR_CANARY_a8f3/);
     assert.match(merged, /BEGIN AI CONTEXT FRAMEWORK MANAGED BLOCK/);
     assert.match(merged, /Before answering questions or generating code/);
@@ -223,6 +241,10 @@ async function writeStamp(root, stamp) {
 
 async function assertFileExists(root, relative) {
   await stat(path.join(root, ...relative.split('/')));
+}
+
+async function assertPathMissing(root, relative) {
+  await assert.rejects(stat(path.join(root, ...relative.split('/'))), { code: 'ENOENT' });
 }
 
 async function readText(root, relative) {

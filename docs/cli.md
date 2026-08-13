@@ -49,6 +49,7 @@ npx ./ai-context-0.1.0.tgz update
 
 Scaffolds a consumer repository safely:
 
+- detects whether the repository already uses Squad CLI, without requiring or installing Squad
 - creates `.ai/context.md` from `templates/context.md.template` only when absent
 - creates `.ai/adr/`
 - installs managed tooling files
@@ -59,6 +60,8 @@ Scaffolds a consumer repository safely:
 - writes `.ai-context.json`
 
 Existing files are skipped, never clobbered.
+
+For both `init` and `update`, Squad detection checks for `.squad/team.md` or `.github/agents/squad.agent.md`. Each command prints `squad: detected` when either artifact exists, otherwise `squad: not detected (optional)`. Detection is informational: both commands preserve Squad-owned files, and AI Context never installs, creates, or removes `.squad/`.
 
 ### `ai-context update`
 

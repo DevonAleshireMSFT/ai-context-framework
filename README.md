@@ -18,6 +18,8 @@ AI context is a **first-class engineering artifact** — not an afterthought. Th
 
 ## `.ai/` vs `.squad/` Boundary
 
+AI Context does **not** require Squad. It works by itself in any repository. If a project also uses [Squad](https://github.com/bradygaster/squad#squad), the two tools remain independent and use these boundaries:
+
 | Question | `.ai/` | `.squad/` |
 |----------|-------|-----------|
 | Answers | WHAT the product is and WHY constraints exist | HOW the AI team works, decided, and did the work |
@@ -100,6 +102,8 @@ ai-context check
 
 ### Using with Squad
 
+[Squad](https://github.com/bradygaster/squad#squad) adds persistent AI agent teams to a project; it is optional and installed separately. Both `ai-context init` and `ai-context update` detect an existing Squad project from `.squad/team.md` or `.github/agents/squad.agent.md`, preserve all Squad files, and report `squad: detected`. Without those artifacts, they report `squad: not detected (optional)` and never create `.squad/`.
+
 Squad does not replace `.ai/`. Keep durable product knowledge and Product ADRs in `.ai/`; keep AI-team working logs in `.squad/`. Squad decisions link to `.ai/adr/` instead of restating product decisions.
 
 ---
@@ -130,8 +134,8 @@ Add detail files only when they earn their place:
 | `.ai/security.md` | Roles, permissions, or sensitive-data constraints affect work |
 | `.ai/domain.md` | Domain terms are non-obvious |
 | `.ai/pipelines.md` | Build, release, or environment rules affect AI-assisted changes |
-| `.ai/debt.md` | Legacy debt register only; prefer issues/Squad work tracking |
-| `.ai/onboarding.md` | Legacy onboarding guide only; prefer existing docs/Squad support |
+| `.ai/debt.md` | Legacy debt register only; prefer issues or, when present, Squad work tracking |
+| `.ai/onboarding.md` | Legacy onboarding guide only; prefer existing docs or, when present, Squad support |
 | `.ai/bootstrap-prompt.md` | Legacy manual prompt for non-Copilot tools |
 
 ---
@@ -250,7 +254,7 @@ Copy [`.github/PULL_REQUEST_TEMPLATE.md`](.github/PULL_REQUEST_TEMPLATE.md) into
 
 **Step 8 — Set up GitHub Copilot integration**
 
-Copy [`templates/copilot-instructions.md.template`](templates/copilot-instructions.md.template) to `.github/copilot-instructions.md` in your repo (remove the `.template` extension). Customize the placeholders for your project. Copilot reads this file automatically in every chat session — no manual prompt needed.
+If `.github/copilot-instructions.md` does not exist, copy [`templates/copilot-instructions.md.template`](templates/copilot-instructions.md.template) there (remove the `.template` extension). If it already exists, preserve its content and add the template inside the AI Context managed block instead of replacing the file. Customize the placeholders for your project. Copilot reads this file automatically in every chat session — no manual prompt needed.
 
 See [GitHub Copilot Integration](#github-copilot-integration) below for full details and examples.
 

@@ -84,7 +84,7 @@ Every pull request that changes a system governed by a `.ai/` document must incl
 - [ ] data-model.md updated (if schema changed)
 - [ ] security.md updated (if roles changed)
 - [ ] Product ADR created in `.ai/adr/` (if product decision made)
-- [ ] Squad decisions link to Product ADRs only; no product decision duplicated
+- [ ] If Squad is present, its decisions link to Product ADRs only; no product decision duplicated
 - [ ] debt.md updated (if debt added or resolved)
 - [ ] pipelines.md updated (if pipeline changed)
 - [ ] No credentials, secrets, or PII introduced

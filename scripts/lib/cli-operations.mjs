@@ -11,6 +11,7 @@ export const FRAMEWORK_BLOCK_BEGIN = '<!-- BEGIN AI CONTEXT FRAMEWORK MANAGED BL
 export const FRAMEWORK_BLOCK_END = '<!-- END AI CONTEXT FRAMEWORK MANAGED BLOCK -->';
 
 const PACKAGE_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
+const SQUAD_ARTIFACTS = Object.freeze(['.squad/team.md', '.github/agents/squad.agent.md']);
 
 export const MANAGED_FILE_MANIFEST = Object.freeze([
   'scripts/check-drift.mjs',
@@ -37,6 +38,7 @@ export function createStamp() {
 export async function initCommand({ cwd }) {
   const root = path.resolve(cwd);
   const report = emptyReport('init', root);
+  report.squadDetected = await detectSquad(root);
 
   await ensureDirectory(root, '.ai/adr', report);
 
@@ -59,6 +61,7 @@ export async function initCommand({ cwd }) {
 export async function updateCommand({ cwd, dryRun = false }) {
   const root = path.resolve(cwd);
   const report = emptyReport('update', root, dryRun);
+  report.squadDetected = await detectSquad(root);
   const installedStamp = await readConsumerStamp(root);
 
   if (installedStamp.status === 'missing') {
@@ -362,11 +365,17 @@ async function exists(filePath) {
   }
 }
 
+async function detectSquad(root) {
+  const artifacts = await Promise.all(SQUAD_ARTIFACTS.map((artifact) => exists(path.join(root, fromPosix(artifact)))));
+  return artifacts.some(Boolean);
+}
+
 function printHeader(command, report) {
   console.log(`AI Context Framework ${command}${report.dryRun ? ' (dry-run)' : ''}`);
   console.log(`root: ${report.root}`);
   console.log(`framework: ${FRAMEWORK_VERSION}`);
   console.log(`schema: ${SCHEMA_VERSION}`);
+  console.log(`squad: ${report.squadDetected ? 'detected' : 'not detected (optional)'}`);
 }
 
 function printList(label, values) {

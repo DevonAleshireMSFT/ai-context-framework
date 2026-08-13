@@ -53,7 +53,7 @@ That's the minimum. The framework scales from a solo developer to a team to an e
 
 `.ai/` is durable product knowledge: WHAT the product is, WHY constraints exist, and Product ADRs in `.ai/adr/`. Its audience is anyone — human or AI — modifying the code, and it remains portable even without Squad.
 
-`.squad/` is AI-team working state: HOW the team routed, decided, and did work. Its audience is the AI team and PM. Squad decisions link to `.ai/adr/` instead of restating product decisions.
+[Squad](https://github.com/bradygaster/squad#squad) is an optional, separately installed tool for persistent AI agent teams. When a project uses it, `.squad/` is AI-team working state: HOW the team routed, decided, and did work. Squad decisions link to `.ai/adr/` instead of restating product decisions. AI Context never installs or requires Squad.
 
 ```
 .ai/

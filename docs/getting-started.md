@@ -18,7 +18,7 @@ permalink: /getting-started
 
 ## Minimum Viable Setup
 
-The smallest useful configuration is the slim default. Start here.
+The smallest useful configuration is the slim default. Start here. Squad is not a prerequisite; AI Context can be installed in a repository with or without it.
 
 **1. Run the CLI in your repo**
 
@@ -48,9 +48,13 @@ The CLI creates `.ai/adr/`. Product decisions live in `.ai/adr/NNNN-title.md`. R
 
 **4. Review Copilot auto-context**
 
-The CLI seeds `.github/copilot-instructions.md` if it does not exist. If your repo already has Squad or other instructions, both `ai-context init` and `ai-context update` preserve them and manage only a delimited framework block.
+The CLI seeds `.github/copilot-instructions.md` if it does not exist. If your repo already has Squad or other instructions, both `ai-context init` and `ai-context update` preserve them and manage only a delimited framework block. The command reports whether it detected Squad; without Squad, it does not create or require `.squad/`.
 
 That's it. Open Copilot Chat — it will confirm it has read your project context before answering.
+
+### Optional Squad integration
+
+[Squad](https://github.com/bradygaster/squad#squad) provides persistent AI agent teams and is installed separately. AI Context detects a Squad CLI project when `.squad/team.md` or `.github/agents/squad.agent.md` exists. In that mode, `.ai/` remains the durable product context and `.squad/` remains Squad-owned working state. See the [architecture boundary](architecture#with-and-without-squad) for the two modes.
 
 ### Updating the framework
 
@@ -84,7 +88,7 @@ Instead of filling in templates manually, use the AI Setup Assistant prompt to l
 5. Copilot generates and **writes** the following files directly into your repository:
    - `.ai/context.md`
    - `.ai/adr/`
-   - `.github/copilot-instructions.md`
+   - the AI Context managed block in `.github/copilot-instructions.md`, preserving content outside the block
 
    It creates optional detail files only when your answers show they are needed.
 
@@ -235,7 +239,7 @@ If you are using this framework across multiple repositories, add an entry to [`
 
 ## Step 8 — Set Up Copilot Auto-Context
 
-Copy [`templates/copilot-instructions.md.template`](https://github.com/DevonAleshireMSFT/ai-context-framework/blob/main/templates/copilot-instructions.md.template) to `.github/copilot-instructions.md` in your repo. Customize the placeholders. Copilot reads this file automatically in every chat session — no manual prompt needed.
+If `.github/copilot-instructions.md` does not exist, copy [`templates/copilot-instructions.md.template`](https://github.com/DevonAleshireMSFT/ai-context-framework/blob/main/templates/copilot-instructions.md.template) there. If it already exists, preserve its content and add the template inside the AI Context managed block instead of replacing the file. Customize the placeholders. Copilot reads this file automatically in every chat session — no manual prompt needed.
 
 See the [GitHub Copilot Integration](copilot-integration) page for full details and examples.
 
