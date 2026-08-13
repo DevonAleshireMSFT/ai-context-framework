@@ -2,7 +2,7 @@
 project: AI Context Framework
 platform: Documentation / GitHub
 context-version: 1.0.0
-last-updated: 2026-07-25T02:22:07-07:00
+last-updated: 2026-08-12T22:25:00-07:00
 owner: Architecture Team
 review-cadence: quarterly
 ---
@@ -26,6 +26,7 @@ This repository is an enterprise framework for governing how AI context is creat
 - ✅ Enterprise governance model documented
 - ✅ PR checklist template created
 - ⏳ Automation tooling (CI validation, staleness detection)
+- 📦 Distribution: git install is the current primary channel ([ADR-0003](adr/0003-git-install-primary-distribution.md)); npm feed + tarball deferred to backlog
 - 🔲 Azure AI Search / RAG integration guidance
 
 ---

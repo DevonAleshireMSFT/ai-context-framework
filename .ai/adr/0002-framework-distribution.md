@@ -1,16 +1,22 @@
 ---
 adr: 0002
 title: Framework distribution through an npm CLI with enterprise fallback
-status: accepted
+status: superseded
 date: 2026-07-26
 deciders: Carlsen (Framework Architect)
 reviewers: Polgar (QA)
 applies-to: scripts, templates, package.json, consumer repos
 supersedes: null
-superseded-by: null
+superseded-by: 0003-git-install-primary-distribution.md
 ---
 
 # ADR-0002: Framework distribution through an npm CLI with enterprise fallback
+
+> **Superseded by [ADR-0003](0003-git-install-primary-distribution.md).** The npm-primary
+> channel described below was never published and is deferred to the backlog; git install is
+> the current primary distribution channel. The subcommand surface, safe-merge update semantics,
+> and `.ai/**` write protections defined here remain in force.
+
 ## Decision
 
 Distribute the AI Context Framework primarily as a zero-runtime-dependency scoped Node package, `@devonaleshiremsft/ai-context`, invoked with `npx @devonaleshiremsft/ai-context`. The package will expose an `ai-context` bin for the CLI subcommands, with enterprise fallback paths that resolve the same pinned package artifact from configured private registries or checked-in tarballs.
