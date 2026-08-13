@@ -38,9 +38,11 @@ This is the highest-leverage integration point in the framework. One file, commi
 
 ## Setup
 
+Prefer `ai-context init`; it creates or updates only the AI Context managed block and preserves existing instructions, including separately installed Squad content. The steps below are the manual fallback.
+
 **Step 1 — Copy the template**
 
-Copy [`templates/copilot-instructions.md.template`](https://github.com/DevonAleshireMSFT/ai-context-framework/blob/main/templates/copilot-instructions.md.template) to `.github/copilot-instructions.md` in your project repository. Remove the `.template` extension.
+If `.github/copilot-instructions.md` does not exist, copy [`templates/copilot-instructions.md.template`](https://github.com/DevonAleshireMSFT/ai-context-framework/blob/main/templates/copilot-instructions.md.template) there and remove the `.template` extension. If the file already exists, preserve it and add the template content inside an AI Context managed block; do not replace other tools' or users' instructions.
 
 **Step 2 — Customize for your project**
 
@@ -146,7 +148,7 @@ For deeper context on specific topics, reference `.ai/` files directly in the ch
 | Other AI tools (ChatGPT, Claude, etc.) | Use `bootstrap-prompt.md` manually |
 | Enforcing rules at commit time | Pre-commit hooks + PR checklist |
 
-`copilot-instructions.md` does not replace `.ai/context.md` or Product ADRs. It points Copilot to `.ai/context.md` for current product context and `.ai/adr/` for why decisions were made and what constraints they introduce. If Squad is present, Copilot should not use `.squad/decisions.md` as the product decision source; Squad links to Product ADRs only.
+`copilot-instructions.md` does not replace `.ai/context.md` or Product ADRs. It points Copilot to `.ai/context.md` for current product context and `.ai/adr/` for why decisions were made and what constraints they introduce. Squad is not required. If [Squad](https://github.com/bradygaster/squad#squad) is installed separately, Copilot should not use `.squad/decisions.md` as the product decision source; Squad links to Product ADRs only.
 
 ---
 

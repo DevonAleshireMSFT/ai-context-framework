@@ -102,6 +102,6 @@ Do not index credentials, tokens, connection strings, secrets, or PII. Treat the
 
 ---
 
-## How this complements Squad
+## Optional Squad integration
 
-RAG indexing consumes the durable `.ai/` layer, not `.squad/` working state. This preserves the `.ai/` / `.squad/` boundary described in [Architecture](architecture#ai-and-squad-boundary) and governed by [Governance](governance#product-adr-review-path): product context and ADRs live in `.ai/`, while Squad process state stays in `.squad/`.
+RAG indexing requires only the durable `.ai/` layer. It does not require or index Squad. If [Squad](https://github.com/bradygaster/squad#squad) is installed separately, `.squad/` working state stays outside the index. This preserves the boundary described in [Architecture](architecture#ai-and-squad-boundary) and governed by [Governance](governance#product-adr-review-path): product context and ADRs live in `.ai/`, while Squad process state stays in `.squad/`.

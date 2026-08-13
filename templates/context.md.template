@@ -18,8 +18,8 @@ review-cadence: every-sprint
 
 - `.ai/` is durable product knowledge: WHAT this product is and WHY constraints exist.
 - Product decisions live in `.ai/adr/NNNN-title.md`.
-- `.squad/` is AI-team working state: HOW work was routed, decided, and done.
-- If Squad is present, `.squad/decisions.md` links to Product ADRs; it does not restate them.
+- If this project uses Squad, `.squad/` is AI-team working state: HOW work was routed, decided, and done.
+- When Squad is present, `.squad/decisions.md` links to Product ADRs; it does not restate them. AI Context does not require Squad.
 
 ---
 

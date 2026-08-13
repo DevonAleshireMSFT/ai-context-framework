@@ -33,7 +33,7 @@ Run these locally before opening a PR, or from CI in an adopter repository.
 | `scripts/check-links.mjs` | `npm run check:links` | Markdown links and anchors in `docs/**/*.md`, `org/*.md`, `registry.md`, `CONTRIBUTING.md`, and `README.md`, including directory links, GitHub-style heading slugs, and GitHub Pages publish-root safety. | Exits non-zero when a local link, external-format link, anchor, or Pages publish-root link cannot be resolved safely. |
 | `scripts/validate-registry.mjs` | `npm run validate:registry` | The `registry.md` "Registered Repositories" table: seven columns, Mode and Status values parsed from the document, and ISO adoption dates. | Exits non-zero when the table shape, enum values, or dates are invalid. |
 | `scripts/check-staleness.mjs` | `node scripts/check-staleness.mjs --ci` | `.ai/context.md` freshness based on its `review-cadence`, mapped to a maximum allowed age. Supports `--ci` and `--json` modes. | In `--ci` mode, exits non-zero when context is overdue; `--json` emits machine-readable results. |
-| Aggregate validation | `npm run validate` | Runs the conformance validators together for the standard local and CI quality gate. | Exits non-zero if any included validator fails. |
+| Aggregate validation | `npm run validate` | Runs AI Context validation followed by Markdown link checking. | Exits non-zero if either included check fails. |
 
 ---
 
@@ -53,7 +53,7 @@ Managed consumer repositories will carry a framework stamp at the repository roo
 }
 ```
 
-The stamp file is `.ai-context.json`. Issue #24's `init` and `update` commands will write and maintain it; the issue #23 drift check only reads it and never mutates the working tree.
+The stamp file is `.ai-context.json`. The `init` and `update` commands write and maintain it; the drift check only reads it and never mutates the working tree.
 
 Run drift detection with:
 
@@ -108,6 +108,6 @@ Manual copy is now a fallback only for environments that cannot execute the pack
 
 ---
 
-## How this complements Squad
+## Optional Squad integration
 
-This automation protects the durable `.ai/` layer: freshness, conformance, links, and registry quality. Squad manages AI-team workflow state in `.squad/`; the boundary is described in [Architecture](architecture) and maintained through [Governance](governance).
+This automation works without Squad and protects the durable `.ai/` layer: freshness, conformance, links, and registry quality. If [Squad](https://github.com/bradygaster/squad#squad) is installed separately, Squad continues to manage its AI-team workflow state in `.squad/`; the boundary is described in [Architecture](architecture) and maintained through [Governance](governance).

@@ -15,7 +15,7 @@ Rules:
 - Never commit this folder.
 - Never treat anything here as authoritative.
 - Never record product decisions here; use `.ai/adr/`.
-- Never record Squad team decisions here; use `.squad/`.
+- If this project uses Squad, never record Squad team decisions here; use Squad-owned `.squad/` state.
 - Never store secrets, credentials, tokens, connection strings, or private keys here.
 
 It is safe to delete this folder at any time.

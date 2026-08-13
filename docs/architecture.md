@@ -28,7 +28,7 @@ These two things must never be merged. When they are, AI context starts competin
 
 ## `.ai/` and `.squad/` Boundary
 
-The framework separates durable product knowledge from AI-team working state.
+The framework separates durable product knowledge from AI-team working state. AI Context is standalone and does **not** require Squad. [Squad](https://github.com/bradygaster/squad#squad) is a separately installed tool for persistent AI agent teams; when both are present, they integrate through references rather than shared ownership.
 
 | Question | `.ai/` | `.squad/` |
 |----------|-------|-----------|
@@ -38,6 +38,15 @@ The framework separates durable product knowledge from AI-team working state.
 | Decisions = | Product ADRs in `.ai/adr/NNNN-title.md` | Links to ADRs; never restates product decisions |
 
 Product ADRs in `.ai/adr/` are authoritative for decisions they record. `.squad/decisions.md` may link to them and record Squad execution consequences, but it must not duplicate the product decision.
+
+### With and without Squad
+
+| Project mode | AI Context behavior | Squad behavior |
+|--------------|---------------------|----------------|
+| Without Squad | `init` scaffolds `.ai/`, Copilot instructions, and validation tooling; `update` preserves project-owned `.ai/**` | No `.squad/` files are required or created |
+| With Squad | Performs the same AI Context work, detects `.squad/team.md` or `.github/agents/squad.agent.md`, preserves Squad-owned content, and manages only its delimited Copilot block | Continues to own `.squad/` team state and coordinator files |
+
+Installing or removing AI Context does not install or remove Squad. See the [Squad repository](https://github.com/bradygaster/squad#squad) for its setup and CLI documentation.
 
 ---
 
