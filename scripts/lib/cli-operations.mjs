@@ -94,6 +94,18 @@ export function printInitReport(report) {
   printList('created', report.created);
   printList('updated', report.updated);
   printList('skipped', report.skipped);
+  printNextSteps();
+}
+
+function printNextSteps() {
+  console.log('');
+  console.log('next steps:');
+  console.log('  1. Let an AI agent draft your context: open GitHub Copilot in agent mode');
+  console.log('     and run /ai-context-setup (from .github/prompts/ai-context-setup.prompt.md).');
+  console.log('     It reads the repo, drafts .ai/context.md, and flags the rules/decisions');
+  console.log('     that need your confirmation. Prefer manual? Edit .ai/context.md directly.');
+  console.log('  2. Review and commit .ai/ plus .github/copilot-instructions.md.');
+  console.log('  3. Run "ai-context check" to validate.');
 }
 
 export function printUpdateReport(report) {
