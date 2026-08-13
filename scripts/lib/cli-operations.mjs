@@ -195,19 +195,14 @@ async function mergeOrSeedCopilot(root, { dryRun, init, report }) {
   const block = `${FRAMEWORK_BLOCK_BEGIN}\n${template.trimEnd()}\n${FRAMEWORK_BLOCK_END}\n`;
   const current = await readOptionalText(targetPath);
 
-  if (init) {
-    if (current !== null) {
-      report.skipped.push(target);
-      return;
-    }
-    await writeText(targetPath, `${block}`);
-    report.created.push(target);
-    return;
-  }
-
   const next = mergeFrameworkBlock(current, block);
+
   if (current === next) {
-    report.unchanged.push(target);
+    if (init) {
+      report.skipped.push(target);
+    } else {
+      report.unchanged.push(target);
+    }
     report.preserved.push(target);
     return;
   }
@@ -215,8 +210,11 @@ async function mergeOrSeedCopilot(root, { dryRun, init, report }) {
   if (!dryRun) {
     await writeText(targetPath, next);
   }
-  report.updated.push(target);
-  if (current !== null) {
+
+  if (current === null) {
+    report.created.push(target);
+  } else {
+    report.updated.push(target);
     report.preserved.push(`${target} existing content`);
   }
 }
