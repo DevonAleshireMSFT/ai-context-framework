@@ -78,6 +78,21 @@ The validator prints its framework and schema versions in the output header. A `
 
 ---
 
+## Release lifecycle
+
+Releases follow [ADR-0004](https://github.com/DevonAleshireMSFT/ai-context-framework/blob/main/.ai/adr/0004-release-lifecycle-and-notes.md):
+
+- `CHANGELOG.md` is the canonical detailed release history.
+- The `package.json` version and annotated `vX.Y.Z` tag must match.
+- GitHub Releases provide approved installation, upgrade, compatibility, breaking-change, and known-limitation notes.
+- [Release Notes](releases) provides the customer-facing Pages index.
+- Releases are created only from an approved `main` commit after explicit repository-owner approval.
+
+The release process is intentionally manual today. No workflow creates tags or publishes GitHub
+Releases automatically.
+
+---
+
 ## GitHub Actions workflows
 
 Two workflows can be copied into adopter repositories.

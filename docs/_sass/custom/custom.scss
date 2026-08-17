@@ -8,6 +8,7 @@ $navy:       #0d1b2a !default;
 $navy-mid:   #132338 !default;
 $blue-dark:  #1464a0 !default;
 $blue:       #1a78c2 !default;
+$blue-light: #3d9ad8 !default;
 $cyan:       #00a5b5 !default;
 $gray-50:    #f6f8fa !default;
 $gray-200:   #d8dde3 !default;
@@ -205,6 +206,21 @@ h3 { font-size: 1.15rem; }
     &:hover {
       background: rgba(255, 255, 255, 0.1);
     }
+  }
+}
+
+.ai-disclaimer {
+  margin: 1.5rem 0 2rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid $blue-light;
+  border-left: 5px solid $blue-dark;
+  border-radius: $border-radius;
+  background: $white;
+  box-shadow: 0 4px 14px rgba(13, 27, 42, 0.08);
+  color: $gray-700;
+
+  strong {
+    color: $navy;
   }
 }
 

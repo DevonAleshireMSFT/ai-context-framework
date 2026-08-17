@@ -18,6 +18,10 @@ Stop explaining your codebase to AI from scratch every session. Structure your p
 
 </div>
 
+<div class="ai-disclaimer">
+<strong>AI-Assisted Content</strong> — This framework was developed with assistance from GitHub Copilot. Content has been reviewed by human maintainers, but may contain errors or become outdated. Validate all guidance against your organization's requirements, current authoritative documentation, security and compliance policies, and applicable laws before implementation. AI-generated output produced using this framework requires human review. This project does not constitute official Microsoft, government, legal, security, or compliance guidance. Use is at your own risk. <a href="responsible-ai">Read the full Responsible AI guidance.</a>
+</div>
+
 ---
 
 ## Who This Is For

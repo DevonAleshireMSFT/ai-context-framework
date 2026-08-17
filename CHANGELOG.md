@@ -22,6 +22,9 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Custom GitHub Pages visual system for Just the Docs with a restrained navy, blue, cyan, and teal palette
 - Responsive homepage benefit cards and accessible theme refinements for navigation, search, tables, code, focus states, reduced motion, and print
 - Reproducible Windows and Linux Jekyll dependencies through `docs/Gemfile.lock`, with local preview instructions in `CONTRIBUTING.md`
+- Customer-facing release notes page with tagged Git install guidance and a documented release checklist
+- ADR-0004 defining SemVer tags, GitHub Releases, changelog authority, Pages summaries, and explicit release approval
+- AI-assisted-content disclosures in the README, Pages homepage, release notes, and Responsible AI guidance
 - Validation scripts: `check-drift.mjs`, `check-staleness.mjs`, `check-links.mjs`
 - Staleness CI workflow with issue-creation integration
 - `docs/` Pages site: Getting Started, CLI, Architecture, Automation, Copilot Integration, Governance, Implementations, RAG Integration

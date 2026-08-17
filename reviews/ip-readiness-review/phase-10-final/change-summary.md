@@ -67,6 +67,10 @@ Consolidated summary of all changes made across all phases of the IP readiness r
 
 The Pages visual design was refined after the initial Phase 10 assessment in response to owner feedback. The update adds repository-owned SCSS under `docs/_sass/` with a restrained navy/blue/cyan/teal palette, readable typography, responsive cards, improved navigation and search treatment, accessible focus states, reduced-motion support, and mobile-friendly tables and code blocks. No external fonts, scripts, analytics, or runtime dependencies were introduced. Tracking: issues #48 and #49; delivery: PR #47.
 
+## Post-Review Release Governance
+
+ADR-0004 establishes SemVer tags, GitHub Releases, `CHANGELOG.md` authority, a customer-facing Pages release index, immutable tagged Git installs, and explicit owner approval. AI-assisted-content disclosures now appear in the README, Pages homepage, release notes, and Responsible AI guidance. Tracking: issue #50; delivery: PR #47.
+
 ---
 
 ## Validation Results (Post Phase 10)

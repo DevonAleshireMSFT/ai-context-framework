@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Responsible AI
-nav_order: 9
+nav_order: 10
 permalink: /responsible-ai
 ---
 
@@ -22,6 +22,16 @@ permalink: /responsible-ai
 The AI Context Framework is a documentation and governance framework. It structures how projects describe themselves to AI assistants. It is **not** an AI system, model, or decision-making engine, and it does not execute AI inference.
 
 This page documents the responsible AI practices that apply to the framework itself and the guidance the framework provides to adopters.
+
+## AI-Assisted Content Disclosure
+
+This framework was developed with assistance from GitHub Copilot. Content is reviewed by human
+maintainers, but may contain errors or become outdated. Validate guidance against your
+organization's requirements, current authoritative documentation, security and compliance
+policies, and applicable laws before implementation.
+
+This project does not constitute official Microsoft, government, legal, security, or compliance
+guidance. Use is at your own risk.
 
 ---
 

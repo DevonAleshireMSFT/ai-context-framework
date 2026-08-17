@@ -3,7 +3,7 @@ project: AI Context Framework
 platform: Markdown standards + dependency-free Node.js (>=18) CLI on GitHub
 cloud: GitHub (GitHub Pages hosts the docs site; no application runtime)
 context-version: 1.1.0
-last-updated: 2026-08-13T15:02:00-07:00
+last-updated: 2026-08-17T09:12:00-07:00
 owner: Architecture Team
 review-cadence: quarterly
 ---
@@ -92,6 +92,7 @@ Product ADRs live in `.ai/adr/` using the path format `.ai/adr/NNNN-title.md`.
 | [`0001-ai-squad-boundary.md`](adr/0001-ai-squad-boundary.md) | `.ai/` holds durable product knowledge and ADRs; `.squad/` holds AI-team working state and links to ADRs instead of restating them | accepted |
 | [`0002-framework-distribution.md`](adr/0002-framework-distribution.md) | npm CLI distribution with enterprise fallback; its subcommand surface, safe-merge update semantics, and `.ai/**` write protections remain in force | superseded |
 | [`0003-git-install-primary-distribution.md`](adr/0003-git-install-primary-distribution.md) | Git install is the current primary distribution channel; npm feed and tarball are deferred | accepted |
+| [`0004-release-lifecycle-and-notes.md`](adr/0004-release-lifecycle-and-notes.md) | Releases use SemVer tags, GitHub Releases, a canonical changelog, Pages summaries, and explicit owner approval | accepted |
 
 ---
 
@@ -109,6 +110,7 @@ Product ADRs live in `.ai/adr/` using the path format `.ai/adr/NNNN-title.md`.
 | Tier model and boundaries | [docs/architecture.md](../docs/architecture.md) |
 | CLI usage | [docs/cli.md](../docs/cli.md) |
 | CI, validation, and staleness automation | [docs/automation.md](../docs/automation.md) |
+| Release lifecycle and notes | [docs/releases.md](../docs/releases.md) |
 | Contribution workflow | [CONTRIBUTING.md](../CONTRIBUTING.md) |
 
 Optional `.ai/` detail files are deliberately not used in this repository — the durable equivalent already lives elsewhere:

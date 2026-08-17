@@ -3,6 +3,9 @@
 Stop explaining your codebase to AI from scratch every session. Structure your project knowledge once — every AI session starts informed.
 
 **[Documentation Site →](https://devonaleshiremsft.github.io/ai-context-framework/)**
+**[Release Notes →](https://devonaleshiremsft.github.io/ai-context-framework/releases)**
+
+> **AI-Assisted Content** — This framework was developed with assistance from GitHub Copilot. Content has been reviewed by human maintainers, but may contain errors or become outdated. Validate all guidance against your organization's requirements, current authoritative documentation, security and compliance policies, and applicable laws before implementation. AI-generated output produced using this framework requires human review. This project does not constitute official Microsoft, government, legal, security, or compliance guidance. Use is at your own risk. See the [full Responsible AI guidance](https://devonaleshiremsft.github.io/ai-context-framework/responsible-ai).
 
 ---
 
