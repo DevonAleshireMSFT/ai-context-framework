@@ -12,6 +12,7 @@
 | Discovery completed | 2026-08-16T23:44:37-07:00 |
 | Final completion | 2026-08-17 |
 | Final review correction | 2026-08-17 — `.ai/context.md` registry bullet updated; Final Validation Complete (50/50 tests, AI context 0/0, registry 0/0, 17 docs/99 links/0 errors) |
+| Post-review theme enhancement | 2026-08-17 — clean blue/teal Just the Docs theme and homepage cards added; tracked by issue #49 and PR #47; local build/render verified; live human verification remains |
 
 ---
 

@@ -36,6 +36,18 @@ Thank you for contributing. This framework is a living system — contributions 
 
    Run these commands from the framework repository root (not a consumer repo). `node --test` discovers test files under `scripts/`.
 
+### Preview the Documentation Site
+
+The GitHub Pages site requires Ruby 3.3 and Bundler. On Windows, install Ruby with the MSYS2 DevKit so native gems can build.
+
+```bash
+cd docs
+bundle install
+bundle exec jekyll serve --livereload
+```
+
+Open [http://localhost:4000/ai-context-framework/](http://localhost:4000/ai-context-framework/). The committed `Gemfile.lock` keeps local and GitHub Pages builds reproducible on Windows and Linux.
+
 ---
 
 ## Contribution Guidelines

@@ -6,7 +6,37 @@
 
 ---
 
-## Changes Made
+## Post-Review Theme Enhancement (2026-08-17 — Capablanca)
+
+| File | Change type | Description | Date | Author |
+|------|-------------|-------------|------|--------|
+| `docs/_config.yml` | **Update** | Added `color_scheme: ai-context` to activate custom palette. | 2026-08-17 | Capablanca |
+| `docs/_sass/color_schemes/ai-context.scss` | **Create** | Original SCSS color scheme: navy/blue/cyan-teal/neutral tokens; no external dependencies. | 2026-08-17 | Capablanca |
+| `docs/_sass/custom/custom.scss` | **Create** | Component & layout refinements: typography, nav sidebar, buttons, hero, card-grid, callouts, tables, code blocks, search, focus states, reduced-motion, print. | 2026-08-17 | Capablanca |
+| `docs/index.md` | **Improve** | Hero section polished; "Key Benefits" refactored from flat bold paragraphs to structured cards with unique heading anchors. All substantive content, claims, and CTA URLs preserved. | 2026-08-17 | Capablanca |
+| `docs/Gemfile.lock` | **Create** | Locked Jekyll dependencies for reproducible Windows development and Linux Pages builds. | 2026-08-17 | Capablanca |
+| `CONTRIBUTING.md` | **Update** | Documented the Ruby/Bundler local Pages preview workflow and URL. | 2026-08-17 | Capablanca |
+| `reviews/ip-readiness-review/phase-07-github-pages/site-improvements.md` | **Update** | Added SI-07-07 through SI-07-10 rows documenting theme-enhancement outcomes. | 2026-08-17 | Capablanca |
+| `reviews/ip-readiness-review/artifacts/accessibility-report.md` | **Update** | Recorded theme-enhancement accessibility decisions. | 2026-08-17 | Capablanca |
+
+### Validation
+
+| Check | Result |
+|-------|--------|
+| `node scripts/check-links.mjs --strict` | ✅ 17 files, 100 links, 0 warnings, 0 errors |
+| Production Jekyll build and local HTTP render | ✅ Build passed; homepage returned HTTP 200 with rendered hero markup |
+| No external fonts, CDNs, JS, or tracking added | ✅ |
+| No application source logic, workflows, or tests modified | ✅ |
+| No product ADRs or `.squad/` files modified | ✅ |
+| All URLs and nav permalinks preserved | ✅ |
+| Color scheme uses Just the Docs supported `color_scheme` pattern | ✅ |
+| Reduced-motion media query present | ✅ |
+| Focus-visible outline present (3px cyan) | ✅ |
+| Mobile table and code scroll handling | ✅ |
+
+Human visual review still recommended for: live Mermaid rendering, keyboard tab order, and final contrast spot-check on deployed Pages.
+
+---
 
 | File | Change type | Description | Date | Author |
 |------|-------------|-------------|------|--------|

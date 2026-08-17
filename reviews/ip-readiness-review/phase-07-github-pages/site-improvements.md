@@ -36,5 +36,7 @@ Document recommended improvements to the GitHub Pages documentation site.
 | SI-07-04 | ✅ Applied | `docs/getting-started.md` (code fence language tag) |
 | SI-07-05 | ✅ Applied | `docs/_config.yml` (aux_links_new_tab) |
 | SI-07-06 | ⏳ Human verification | No code change — requires live site review |
-| SI-07-07 | ⏳ Human verification | No code change — requires live site review |
-| SI-07-08 | ⏳ Human verification | No code change — requires live site review |
+| SI-07-07 | ✅ Addressed (theme) | Custom color scheme implemented: navy/blue/cyan palette, WCAG-oriented contrast (dark text on white, white text on navy ≥4.5:1). See `docs/_sass/color_schemes/ai-context.scss`. |
+| SI-07-08 | ✅ Addressed (theme) | `*:focus-visible` outline at 3px cyan with offset; reduced-motion media query included; keyboard-nav unchanged from Just the Docs base. Human live-site verification still recommended. |
+| SI-07-09 | ✅ Applied | Custom color scheme `ai-context.scss` + component refinements `custom/custom.scss` added. `_config.yml` updated with `color_scheme: ai-context`. |
+| SI-07-10 | ✅ Applied | `docs/index.md` hero polished; "Key Benefits" refactored into structured cards with unique heading anchors; all content and URLs preserved. |

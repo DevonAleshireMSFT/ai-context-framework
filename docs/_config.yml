@@ -2,6 +2,7 @@ title: AI Context Framework
 description: A governed, scalable framework for treating AI context as a first-class engineering artifact.
 
 theme: just-the-docs
+color_scheme: ai-context
 
 baseurl: "/ai-context-framework"
 url: "https://DevonAleshireMSFT.github.io"

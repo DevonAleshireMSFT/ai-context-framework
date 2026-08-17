@@ -19,6 +19,9 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Setup prompt template (`templates/setup-prompt.md.template`) — Copilot agent mode prompt for generating `.ai/` files
 - GitHub Actions: all `uses:` references SHA-pinned (supply chain hardening, Phase 05)
 - Mermaid architecture diagrams with accessible text descriptions in `docs/architecture.md`
+- Custom GitHub Pages visual system for Just the Docs with a restrained navy, blue, cyan, and teal palette
+- Responsive homepage benefit cards and accessible theme refinements for navigation, search, tables, code, focus states, reduced motion, and print
+- Reproducible Windows and Linux Jekyll dependencies through `docs/Gemfile.lock`, with local preview instructions in `CONTRIBUTING.md`
 - Validation scripts: `check-drift.mjs`, `check-staleness.mjs`, `check-links.mjs`
 - Staleness CI workflow with issue-creation integration
 - `docs/` Pages site: Getting Started, CLI, Architecture, Automation, Copilot Integration, Governance, Implementations, RAG Integration
@@ -32,6 +35,8 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - `docs/implementations.md`: permalink normalized (trailing slash removed)
 - `docs/getting-started.md`: prerequisites section added
 - `docs/_config.yml`: `aux_links_new_tab: false`; nav_order corrections
+- `docs/index.md`: reorganized key benefits into a responsive, scannable card layout while preserving content and links
+- GitHub Pages theme: replaced the stock visual treatment with repository-owned SCSS under `docs/_sass/`; no external fonts, scripts, or runtime dependencies
 
 ### Fixed
 - `.gitignore`: added `*.tgz` exclusion (prevents accidental `npm pack` artifact commit)

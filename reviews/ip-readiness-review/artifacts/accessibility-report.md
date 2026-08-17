@@ -57,4 +57,15 @@ Automated accessibility tools (e.g., axe, WAVE) may be used during Phase 07 for 
 | Color contrast | Not assessed (live site check required) | LOW | Human verification required |
 | Keyboard nav / skip-nav | Not assessed (live site check required) | LOW | Human verification required |
 
-**Status:** Pending Phase 07 human visual-review items (Mermaid, color contrast, keyboard nav). All blocking and code issues resolved.
+## Theme Enhancement Findings (2026-08-17 — Capablanca)
+
+| Area | Finding | Severity | Status |
+|------|---------|----------|--------|
+| Color palette | Custom `ai-context` scheme: navy `#0d1b2a` on white (≥ 8.5:1), white on navy sidebar (≥ 8.5:1), cyan `#00a5b5` as accent (decorative only, not text) | — | ✅ Implemented |
+| Focus states | `*:focus-visible` with 3px cyan outline + 2px offset; mouse users get `:focus:not(:focus-visible)` suppression | LOW | ✅ Resolved |
+| Reduced motion | `prefers-reduced-motion` media query disables transitions/animations | LOW | ✅ Resolved |
+| Mobile tables/code | `overflow-x: auto` on tables and code blocks at ≤600px | LOW | ✅ Resolved |
+| Color contrast (live) | Live site spot-check still recommended | LOW | Human verification required |
+| Keyboard nav / skip-nav | Just the Docs base unchanged; live verification recommended | LOW | Human verification required |
+
+**Status:** Local production build and HTTP rendering verified. Live Mermaid, contrast, and keyboard checks remain.
