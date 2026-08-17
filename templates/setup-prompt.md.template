@@ -31,6 +31,15 @@ Do not create `.ai/debt.md`, `.ai/onboarding.md`, or `.ai/bootstrap-prompt.md` b
 
 ---
 
+## Scope and safety
+
+- **Touch only** `.ai/**` and the managed block in `.github/copilot-instructions.md`. Everything else is out of scope — never edit, stage, revert, or comment on unrelated files, even if the worktree already has uncommitted changes.
+- **`.ai/**` is adopter-owned.** If `.ai/context.md`, an ADR, or an optional file already exists, treat it as authoritative: read it, note gaps for Step 3, and never silently overwrite or regenerate it. This is a first-run assistant, not a re-seeding tool.
+- **Never install, create, remove, or rewrite Squad-owned files** (`.squad/**`, `.github/agents/squad.agent.md`). Detect Squad only by checking whether `.squad/team.md` or `.github/agents/squad.agent.md` exists.
+- **Don't commit or push.** Draft the files, report what changed, and let the developer review and commit.
+
+---
+
 ## The boundary — draft vs. propose
 
 This is the most important rule. Split `context.md` into what a repository scan can
@@ -52,7 +61,10 @@ silent. When unsure, propose and let the human confirm.
 
 ## Step 1 — Scan the repository first (before asking anything)
 
-Read the codebase and infer as much as possible:
+Read the codebase and ground every claim in something you can point to — a file, config
+value, README line, or commit convention. If you can't cite the evidence, it isn't
+derivable: write `<!-- TODO: fill in -->`, or mark it `<!-- PROPOSED: confirm -->` instead
+of asserting it.
 
 - **Identity & purpose** — README, package/project manifests, top-level docs.
 - **Stack & platform** — languages, frameworks, `package.json` / `*.csproj` / `pyproject.toml` / etc., IaC and hosting hints (Dockerfile, `azure-pipelines.yml`, `.github/workflows`, Bicep/Terraform).
@@ -60,7 +72,8 @@ Read the codebase and infer as much as possible:
 - **Current state** — what looks complete vs. scaffolded vs. TODO (open issues, `TODO`/`FIXME`, empty modules, feature flags).
 - **Rule & gotcha candidates** — naming conventions, generated files, `do not edit` banners, migration/back-compat notes, lint/format config.
 - **Optional-file signals** — a schema/migrations folder ⇒ `data-model.md`; auth/roles code ⇒ `security.md`; pipeline/env config ⇒ `pipelines.md`; a glossary-worthy domain vocabulary ⇒ `domain.md`.
-- **Optional Squad integration** — treat Squad as present only when `.squad/team.md` or `.github/agents/squad.agent.md` exists. AI Context does not require Squad; do not create `.squad/` or Squad coordinator files.
+- **Existing setup** — check whether `.ai/context.md` or `.ai/adr/*.md` already exist before drafting anything (see Scope and safety above).
+- **Optional Squad integration** — treat Squad as present only when `.squad/team.md` or `.github/agents/squad.agent.md` exists. AI Context does not require Squad.
 
 ## Step 2 — Draft the files
 
@@ -79,6 +92,7 @@ settle. Skip anything you already answered from the code.
 - Ask whether any existing product/architecture **decision** should become an ADR — and if so, what was decided, why, what alternatives were rejected, and who reviews it.
 - Confirm which optional files (if any) are warranted.
 - Confirm the Squad boundary if `.squad/team.md` or `.github/agents/squad.agent.md` is present.
+- If `.ai/context.md` or `.ai/adr/` already existed, ask only about the gaps found against them — do not re-run the full interview.
 
 After they answer, update the files and remove every resolved marker.
 
@@ -88,9 +102,10 @@ After they answer, update the files and remove every resolved marker.
 
 ### `.ai/context.md`
 
-Use `templates/context.md.template` as the structure. Keep it focused on durable product
-knowledge: WHAT the product is and WHY constraints exist. Set `last-updated` to today.
-Include the short boundary note:
+Use `templates/context.md.template` as the structure. If the file already exists, edit it
+in place — preserve sections the developer already filled in and only fill genuine gaps.
+Keep it focused on durable product knowledge: WHAT the product is and WHY constraints
+exist. Set `last-updated` to today. Include the short boundary note:
 
 - `.ai/` = durable product knowledge and Product ADRs
 - If Squad was detected, `.squad/` = AI-team working state
@@ -99,27 +114,31 @@ Include the short boundary note:
 
 ### `.ai/adr/`
 
-Create the directory. Create `.ai/adr/0001-[kebab-title].md` from `templates/adr.md.template`
-**only** if the developer confirms a durable decision in Step 3. Use four-digit numbering:
-`0001`, `0002`, `0003`. Do not quote the numbering in frontmatter (`adr: 0001`, not
-`adr: '0001'`) — the conformance parser does not strip quotes.
+Create the directory if absent. Create `.ai/adr/NNNN-[kebab-title].md` from
+`templates/adr.md.template` **only** if the developer confirms a durable decision in
+Step 3. Use four-digit numbering, continuing from the highest number already present in
+`.ai/adr/` — never reuse or renumber an existing ADR. Do not quote the numbering in
+frontmatter (`adr: 0001`, not `adr: '0001'`) — the conformance parser does not strip
+quotes.
 
 ### `.github/copilot-instructions.md`
 
 Tell Copilot to read `.ai/context.md` first and `.ai/adr/` for decision rationale and
 constraints. Preserve instructions outside the AI Context managed block. If Squad is
 present, state within the managed block that `.squad/decisions.md` is not the product
-decision source. Never install, create, remove, or rewrite Squad-owned files.
+decision source.
 
 ### Optional files
 
-Create optional detail files only when needed. If created, link them from `.ai/context.md`.
+Create optional detail files only when needed, and only if they don't already exist (see
+Scope and safety above). If created, link them from `.ai/context.md`.
 
 ---
 
 ## After Writing Files
 
-1. List every file or directory created with a one-line summary.
+1. List every file or directory created or edited, with a one-line summary of what changed and why.
 2. Flag any remaining `<!-- TODO: fill in -->` and `<!-- PROPOSED: confirm -->` markers so the developer knows exactly what still needs a human decision.
-3. Tell the developer to review, correct, and commit `.ai/` plus `.github/copilot-instructions.md`.
-4. Tell them to open a new Copilot Chat session and verify that Copilot confirms the project context.
+3. If the repo already has AI Context tooling (`scripts/validate-ai-context.mjs`, or an `npm run validate*` script), run it against the changed `.ai/**` files and report pass/fail. Otherwise, manually confirm: every `context.md`/ADR has valid frontmatter, ADR numbers are unquoted, and no `[bracketed placeholder]` text remains in filled sections.
+4. Tell the developer to review, correct, and commit `.ai/` plus `.github/copilot-instructions.md`.
+5. Tell them to open a new Copilot Chat session and verify that Copilot confirms the project context.

@@ -1,0 +1,68 @@
+// AI Context Framework — color scheme for Just the Docs ~0.10
+// Palette: navy / blue / cyan-teal / neutral grays — no pink or purple.
+// All custom tokens use the $-variable convention expected by Just the Docs.
+
+// ---------------------------------------------------------------------------
+// Base palette
+// ---------------------------------------------------------------------------
+$navy:        #0d1b2a;
+$navy-mid:    #132338;
+$blue-dark:   #1464a0;
+$blue:        #1a78c2;
+$blue-light:  #3d9ad8;
+$cyan:        #00a5b5;
+$cyan-light:  #2ec4cc;
+$teal-bg:     #e8f6f7;
+$teal-soft:   #c7edf0;
+
+$white:       #ffffff;
+$gray-50:     #f6f8fa;
+$gray-100:    #edf0f3;
+$gray-200:    #d8dde3;
+$gray-300:    #b0b9c4;
+$gray-500:    #6b7a8e;
+$gray-700:    #3a4554;
+$gray-900:    #1c2430;
+
+// ---------------------------------------------------------------------------
+// Just the Docs color variables
+// ---------------------------------------------------------------------------
+
+// Body / page
+$body-background-color:          $white;
+$body-text-color:                $gray-900;
+$body-heading-color:             $navy;
+
+// Links
+$link-color:                     $blue-dark;
+$link-color-visited:             #0d5086;
+$nav-child-link-color:           $gray-700;
+$btn-primary-color:              $blue-dark;
+
+// Sidebar / navigation
+$sidebar-color:                  $navy;
+$nav-width:                      248px;
+$content-width:                  900px;
+$heading-first-child-top-margin: 0.15rem;
+
+// Search
+$search-background-color:        $white;
+$search-result-preview-color:    $gray-500;
+
+// Code
+$code-background-color:          $gray-50;
+$code-linenumber-color:          $gray-300;
+$feedback-color:                 $gray-50;
+
+// Table
+$table-background-color:         $white;
+
+// Borders
+$border-color:                   $gray-200;
+$border-radius:                  6px;
+
+// Callout / label colors
+$label-blue:    $blue;
+$label-green:   #1a7f5a;
+$label-yellow:  #b35000;
+$label-red:     #b32020;

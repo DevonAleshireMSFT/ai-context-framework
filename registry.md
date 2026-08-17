@@ -23,7 +23,7 @@ Existing adopters remain valid when registry fields are added. Populate new fiel
 
 | Repository | Adoption Date | Tier-2 Owner | Mode | Status | Squad Boundary Enforcement | Notes |
 |------------|---------------|--------------|------|--------|----------------------------|-------|
-| *(this repo)* `ai-context-framework` | YYYY-MM-DD | Architecture Team | `squad-companion` | Active | Active | Enterprise standards repo |
+| *(this repo)* `ai-context-framework` | 2026-05-12 | Architecture Team | `squad-companion` | Active | Active | Enterprise standards repo |
 
 ---
 

@@ -1,9 +1,9 @@
 ---
 layout: default
 title: Known Implementations
-nav_order: 6
+nav_order: 11
 description: "Projects and repositories that implement the AI Context Framework."
-permalink: /implementations/
+permalink: /implementations
 ---
 
 # Known Implementations

@@ -56,3 +56,9 @@ credentials.*
 
 # Test: transient temp fixtures created by scripts/__tests__ runs
 scripts/__tests__/.fixture-*/
+
+# npm pack output — never commit tarballs
+*.tgz
+
+# Internal review artifact — contains ngAIO deliberation not intended for public commit
+reviews/ip-readiness-review/artifacts/ngAIO-project-understanding.md

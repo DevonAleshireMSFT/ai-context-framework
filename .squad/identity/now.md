@@ -1,9 +1,9 @@
 ---
-updated_at: 2026-07-25T07:38:20.289Z
-focus_area: Initial setup
+updated_at: 2026-08-16T18:03:16.379-07:00
+focus_area: ngAIO submission readiness
 active_issues: []
 ---
 
 # What We're Focused On
 
-Getting started. Updated by coordinator at session start.
+ngAIO submission assessment and readiness evaluation. Assessment: Submit after targeted remediation (readiness 3.3/5). Strongest gap is independent pilot/adoption evidence.

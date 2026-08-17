@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Automation & CI
-nav_order: 7
+nav_order: 6
 permalink: /automation
 ---
 
@@ -39,7 +39,7 @@ Run these locally before opening a PR, or from CI in an adopter repository.
 
 ## Versioning & Drift Detection
 
-The framework uses two versions, following [ADR-0002](https://github.com/DevonAleshireMSFT/ai-context-framework/blob/main/.ai/adr/0002-framework-distribution.md):
+The framework uses two versions. The versioning and drift-detection scheme was defined in [ADR-0002](https://github.com/DevonAleshireMSFT/ai-context-framework/blob/main/.ai/adr/0002-framework-distribution.md) (now superseded by [ADR-0003](https://github.com/DevonAleshireMSFT/ai-context-framework/blob/main/.ai/adr/0003-git-install-primary-distribution.md) for distribution channel, but the versioning scheme carries forward):
 
 - `FRAMEWORK_VERSION` is the tooling/package version. `package.json` is the release source of truth, and `scripts/lib/version.mjs` reads it so scripts and future CLI stamps use the same value.
 - `SCHEMA_VERSION` is the `.ai/` content contract version enforced by the validator. It starts at `1.0.0`.
@@ -75,6 +75,21 @@ Schema compatibility follows ADR-0002 and is evaluated at `MAJOR.MINOR` granular
 `check:drift` is CI-safe and non-mutating. It exits 0 by default even when warnings are present so existing adopters are not broken by advisory drift. Teams that want a hard gate can pass `--strict`, which exits non-zero when warning-level drift is detected.
 
 The validator prints its framework and schema versions in the output header. A `.ai/context.md` may optionally declare `schema-version`; absent means current/compatible for backward compatibility. Schema drift is reported as warnings, not errors.
+
+---
+
+## Release lifecycle
+
+Releases follow [ADR-0004](https://github.com/DevonAleshireMSFT/ai-context-framework/blob/main/.ai/adr/0004-release-lifecycle-and-notes.md):
+
+- `CHANGELOG.md` is the canonical detailed release history.
+- The `package.json` version and annotated `vX.Y.Z` tag must match.
+- GitHub Releases provide approved installation, upgrade, compatibility, breaking-change, and known-limitation notes.
+- [Release Notes](releases) provides the customer-facing Pages index.
+- Releases are created only from an approved `main` commit after explicit repository-owner approval.
+
+The release process is intentionally manual today. No workflow creates tags or publishes GitHub
+Releases automatically.
 
 ---
 

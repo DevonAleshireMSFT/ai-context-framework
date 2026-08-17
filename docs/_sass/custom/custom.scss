@@ -1,0 +1,432 @@
+// AI Context Framework — component & layout refinements
+// Loaded by Just the Docs after the color scheme. No external dependencies.
+
+// Just the Docs compiles this file for its built-in scheme stylesheets as
+// well as the configured ai-context scheme. Defaults keep those builds valid;
+// the selected color scheme overrides them before this file is imported.
+$navy:       #0d1b2a !default;
+$navy-mid:   #132338 !default;
+$blue-dark:  #1464a0 !default;
+$blue:       #1a78c2 !default;
+$blue-light: #3d9ad8 !default;
+$cyan:       #00a5b5 !default;
+$gray-50:    #f6f8fa !default;
+$gray-200:   #d8dde3 !default;
+$gray-500:   #6b7a8e !default;
+$gray-700:   #3a4554 !default;
+$gray-900:   #1c2430 !default;
+$teal-bg:    #e8f6f7 !default;
+$white:      #ffffff !default;
+$border-radius: 6px !default;
+
+// ---------------------------------------------------------------------------
+// Typography & readability
+// ---------------------------------------------------------------------------
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui,
+               Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  font-weight: 600;
+}
+
+h1 { font-size: 2rem; }
+h2 { font-size: 1.45rem; margin-top: 2.2rem; }
+h3 { font-size: 1.15rem; }
+
+// Constrain line length for comfort
+.main-content {
+  max-width: 860px;
+}
+
+// ---------------------------------------------------------------------------
+// Navigation sidebar
+// ---------------------------------------------------------------------------
+
+.side-bar {
+  background: $navy;
+
+  .site-title {
+    color: $white;
+    font-weight: 700;
+    font-size: 1.05rem;
+    letter-spacing: 0.02em;
+  }
+
+  .nav-list .nav-list-item .nav-list-link {
+    color: rgba(255,255,255,0.82);
+    font-size: 0.9rem;
+    border-radius: $border-radius;
+    transition: background 0.15s ease, color 0.15s ease;
+
+    &:hover,
+    &.active {
+      background: rgba(255,255,255,0.1);
+      color: $white;
+    }
+
+    &.active {
+      font-weight: 600;
+      border-left: 3px solid $cyan;
+    }
+  }
+
+  .nav-list .nav-list-item.nav-list-item--active > .nav-list-link {
+    background: rgba(0,165,181,0.18);
+    color: $white;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Header / site header
+// ---------------------------------------------------------------------------
+
+.site-header {
+  background: $navy;
+  border-bottom: 2px solid $blue-dark;
+
+  .site-title {
+    color: $white;
+  }
+
+  .aux-nav-list-item a {
+    color: rgba(255,255,255,0.85);
+    font-size: 0.88rem;
+
+    &:hover { color: $white; text-decoration: underline; }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Buttons
+// ---------------------------------------------------------------------------
+
+.btn {
+  display: inline-block;
+  padding: 0.55em 1.3em;
+  border-radius: $border-radius;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none;
+  transition: background 0.18s ease, box-shadow 0.18s ease;
+  border: 2px solid transparent;
+
+  &:focus-visible {
+    outline: 3px solid $cyan;
+    outline-offset: 3px;
+  }
+}
+
+.btn-primary {
+  background: $blue-dark;
+  color: $white !important;
+  border-color: $blue-dark;
+
+  &:hover {
+    background: $blue;
+    border-color: $blue;
+    box-shadow: 0 2px 8px rgba(20,100,160,0.3);
+  }
+}
+
+// Secondary / outline button
+.btn:not(.btn-primary) {
+  background: transparent;
+  color: $blue-dark !important;
+  border-color: $blue-dark;
+
+  &:hover {
+    background: $gray-50;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Hero section
+// ---------------------------------------------------------------------------
+
+.hero-section {
+  position: relative;
+  overflow: hidden;
+  margin: 0 0 2rem;
+  padding: clamp(1.75rem, 5vw, 3.25rem);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 14px;
+  background:
+    radial-gradient(circle at 88% 12%, rgba(0, 165, 181, 0.32), transparent 34%),
+    linear-gradient(135deg, $navy 0%, $navy-mid 48%, $blue-dark 100%);
+  box-shadow: 0 16px 40px rgba(13, 27, 42, 0.16);
+  color: $white;
+
+  h1 {
+    max-width: 720px;
+    margin: 0 0 0.75rem;
+    color: $white;
+    font-size: clamp(2.2rem, 6vw, 3.6rem);
+    font-weight: 700;
+    line-height: 1.08;
+    letter-spacing: -0.035em;
+  }
+
+  p.fs-6 {
+    max-width: 680px;
+    margin-bottom: 1.5rem;
+    color: rgba(255, 255, 255, 0.88);
+    font-size: clamp(1.05rem, 2.5vw, 1.25rem) !important;
+    font-weight: 400;
+  }
+
+  .btn {
+    margin-right: 0.75rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .btn-primary {
+    background: $white;
+    border-color: $white;
+    color: $navy !important;
+
+    &:hover {
+      background: $teal-bg;
+      border-color: $teal-bg;
+    }
+  }
+
+  .btn:not(.btn-primary) {
+    border-color: rgba(255, 255, 255, 0.72);
+    color: $white !important;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+  }
+}
+
+.ai-disclaimer {
+  margin: 1.5rem 0 2rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid $blue-light;
+  border-left: 5px solid $blue-dark;
+  border-radius: $border-radius;
+  background: $white;
+  box-shadow: 0 4px 14px rgba(13, 27, 42, 0.08);
+  color: $gray-700;
+
+  strong {
+    color: $navy;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Cards — used for benefit/feature blocks
+// ---------------------------------------------------------------------------
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.25rem;
+  margin: 1.5rem 0;
+}
+
+.card {
+  background: $gray-50;
+  border: 1px solid $gray-200;
+  border-radius: 8px;
+  padding: 1.25rem 1.4rem;
+  transition: box-shadow 0.15s ease;
+
+  &:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.08); }
+
+  h3, h4 {
+    color: $blue-dark;
+    margin-top: 0;
+    font-size: 1rem;
+  }
+
+  p { margin-bottom: 0; font-size: 0.94rem; }
+}
+
+// ---------------------------------------------------------------------------
+// Callout / note / warning blocks
+// ---------------------------------------------------------------------------
+
+.callout, .highlight-box {
+  border-left: 4px solid $cyan;
+  background: $teal-bg;
+  border-radius: 0 $border-radius $border-radius 0;
+  padding: 0.9rem 1.2rem;
+  margin: 1.4rem 0;
+  font-size: 0.95rem;
+
+  &.warning {
+    border-left-color: #b35000;
+    background: #fff8f0;
+  }
+
+  &.info {
+    border-left-color: $blue;
+    background: #eaf3fb;
+  }
+
+  p:last-child { margin-bottom: 0; }
+}
+
+// ---------------------------------------------------------------------------
+// Tables
+// ---------------------------------------------------------------------------
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1.2rem 0;
+  font-size: 0.93rem;
+
+  th {
+    background: $navy;
+    color: $white;
+    padding: 0.6rem 0.85rem;
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.88rem;
+    letter-spacing: 0.03em;
+  }
+
+  td {
+    padding: 0.55rem 0.85rem;
+    border-bottom: 1px solid $gray-200;
+    vertical-align: top;
+    line-height: 1.55;
+  }
+
+  tr:nth-child(even) td { background: $gray-50; }
+  tr:hover td { background: $teal-bg; }
+}
+
+// Mobile table scroll
+@media (max-width: 600px) {
+  table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+}
+
+// ---------------------------------------------------------------------------
+// Code blocks
+// ---------------------------------------------------------------------------
+
+code {
+  background: $gray-50;
+  border: 1px solid $gray-200;
+  border-radius: 4px;
+  padding: 0.12em 0.38em;
+  font-size: 0.88em;
+  color: $navy;
+}
+
+div.highlighter-rouge, figure.highlight {
+  background: $gray-900;
+  border-radius: 8px;
+  margin: 1.2rem 0;
+  overflow: hidden;
+
+  pre {
+    background: $gray-900;
+    color: #c9d1d9;
+    padding: 1.1rem 1.3rem;
+    overflow-x: auto;
+    font-size: 0.88rem;
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  code {
+    background: transparent;
+    border: none;
+    padding: 0;
+    color: inherit;
+    font-size: inherit;
+  }
+}
+
+// Mobile code scroll
+@media (max-width: 600px) {
+  div.highlighter-rouge pre { font-size: 0.82rem; }
+}
+
+// ---------------------------------------------------------------------------
+// Search
+// ---------------------------------------------------------------------------
+
+.search-input {
+  border: 2px solid $gray-200;
+  border-radius: $border-radius;
+  padding-top: 0.45rem;
+  padding-right: 0.75rem;
+  padding-bottom: 0.45rem;
+  font-size: 0.92rem;
+  transition: border-color 0.15s ease;
+
+  &:focus {
+    border-color: $blue;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(26,120,194,0.2);
+  }
+}
+
+.search-results-list {
+  border: 1px solid $gray-200;
+  border-radius: $border-radius;
+  background: $white;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+}
+
+// ---------------------------------------------------------------------------
+// Back-to-top & footer
+// ---------------------------------------------------------------------------
+
+.main-footer {
+  font-size: 0.85rem;
+  color: $gray-500;
+  border-top: 1px solid $gray-200;
+  padding-top: 1rem;
+  margin-top: 3rem;
+}
+
+// ---------------------------------------------------------------------------
+// Focus & accessibility
+// ---------------------------------------------------------------------------
+
+*:focus-visible {
+  outline: 3px solid $cyan;
+  outline-offset: 2px;
+}
+
+// Hide outline for mouse users only
+*:focus:not(:focus-visible) {
+  outline: none;
+}
+
+// ---------------------------------------------------------------------------
+// Reduced motion
+// ---------------------------------------------------------------------------
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Print
+// ---------------------------------------------------------------------------
+
+@media print {
+  .side-bar, .site-header, .back-to-top { display: none; }
+  .main-content { max-width: 100%; }
+  a[href]::after { content: " (" attr(href) ")"; font-size: 0.8em; }
+}

@@ -1,7 +1,7 @@
 ---
 layout: default
 title: CLI Reference
-nav_order: 8
+nav_order: 7
 permalink: /cli
 ---
 

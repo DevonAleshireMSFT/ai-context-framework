@@ -1,0 +1,14 @@
+version: 2
+updates:
+  # Maintain SHA pins for GitHub Actions across all workflows.
+  # Dependabot will open PRs to update SHA-pinned actions when new versions
+  # are released, preserving the immutable-SHA security posture.
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    labels:
+      - "type:chore"
+    commit-message:
+      prefix: "ci(deps)"

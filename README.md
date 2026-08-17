@@ -3,6 +3,9 @@
 Stop explaining your codebase to AI from scratch every session. Structure your project knowledge once — every AI session starts informed.
 
 **[Documentation Site →](https://devonaleshiremsft.github.io/ai-context-framework/)**
+**[Release Notes →](https://devonaleshiremsft.github.io/ai-context-framework/releases)**
+
+> **AI-Assisted Content** — This framework was developed with assistance from GitHub Copilot. Content has been reviewed by human maintainers, but may contain errors or become outdated. Validate all guidance against your organization's requirements, current authoritative documentation, security and compliance policies, and applicable laws before implementation. AI-generated output produced using this framework requires human review. This project does not constitute official Microsoft, government, legal, security, or compliance guidance. Use is at your own risk. See the [full Responsible AI guidance](https://devonaleshiremsft.github.io/ai-context-framework/responsible-ai).
 
 ---
 
@@ -10,7 +13,7 @@ Stop explaining your codebase to AI from scratch every session. Structure your p
 
 A `.ai/` directory in your repo. A few Markdown files. A committed file that makes GitHub Copilot context-aware automatically.
 
-That's the minimum. The framework scales from a solo developer to a team to an enterprise — but it starts with one repo and one developer in under 10 minutes.
+That's the minimum. The framework scales from a solo developer to a team to an enterprise — but it starts with one repo and one developer in under 10 minutes (target, assuming prerequisites installed).
 
 AI context is a **first-class engineering artifact** — not an afterthought. This framework defines how to structure, govern, and maintain it so that every AI-assisted interaction is grounded in accurate, current knowledge.
 
@@ -43,7 +46,7 @@ Start with solo or small team. Add federation when you need it.
 
 ---
 
-## Minimum Viable Setup — 10 Minutes
+## Minimum Viable Setup — 10 Minutes (target)
 
 The slim default is three durable files/paths:
 
@@ -54,6 +57,8 @@ The slim default is three durable files/paths:
 .github/
 └── copilot-instructions.md # Tells Copilot how to use .ai/
 ```
+
+**Prerequisites:** Node.js 18 or newer, npm, and git. The git-install mechanism (`github:Owner/Repo`) uses your existing GitHub credentials (SSH key or PAT). See the [Getting Started prerequisites](https://devonaleshiremsft.github.io/ai-context-framework/getting-started#prerequisites) for details.
 
 **1. Run the CLI**
 
@@ -183,7 +188,7 @@ ai-context-framework/
 
 Copy the slim default first. Add optional detail templates only when the project needs them:
 
-> **Recommended shortcut:** Instead of filling these in manually, use the [AI Setup Assistant](#minimum-viable-setup--10-minutes). Copy `templates/setup-prompt.md.template` → `.github/prompts/ai-context-setup.prompt.md`, run it in Copilot agent mode, and let Copilot generate the files from your answers.
+> **Recommended shortcut:** Instead of filling these in manually, use the [AI Setup Assistant](#minimum-viable-setup--10-minutes-target). Copy `templates/setup-prompt.md.template` → `.github/prompts/ai-context-setup.prompt.md`, run it in Copilot agent mode, and let Copilot generate the files from your answers.
 
 ```
 templates/setup-prompt.md.template     →  .github/prompts/ai-context-setup.prompt.md (optional assistant)
@@ -292,7 +297,7 @@ The `copilot-instructions.md` file:
 
 ### Example: Copilot confirming context
 
-When a developer opens a new Copilot Chat session, Copilot will respond to the first message with something like:
+When a developer opens a new Copilot Chat session, Copilot is instructed to confirm it has read `.ai/context.md`. A typical response looks like:
 
 > I've read `.ai/context.md`. This is the **Invoice Tracker** project on Power Platform / Dataverse.
 > Key rules in effect:
@@ -301,7 +306,7 @@ When a developer opens a new Copilot Chat session, Copilot will respond to the f
 >
 > How can I help?
 
-That confirmation happens before any code is generated — in every session, for every developer.
+*This is an illustrative example. Copilot is a probabilistic model and may not follow all instructions in every response. Treat AI output as a draft; apply human review before using it in production.*
 
 ### Example: `#file` references in Copilot Chat
 
@@ -329,6 +334,8 @@ Without the framework:
 With the framework (context in `copilot-instructions.md`):
 > **Developer:** Add a table for tracking returned items.
 > **Copilot:** Following the `inv_` prefix convention from `.ai/context.md`, here's a schema for `inv_return` with columns `inv_returnid`, `inv_invoiceid`...
+
+*This is an illustrative example of the intended behavior. Copilot is instructed to apply naming conventions and typically does so when context is clear, but it is a probabilistic model and cannot guarantee compliance in every response. Review AI output before using it.*
 
 ### What `copilot-instructions.md` does not replace
 
@@ -407,6 +414,20 @@ With the framework (context in `copilot-instructions.md`):
 
 ---
 
+## Known Limitations
+
+| Limitation | Detail |
+|-----------|--------|
+| AI instruction compliance is not guaranteed | Copilot and other AI assistants are probabilistic models. They are instructed to follow your `.ai/context.md` rules and typically do so, but may not in every response. Always review AI output. |
+| v0.x stability posture | This framework is pre-release (`0.1.0`). APIs, file formats, and behaviors may change before a stable release. |
+| Context window constraints | Very large `.ai/` files may exceed an AI model's context window. Keep `context.md` under 500 lines and link to detail files. |
+| No runtime enforcement | The framework provides documentation structure and CI validation. It does not enforce rules at code execution time. |
+| No compliance certification | This framework does not certify or guarantee compliance with any privacy, security, or AI governance regulation. |
+
+See [docs/responsible-ai.md](https://devonaleshiremsft.github.io/ai-context-framework/responsible-ai) for full responsible AI guidance.
+
+---
+
 ## Reading Order
 
 If you are new to this framework, read in this order:
@@ -451,3 +472,5 @@ For federation setup, see [`org/governance.md`](org/governance.md).
 See [CONTRIBUTING.md](CONTRIBUTING.md) for full contribution guidelines.
 
 Changes to `org/` (enterprise standards) require Architecture Team review. Template changes require at least one peer review from an existing adopter.
+
+For security issues, see [SECURITY.md](SECURITY.md). For support scope and community channels, see [SUPPORT.md](SUPPORT.md). For responsible AI guidance, see [docs/responsible-ai.md](https://devonaleshiremsft.github.io/ai-context-framework/responsible-ai).

@@ -5,6 +5,8 @@ nav_order: 1
 permalink: /
 ---
 
+<div class="hero-section" markdown="block">
+
 # AI Context Framework
 {: .fs-9 }
 
@@ -14,11 +16,17 @@ Stop explaining your codebase to AI from scratch every session. Structure your p
 [Get Started in 10 Minutes](getting-started#minimum-viable-setup){: .btn .btn-primary .fs-5 .mb-4 .mb-md-0 .mr-2 }
 [View on GitHub](https://github.com/DevonAleshireMSFT/ai-context-framework){: .btn .fs-5 .mb-4 .mb-md-0 }
 
+</div>
+
+<div class="ai-disclaimer">
+<strong>AI-Assisted Content</strong> — This framework was developed with assistance from GitHub Copilot. Content has been reviewed by human maintainers, but may contain errors or become outdated. Validate all guidance against your organization's requirements, current authoritative documentation, security and compliance policies, and applicable laws before implementation. AI-generated output produced using this framework requires human review. This project does not constitute official Microsoft, government, legal, security, or compliance guidance. Use is at your own risk. <a href="responsible-ai">Read the full Responsible AI guidance.</a>
+</div>
+
 ---
 
 ## Who This Is For
 
-| You are... | What you get |
+| You are… | What you get |
 |-----------|-------------|
 | **Solo developer** using Copilot or another AI | A `.ai/` context directory that makes every session project-aware — no repeated explaining |
 | **Small team** collaborating on one repo | Shared, committed AI context that keeps everyone's Copilot grounded in the same knowledge |
@@ -66,20 +74,34 @@ That's the minimum. The framework scales from a solo developer to a team to an e
 
 ## Key Benefits
 
-**Works immediately — solo or team**
-One developer can set this up in 10 minutes. A team gets consistent, grounded Copilot behavior from the first session.
+<div class="card-grid">
 
-**Sessions that start informed, not blank**
-Copilot reads your project context automatically on every session via `.github/copilot-instructions.md` — no manual prompting required.
+<div class="card">
+<h3 id="benefit-immediate">Works immediately — solo or team</h3>
+<p>One developer can set this up in 10 minutes. A team gets consistent, grounded Copilot behavior from the first session.</p>
+</div>
 
-**Context that evolves with the codebase**
-AI context is updated on the same triggers as the code it describes — schema changes, security changes, architecture decisions — not left to drift.
+<div class="card">
+<h3 id="benefit-informed">Sessions that start informed, not blank</h3>
+<p>Copilot reads your project context automatically on every session via <code>.github/copilot-instructions.md</code> — no manual prompting required.</p>
+</div>
 
-**Scales to an enterprise**
-A federated model lets you maintain enterprise-wide standards in one place while each project repo owns its specific context.
+<div class="card">
+<h3 id="benefit-current">Context that evolves with the codebase</h3>
+<p>AI context is updated on the same triggers as the code it describes — schema changes, security changes, architecture decisions — not left to drift.</p>
+</div>
 
-**Platform-agnostic**
-Works with any AI assistant, any language, any platform. The framework is a set of Markdown files and governance practices — not a tool dependency.
+<div class="card">
+<h3 id="benefit-federated">Scales to an enterprise</h3>
+<p>A federated model lets you maintain enterprise-wide standards in one place while each project repo owns its specific context.</p>
+</div>
+
+<div class="card">
+<h3 id="benefit-portable">Platform-agnostic</h3>
+<p>Works with any AI assistant, any language, any platform. The framework is a set of Markdown files and governance practices — not a tool dependency.</p>
+</div>
+
+</div>
 
 ---
 
@@ -105,5 +127,10 @@ For automated enforcement, see [Automation & CI](automation): dependency-free va
 ---
 
 ## Ready to Start?
+
+```bash
+npm i -g github:DevonAleshireMSFT/ai-context-framework
+ai-context init
+```
 
 [Get Started in 10 Minutes →](getting-started#minimum-viable-setup){: .btn .btn-primary .fs-5 }
