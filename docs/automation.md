@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Automation & CI
-nav_order: 7
+nav_order: 6
 permalink: /automation
 ---
 
@@ -39,7 +39,7 @@ Run these locally before opening a PR, or from CI in an adopter repository.
 
 ## Versioning & Drift Detection
 
-The framework uses two versions, following [ADR-0002](https://github.com/DevonAleshireMSFT/ai-context-framework/blob/main/.ai/adr/0002-framework-distribution.md):
+The framework uses two versions. The versioning and drift-detection scheme was defined in [ADR-0002](https://github.com/DevonAleshireMSFT/ai-context-framework/blob/main/.ai/adr/0002-framework-distribution.md) (now superseded by [ADR-0003](https://github.com/DevonAleshireMSFT/ai-context-framework/blob/main/.ai/adr/0003-git-install-primary-distribution.md) for distribution channel, but the versioning scheme carries forward):
 
 - `FRAMEWORK_VERSION` is the tooling/package version. `package.json` is the release source of truth, and `scripts/lib/version.mjs` reads it so scripts and future CLI stamps use the same value.
 - `SCHEMA_VERSION` is the `.ai/` content contract version enforced by the validator. It starts at `1.0.0`.

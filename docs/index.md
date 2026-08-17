@@ -106,4 +106,9 @@ For automated enforcement, see [Automation & CI](automation): dependency-free va
 
 ## Ready to Start?
 
+```bash
+npm i -g github:DevonAleshireMSFT/ai-context-framework
+ai-context init
+```
+
 [Get Started in 10 Minutes →](getting-started#minimum-viable-setup){: .btn .btn-primary .fs-5 }

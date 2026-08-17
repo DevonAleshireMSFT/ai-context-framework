@@ -22,6 +22,19 @@ Thank you for contributing. This framework is a living system — contributions 
 1. **Check existing issues or PRs** — avoid duplicating in-flight work.
 2. **For significant changes**, open an issue first to discuss the proposal before investing time in a PR.
 3. **Template changes** affect every team that adopts this framework — treat them conservatively. Prefer additive changes over restructuring.
+4. **Run local validation before opening a PR** — the framework is dependency-free and all checks run with Node built-ins:
+
+   ```bash
+   node --test          # run the unit tests
+   npm run validate     # .ai/ conformance + Markdown link check
+   npm run check:links  # Markdown link check only
+   npm run check:drift  # framework stamp drift detection (advisory)
+   node scripts/check-staleness.mjs --ci  # context freshness check
+   ```
+
+   Require Node >=18. No install step — all scripts use only Node built-ins.
+
+   Run these commands from the framework repository root (not a consumer repo). `node --test` discovers test files under `scripts/`.
 
 ---
 

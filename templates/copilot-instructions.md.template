@@ -44,3 +44,7 @@ Squad working state may link to ADRs, but Product ADRs are authoritative for pro
 ## Confirming Context at Session Start
 
 When a user starts a new conversation, confirm you have read `.ai/context.md` by briefly stating the project name and one or two active Key Rules.
+
+## AI Output and Human Review
+
+All output you generate is a **draft that requires human review** before use in production, publication, or any consequential decision. You are instructed to apply the rules in `.ai/context.md` and typically do so, but you are a probabilistic model and cannot guarantee compliance in every response. State this clearly when asked about your confidence or reliability.

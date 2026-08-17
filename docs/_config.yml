@@ -19,7 +19,7 @@ aux_links:
   "Optional: Squad AI teams":
     - "https://github.com/bradygaster/squad#squad"
 
-aux_links_new_tab: true
+aux_links_new_tab: false
 
 footer_content: >
   AI Context Framework is released under the

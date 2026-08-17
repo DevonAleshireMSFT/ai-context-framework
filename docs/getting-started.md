@@ -16,9 +16,24 @@ permalink: /getting-started
 
 ---
 
+## Prerequisites
+
+Before running the CLI, confirm the following are installed and configured:
+
+| Requirement | Minimum | Notes |
+|-------------|---------|-------|
+| **Node.js** | 18 or newer | `node --version` to check. [Download](https://nodejs.org/) |
+| **npm** | Bundled with Node | `npm --version` to check |
+| **Git** | Any modern version | Required for cloning and for the git-install mechanism |
+| **GitHub authentication** | SSH key or PAT | `npm i -g github:<owner>/<repo>` installs directly from GitHub. npm reuses your existing Git credential (SSH key, HTTPS PAT via `git config credential.helper`, or GITHUB_TOKEN in CI). No separate configuration is needed if `git clone https://github.com/<owner>/<repo>` already works on your machine. |
+
+The framework itself has **no third-party runtime dependencies** — once installed, the CLI and all validators use only Node built-ins.
+
+---
+
 ## Minimum Viable Setup
 
-The smallest useful configuration is the slim default. Start here. Squad is not a prerequisite; AI Context can be installed in a repository with or without it.
+The smallest useful configuration is the slim default. Start here, in under 10 minutes (target). Squad is not a prerequisite; AI Context can be installed in a repository with or without it.
 
 **1. Run the CLI in your repo**
 
@@ -65,7 +80,7 @@ ai-context update
 ai-context check
 ```
 
-`update` refreshes framework-managed tooling without overwriting consumer-owned `.ai/**` content. See the [CLI reference](cli) and [ADR-0002](https://github.com/DevonAleshireMSFT/ai-context-framework/blob/main/.ai/adr/0002-framework-distribution.md).
+`update` refreshes framework-managed tooling without overwriting consumer-owned `.ai/**` content. See the [CLI reference](cli) and [ADR-0003](https://github.com/DevonAleshireMSFT/ai-context-framework/blob/main/.ai/adr/0003-git-install-primary-distribution.md) (the current accepted distribution ADR, which supersedes [ADR-0002](https://github.com/DevonAleshireMSFT/ai-context-framework/blob/main/.ai/adr/0002-framework-distribution.md)).
 
 > **Want the full setup?** Continue reading for the complete guide — schema docs, security context, decision records, and more.
 
@@ -112,9 +127,9 @@ Instead of filling in templates manually, use the AI Setup Assistant prompt to l
 
 ### Overview
 
-Adopting the full framework for a project repository takes about 30 minutes. The framework grows incrementally — a partially populated `.ai/` directory is better than none.
+Adopting the full framework for a project repository targets about 30 minutes, depending on project complexity. The framework grows incrementally — a partially populated `.ai/` directory is better than none.
 
-**Prerequisites:** A Git repository and a willingness to treat AI context as a maintained artifact.
+**Prerequisites:** Node.js 18 or newer, npm, and git. See [Prerequisites](#prerequisites) above for details. A Git repository and a clear understanding of what your project does are required before filling in context files.
 
 ---
 
@@ -150,7 +165,7 @@ mkdir .ai/adr
 
 Add `.ai_local/` to your project's `.gitignore`. This is non-negotiable — personal working memory must never be committed.
 
-```
+```gitignore
 # AI Context Framework — personal context, never commit
 .ai_local/
 ```
@@ -265,3 +280,44 @@ AI context is only valuable if it stays current. Use the event-driven model:
 | New domain term adopted | `domain.md` |
 
 See [Governance](governance) for the full ownership and maintenance model.
+
+---
+
+## Troubleshooting
+
+### `npm i -g github:...` fails with a credentials error
+
+The git-install mechanism downloads directly from GitHub. If npm cannot access the repository, it is a GitHub authentication issue:
+
+1. **Check git credentials:** Run `git clone https://github.com/DevonAleshireMSFT/ai-context-framework.git` in a temporary directory. If that fails, configure your GitHub credentials first (SSH key or HTTPS PAT via `git config credential.helper`).
+2. **Check SSH:** If you use SSH for GitHub, ensure `ssh -T git@github.com` succeeds.
+3. **Corporate proxy or firewall:** If you are behind a corporate proxy, configure `npm config set https-proxy` or use the tarball distribution method when it becomes available (see [roadmap](https://github.com/DevonAleshireMSFT/ai-context-framework#roadmap)).
+
+### `ai-context: command not found` after `npm i -g`
+
+After a global npm install, the `ai-context` binary may not be on your PATH immediately:
+
+1. **Reload your terminal** (close and reopen the shell window).
+2. **Check the global bin path:** Run `npm bin -g` to find where npm places global binaries. Confirm that directory is in your `PATH`.
+3. **Windows note:** On Windows, you may need to restart the terminal or use `npx` for the first invocation.
+
+### `ai-context check` reports errors on a fresh scaffold
+
+This is expected. After `ai-context init`, the generated `.ai/context.md` contains unfilled placeholder values. The `check` command validates that fields like `project`, `platform`, and `last-updated` contain real values — not the `[placeholder]` strings from the template.
+
+**Resolution:** Fill in `.ai/context.md` (replace every `[placeholder]` value), then run `ai-context check` again. The errors will resolve once the required frontmatter fields contain real values.
+
+### `ai-context check` reports schema drift on a managed repo
+
+If `check` reports that the installed framework version is older than the latest:
+
+```bash
+ai-context update
+ai-context check
+```
+
+`update` refreshes all managed tooling files to the current framework version without touching `.ai/**`.
+
+### The PR template does not appear on new pull requests
+
+Confirm `.github/PULL_REQUEST_TEMPLATE.md` is committed to the default branch (usually `main`). GitHub only reads the PR template from the default branch. If the file exists in a feature branch but not in `main`, it will not appear on new PRs.

@@ -25,7 +25,7 @@ jobs:
   heartbeat:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
 
       - name: Check triage script
         id: check-script
@@ -48,7 +48,7 @@ jobs:
 
       - name: Ralph — Apply triage decisions
         if: steps.check-script.outputs.has_script == 'true' && hashFiles('triage-results.json') != ''
-        uses: actions/github-script@v7
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7
         with:
           script: |
             const fs = require('fs');
@@ -98,9 +98,15 @@ jobs:
             core.info(`🔄 Ralph triaged ${results.length} issue(s)`);
 
       # Copilot auto-assign step (uses PAT if available)
+      # Token fallback: COPILOT_ASSIGN_TOKEN is a personal access token (PAT) with
+      # "copilot" scope required for the Copilot agent assignment API. If this secret
+      # is absent or empty, the step falls back to GITHUB_TOKEN, which does not have
+      # the "copilot" scope. In that case the assignment API call will fail with a
+      # 403 or 422 and the caught exception logs a warning — the workflow still
+      # succeeds. Set COPILOT_ASSIGN_TOKEN in repo/org secrets to enable auto-assign.
       - name: Ralph — Assign @copilot issues
         if: success()
-        uses: actions/github-script@v7
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7
         with:
           github-token: ${{ secrets.COPILOT_ASSIGN_TOKEN || secrets.GITHUB_TOKEN }}
           script: |

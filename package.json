@@ -2,6 +2,7 @@
   "name": "@devonaleshiremsft/ai-context",
   "private": true,
   "version": "0.1.0",
+  "license": "MIT",
   "type": "module",
   "bin": {
     "ai-context": "./bin/ai-context.mjs"

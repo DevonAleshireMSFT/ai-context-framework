@@ -3,3 +3,14 @@
 /registry.md    @DevonAleshireMSFT
 /templates/     @DevonAleshireMSFT
 /.ai/adr/       @DevonAleshireMSFT
+
+# Infrastructure, tooling, and project root files.
+/bin/                   @DevonAleshireMSFT
+/scripts/               @DevonAleshireMSFT
+/.github/workflows/     @DevonAleshireMSFT
+/.github/CODEOWNERS     @DevonAleshireMSFT
+/docs/                  @DevonAleshireMSFT
+/README.md              @DevonAleshireMSFT
+/LICENSE                @DevonAleshireMSFT
+/.gitignore             @DevonAleshireMSFT
+/.gitattributes         @DevonAleshireMSFT

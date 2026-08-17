@@ -71,6 +71,45 @@ The strict rule: **AI context summaries are on the right side of this axis.** Pr
 
 The framework organizes AI context into three tiers. For a solo developer or small team, you only use Tier 2 and Tier 3. Tier 1 is optional and only relevant when managing AI context governance across multiple repositories.
 
+```mermaid
+graph TD
+    subgraph "Tier 1 — Enterprise (optional)"
+        T1[ai-context-framework repo]
+        T1_ORG[org/ standards & governance]
+        T1_TPL[templates/ adopter scaffolding]
+        T1_CLI[bin/ & scripts/ CLI + validation]
+        T1_REG[registry.md adopter tracking]
+    end
+
+    subgraph "Tier 2 — Project (per repo)"
+        T2[.ai/ committed context]
+        T2_CTX[context.md — AI bootstrap]
+        T2_ADR[adr/ — Product ADRs]
+        T2_DET[optional detail files]
+        T2_CI[.github/ workflows & copilot-instructions]
+    end
+
+    subgraph "Tier 3 — Personal (per developer)"
+        T3[.ai_local/ gitignored]
+        T3_NOTES[working notes & session summaries]
+    end
+
+    T1 -->|"templates & tooling"| T2
+    T2 -->|"precedence: Tier 2 > Tier 3"| T3
+
+    T1 --- T1_ORG
+    T1 --- T1_TPL
+    T1 --- T1_CLI
+    T1 --- T1_REG
+    T2 --- T2_CTX
+    T2 --- T2_ADR
+    T2 --- T2_DET
+    T2 --- T2_CI
+    T3 --- T3_NOTES
+```
+
+**Accessible description:** The diagram shows three tiers arranged top-to-bottom. Tier 1 (enterprise) contains the framework repository with standards, templates, CLI, and registry. An arrow labeled "templates & tooling" flows down to Tier 2 (project), which contains the `.ai/` directory with `context.md`, ADRs, optional detail files, and GitHub CI/Copilot integration. Another arrow flows down to Tier 3 (personal), which contains the gitignored `.ai_local/` directory with working notes. Precedence flows top-to-bottom: enterprise standards override project context, which overrides personal context.
+
 ### Tier 2 — Project Context *(start here)*
 
 **Scope:** Per-repository  
@@ -149,6 +188,57 @@ Tier 3 may specialize authoritative guidance for one developer's local workflow,
 ### Secret handling
 
 `.ai_local/` is local, but it is still not a secret store. Do not write secrets, credentials, tokens, connection strings, private keys, or other sensitive values into it. Use approved secret-management mechanisms and checked-in examples such as `.env.example` for schema guidance.
+
+---
+
+## Extensibility: Extension Points and Boundaries
+
+The framework is designed for adoption, not monolithic control. Understanding what you can extend — and what `ai-context update` will overwrite — prevents lost customizations.
+
+### What adopters own and can extend
+
+- **`.ai/**` content** — All files under `.ai/` (including `context.md`, `adr/`, and any optional detail files) are project-owned. Adopters can add project-specific detail files (e.g., `data-model.md`, `security.md`, `pipelines.md`) and new ADRs without coordination with the framework. Existing format and frontmatter conventions apply; see [Architecture Decision Records](#architecture-decision-records).
+- **`.github/copilot-instructions.md` (outside the managed block)** — The framework writes one delimited block (`<!-- BEGIN AI CONTEXT FRAMEWORK MANAGED BLOCK -->` … `<!-- END AI CONTEXT FRAMEWORK MANAGED BLOCK -->`). Everything outside that block is adopter-controlled and is never touched by `ai-context update`. See [Copilot Integration](copilot-integration) for setup and behavior details.
+- **Custom scripts and workflows** — Teams can add supplementary scripts (e.g., documentation generation, additional lint checks) and CI workflows alongside the framework-provided ones. The RAG ingestion pattern documented in the repository targets Azure AI Search; adopters can adapt that pattern to other vector stores — no other vector store integration is currently implemented in the framework.
+
+### What `ai-context update` refreshes (do not customize expecting changes to persist)
+
+- The delimited block inside `.github/copilot-instructions.md`.
+- The `.ai-context.json` install stamp.
+- Framework-managed files (scripts, the scaffolded conformance workflow, and PR template).
+
+Changes made directly to these surfaces between updates will be overwritten. If you need project-specific content in `.github/copilot-instructions.md`, place it outside the managed block.
+
+### CLI extensibility limits
+
+The core CLI (`ai-context init`, `update`, `check`) has no plugin or hook API today. Adopters who need behavior beyond what the CLI supports have two options: contribute the change upstream (see `CONTRIBUTING.md`) or maintain a fork or wrapper around the CLI. There is no sanctioned extension point inside the CLI binary.
+
+### Constraints that any extension must preserve
+
+Extensions — whether new `.ai/` detail files, custom scripts, or adapted workflows — must respect the following invariants:
+
+| Invariant | Reason |
+|-----------|--------|
+| `.ai/` is committed; `.ai_local/` is gitignored and never authoritative | Tier 2 / Tier 3 boundary; see [Tier 3: `.ai_local/`](#tier-3-ai-local) |
+| Product ADRs in `.ai/adr/` are authoritative; `.squad/decisions.md` links to them, never restates them | AI / Squad ownership boundary; see [ADR-0001](https://github.com/DevonAleshireMSFT/ai-context-framework/blob/main/.ai/adr/0001-ai-squad-boundary.md) |
+| No secrets, credentials, or PII in any `.ai/` or `.ai_local/` file | Security; `.ai_local/` is not a secret store |
+| Framework tooling must remain dependency-free Node >=18 | Zero-install adoption contract |
+| Squad detection is read-only; AI Context does not own `.squad/` and must not modify it | Non-ownership boundary |
+
+---
+
+## CLI Lifecycle
+
+The `ai-context` CLI manages the boundary between framework-owned tooling and adopter-owned context through three commands:
+
+```mermaid
+flowchart LR
+    INIT["ai-context init"] -->|"seeds .ai/context.md<br/>copies managed scripts<br/>writes .ai-context.json stamp"| REPO["Consumer Repo"]
+    UPDATE["ai-context update"] -->|"refreshes managed files<br/>merges copilot block<br/>never touches .ai/**"| REPO
+    CHECK["ai-context check"] -->|"validates .ai/ conformance<br/>checks version drift<br/>read-only"| REPO
+```
+
+**Accessible description:** Three CLI commands interact with a consumer repository. `init` seeds the initial `.ai/context.md`, copies managed scripts, and writes the version stamp. `update` refreshes framework-managed files and merges the Copilot instructions block but never modifies adopter-owned `.ai/` content. `check` performs read-only validation of `.ai/` conformance and version drift.
 
 ---
 

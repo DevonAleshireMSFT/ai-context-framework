@@ -18,3 +18,7 @@
 - 2026-07-25T13:48:45-07:00: Contributed the standards recommendation that Tier-3 personal context remain in sibling .ai_local/, not nested .ai/local/, to preserve the framework boundary and avoid accidental .ai/** inclusion.
 
 📌 Team update (2026-07-26T00:04:33-07:00): Overnight epic produced stacked PRs #25 → #26 → #27. Durable learnings: verify npm package names before naming ADRs/tooling; schema drift compatibility must compare MAJOR.MINOR explicitly, treating patch as compatible and current-line prerelease as warning; CLI updates must preserve adopter-owned `.ai/**` content and only modify manifest-managed files or bounded merge blocks.
+
+📌 Team update (2026-08-16T18:03:16.379-07:00): ngAIO submission assessment complete — reviewed full repository, created `docs/ngAIO-project-understanding.md`, assessed substantive reusable IP with gaps in field evidence. Follow-up: corrected 5 validators and 6 test files. One haiku retry required.
+
+📌 Team update (2026-08-16T23:31:43-07:00): User approval protocol established for documentation updates — always provide update and obtain explicit approval before changing repository content. User approved two documentation-only changes: architecture extension boundaries and ngAIO extensibility subsection. Modified `docs/architecture.md` and `docs/ngAIO-project-understanding.md`; follow-up verified `.gitignore` wording. Validation: 17 files, 85 links, 0 warnings, 0 errors. Session log: `2026-08-17-extensibility-approval-execution.md`.
