@@ -348,7 +348,9 @@ div.highlighter-rouge, figure.highlight {
 .search-input {
   border: 2px solid $gray-200;
   border-radius: $border-radius;
-  padding: 0.45rem 0.75rem;
+  padding-top: 0.45rem;
+  padding-right: 0.75rem;
+  padding-bottom: 0.45rem;
   font-size: 0.92rem;
   transition: border-color 0.15s ease;
 

@@ -40,6 +40,7 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Fixed
 - `.gitignore`: added `*.tgz` exclusion (prevents accidental `npm pack` artifact commit)
+- GitHub Pages search field: preserved responsive left padding so the search icon no longer overlaps placeholder text
 - `package.json`: `"license": "MIT"` field added for machine-readable license identification
 - `docs/ngAIO-project-understanding.md`: moved from Pages-published `docs/` to internal review artifact path; was publicly accessible at Pages URL without nav link
 
